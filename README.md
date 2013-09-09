@@ -1,5 +1,5 @@
 # angular-build-seed
-[![Build Status](https://travis-ci.org/jquery/jquery-mobile.png?branch=master)](https://github.com/kazaff/angular-build-seed)
+
 
 ## 基于AngularJS的开发框架模板
 
