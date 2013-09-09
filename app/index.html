@@ -1,0 +1,66 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html
+        class="no-js ie6 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if IE 7]>
+<html
+        class="no-js ie7 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if IE 8]>
+<html
+        class="no-js ie8 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"
+      lang="zh-CN"
+      xmlns:ng="http://angularjs.org/">
+<!--<![endif]-->
+<head>
+    <meta charset="GBK" />
+    <title>web OS</title>
+    <link rel="stylesheet" href="./css/bootstrap.css"/>
+    <link rel="stylesheet" href="./css/bootstrap-responsive.css"/>
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="./lib/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<noscript>
+    <div class="container">
+        <div class="hero-unit" style="margin-top: 15px;">
+            <h1>Hello, My Hero!</h1>
+            <p>Your web browser must have JavaScript enabled in order for this application to display correctly.</p>
+            <p>您的浏览器必须开启支持JavaScript选项，否则将会无法正常访问本系统~</p>
+            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">推荐 Chrome &raquo;</a></p>
+        </div>
+    </div>
+</noscript>
+<div ng:cloak class="container">
+    <h1>webOS首页</h1>
+    <div ng:controller="menuCtrl">
+        <p ng:bind="menu | json"></p>
+        <p ng:bind="menu2 | json"></p>
+        <span data-action data-name="dashboard" data-group="publish" class="btn"></span>
+    </div>
+    <ng:view></ng:view>
+</div>
+
+<script src="./lib/requireJS/require.js" data-main="./bootstrap.js"></script>
+<!--[if lt IE 7 ]>
+<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
+</body>
+</html>
