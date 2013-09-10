@@ -10,7 +10,7 @@ define(function(){
     return {
         group: 'user'
         , title: '用户管理'
-        , icon: ''
+        , icon: 'icon-user'
         , son:[{
             uri: '/users/list/:page'
             , controller: 'userListCtrl'

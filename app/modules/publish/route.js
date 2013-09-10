@@ -9,8 +9,8 @@ define(function(){
 
     return  {
         group: 'publish'
-        , title: ''
-        , icon: ''
+        , title: '“«±Ì≈Ã'
+        , icon: 'icon-home'
         , son:[{
             uri: '/dashboard'
             , controller: 'dashboardCtrl'

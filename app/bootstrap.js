@@ -40,6 +40,7 @@ require([
     , 'angular/angular'
     , 'config'
     , 'lib/modernizr'
+    , 'lib/bootstrap/bootstrap'
 ], function(require, console, loader, jquery, angular, config){      //这里的参数都是使用define()方法定义的模块
 
     console.group('webOS应用');

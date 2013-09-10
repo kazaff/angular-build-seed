@@ -29,6 +29,10 @@
     <title>web OS</title>
     <link rel="stylesheet" href="./css/bootstrap.css"/>
     <link rel="stylesheet" href="./css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" href="./css/matrix-style.css" />
+    <link rel="stylesheet" href="./css/matrix-media.css" />
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
     <style type="text/css">
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
             display: none !important;
@@ -49,14 +53,70 @@
         </div>
     </div>
 </noscript>
-<div ng:cloak class="container">
-    <h1>webOS首页</h1>
-    <div ng:controller="menuCtrl">
-        <p ng:bind="menu | json"></p>
-        <p ng:bind="menu2 | json"></p>
-        <span data-action data-name="dashboard" data-group="publish" class="btn"></span>
+<div data-ng-cloak>
+    <!--Header-part-->
+    <div id="header">
+        <h1><a>Matrix Admin</a></h1>
     </div>
-    <ng:view></ng:view>
+    <!--close-Header-part-->
+
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li  class="dropdown" id="profile-messages" >
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">当前用户</span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a><i class="icon-user"></i> 我的资料</a></li>
+                    <li class="divider"></li>
+                    <li><a><i class="icon-off"></i> 退出</a></li>
+                </ul>
+            </li>
+            <li class=""><a title=""><i class="icon-share-alt icon-white"></i> <span class="text">退出</span></a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+
+    <!--start-top-serch-->
+    <div id="search">
+        <input type="text" placeholder="请输入关键字..."/>
+        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+    </div>
+    <!--close-top-serch-->
+
+    <!--sidebar-menu-->
+    <div id="sidebar" data-ng-controller="menuCtrl">
+        <ul>
+            <li data-ng-repeat="item in menu" class="ng-class:{'active': checkActive(item.sonUris)}; submenu">
+                <a href="#"><i class="{{ item.icon }}  icon-white"></i> <span>{{ item.title }}</span> <span class="label label-important">{{ item.son.length }}</span></a>
+                <ul>
+                    <li data-ng-repeat="operation in item.son">
+                        <a href="#!{{ operation.uri }}">{{ operation.title }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+
+    <!--main-container-part-->
+    <div id="content">
+
+        <!--breadcrumbs-->
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        </div>
+        <!--End-breadcrumbs-->
+
+        <div data-ng-view></div>
+    </div>
+
+    <!--end-main-container-part-->
+
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+    </div>
+    <!--end-Footer-part-->
 </div>
 
 <script src="./lib/requireJS/require.js" data-main="./bootstrap.js"></script>

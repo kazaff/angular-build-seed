@@ -4,10 +4,7 @@
  * Date: 13-9-4
  * Time: 上午10:42
  */
-define([
-    'require'
-    , 'lib/jquery'
-], function(require, jquery){
+define(function(){
     'use strict';
 
     //处理要加载的模块的配置文件地址
