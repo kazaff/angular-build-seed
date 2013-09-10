@@ -1,5 +1,11 @@
 'use strict';
-
+/*baseUrl指明的是所有模块的base URL，比如”lib/jquery”所加载的script实际上就是./lib/jquery.js。注意，以.js结尾的文件加载时不会使用该baseUrl，
+它们仍然会使用当前index.html所在的相对路径来加载，所以仍然要加上”./js/”。如果baseUrl没有指定，那么就会使用data-main中指定的路径。
+paths中定义的路径是用于替换模块中的路径，如下面的'angular/angular'具体的JavaScript文件路径是/lib/angularJS/angular.js。
+waitSeconds是指定最多花多长等待时间来加载一个JavaScript文件，用户不指定的情况下默认为7秒。
+另外一个重要的配置是packages，它可以指定其他符合CommonJS AMD规范的目录结构，由此带来了丰富的扩展性。如Dojo、jQuery等的模块也可以通过该配置来让RequireJS加载。
+其他可配置的选项还包括locale、context、deps、callback等，有兴趣的读者可以在RequireJS的官方网站查阅相关文档。
+*/
 require.config({
     baseUrl: '.'
     , paths: {
@@ -26,16 +32,17 @@ require.config({
 
 require([
     'require'
-    , 'lib/console-min'
+    , 'lib/console-min'          //当字符串是以”.js”结尾，或者以”/”开头，或者就是一个URL时，RequireJS会认为用户是
+                                   // 在直接加载一个JavaScript文件，否则，当字符串是类似”my/module”的时候，它会认为这
+                                   // 是一个模块，并且会以用户配置的baseUrl和paths来加载相应的模块所在的JavaScript文件。
     , 'utils/loader'
     , 'lib/jquery'
     , 'angular/angular'
     , 'config'
     , 'lib/modernizr'
-], function(require, console, loader, jquery, angular, config){
+], function(require, console, loader, jquery, angular, config){      //这里的参数都是使用define()方法定义的模块
 
     console.group('webOS应用');
-    console.info('AngularJS版本：', angular.version.full);
 
     console.group('判断浏览器是否内置支持json');
     if(!window.JSON){

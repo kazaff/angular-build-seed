@@ -1,2 +1,6 @@
-
+bower_components
 .idea
+.svn
+.project
+.settings
+.buildpath

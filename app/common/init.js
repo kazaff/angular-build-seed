@@ -7,22 +7,40 @@
 define([
     //标准库
     'lib/console-min'
-    , 'angular/angular'
     //服务
     , 'common/services/auth'
     , 'common/services/acl'
+    , 'common/services/action'
     //指令
-], function(console, angular, auth, acl){
+    , 'common/directives/action'
+    //控制器
+    , 'common/controllers/menu'
+], function(console, auth, acl, actionS, actionD, menu){
     'use strict';
 
-    console.group('通用模块初始化');
+    var initialize = function(module, routeRules){
+        console.group('通用模块初始化');
 
-    var commonModule = angular.module('commonModule', ['ngResource']);
-    commonModule
-        .factory('auth', auth)
-        .factory('acl', acl);
+        console.info('初始化服务：', ['auth', 'acl', 'action']);
+        //初始化服务
+        auth.initialize(module, routeRules);
+        acl.initialize(module, routeRules);
+        actionS.initialize(module, routeRules);
 
-    console.groupEnd();
+        console.info('初始化指令：', ['action']);
+        //初始化指令
+        actionD.initialize(module);
 
-    return commonModule;
+        console.info('初始化控制器：', ['menu']);
+        //初始化控制器
+        menu.initialize(module);
+
+        console.groupEnd();
+
+        return module;
+    }
+
+    return {
+        initialize: initialize
+    };
 });
