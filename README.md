@@ -29,12 +29,15 @@
 ~~~
 app/						
 	common/						-->通用模块文件夹
-    	directives/				-->指令文件夹
+		controllers/			-->控制器文件夹
+			menu.js				-->主菜单控制器
+		directives/				-->指令文件夹
+			action.js			-->用于应用中定义链接的指令
 		services/				-->服务文件夹
 			acl.js 				-->授权服务代码
+			action.js			-->用于提供给action指令使用的认证服务
 			auth.js 			-->认证服务代码
 		init.js 				-->模块的初始化文件
-		route.js 				-->模块的路由配置文件
 	css/						-->项目的样式文件夹
 	img/ 						-->项目的图片文件夹
 	lib/ 						-->项目使用的第三方js库文件夹，包含requireJS，angularJS等
