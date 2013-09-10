@@ -20,8 +20,8 @@
 ## 依赖
 
 * [AngularJS](http://angularjs.org) v1.2.0-rc2
-* [RequireJS](http://www.requirejs.org) 2.1.8
-* [Bootstrap](http://www.bootcss.com)vv2.3.2
+* [RequireJS](http://www.requirejs.org) v2.1.8
+* [Bootstrap](http://www.bootcss.com) v2.3.2
 
 
 ## 文件目录结构
