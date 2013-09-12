@@ -9,7 +9,7 @@ define(function(){
 
     return  {
         group: 'publish'
-        , title: '仪表盘'
+        , title: '控制台'
         , icon: 'icon-home'
         , son:[{
             uri: '/dashboard'
@@ -17,7 +17,7 @@ define(function(){
             , templateUrl: 'modules/publish/templetes/dashboard.html'
             , ifMenu: true
             , name: 'dashboard'
-            , title: '控制台'
+            , title: '仪表盘'
             , icon: 'icon-th'
             , api: 'restV1/dashboard/get'
         }]

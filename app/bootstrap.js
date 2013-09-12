@@ -15,6 +15,7 @@ require.config({
         'lib/bootstrap/bootstrap': ['lib/jquery']
         , 'angular/angular-resource': ['angular/angular']
         , 'angular/angular-route': ['angular/angular']
+        , 'angular/angular-animate': ['angular/angular']
         , 'angular/angular': {
             exports: 'angular'
         }

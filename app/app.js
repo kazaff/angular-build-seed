@@ -11,6 +11,7 @@ define([
     , 'common/init'
     , 'angular/angular-resource'
     , 'angular/angular-route'
+    , 'angular/angular-animate'
 ], function(console, angular, common){
     'use strict';
 
@@ -18,7 +19,7 @@ define([
 
         console.group('初始化主模块配置');
 
-        var deps = ['ngResource', 'ngRoute'];
+        var deps = ['ngResource', 'ngRoute', 'ngAnimate'];
         for(var index in needModules){
             deps.push(needModules[index].name);
         }

@@ -94,7 +94,7 @@ hr{ border-top-color:#dadada;}
 /* Top user navigation */
 #user-nav {
 	position: absolute;
-	left: 220px;
+	left: 170px;
 	top:0px;
 	z-index: 20;
 	margin: 0;
@@ -142,7 +142,7 @@ hr{ border-top-color:#dadada;}
 	display: block;
 	float: left;
 	position: relative;
-	width: 220px;
+	width: 170px;
 	z-index: 16;
 }
 #sidebar > ul {
@@ -150,7 +150,7 @@ hr{ border-top-color:#dadada;}
 	margin: 0px 0 0;
 	padding: 0;
 	position: absolute;
-	width: 220px;
+	width: 170px;
 }
 #sidebar > ul > li {
 	display: block;
@@ -160,6 +160,7 @@ hr{ border-top-color:#dadada;}
 	padding: 10px 0 10px 15px;
 	display: block;
 	color: #939da8;
+    cursor: pointer;
 }
 #sidebar > ul > li > a > i {
 	margin-right: 10px;
@@ -174,7 +175,6 @@ hr{ border-top-color:#dadada;}
 	padding: 3px 5px 2px;
 }
 #sidebar > ul li ul {
-	display: none;
 	margin: 0;
 	padding: 0;
 }
@@ -195,7 +195,7 @@ hr{ border-top-color:#dadada;}
 /* Content */
 #content {
 	background: none repeat scroll 0 0 #eeeeee;
-	margin-left: 220px;
+	margin-left: 170px;
 	margin-right: 0;
 	padding-bottom: 25px;
 	position: relative;

@@ -13,9 +13,10 @@ define([
     , 'common/services/action'
     //指令
     , 'common/directives/action'
+    , 'common/directives/sidebar-menu'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, menu){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -27,9 +28,10 @@ define([
         acl.initialize(module, routeRules);
         actionS.initialize(module, routeRules);
 
-        console.info('初始化指令：', ['action']);
+        console.info('初始化指令：', ['action', 'siderbar-menu']);
         //初始化指令
         actionD.initialize(module);
+        siderbarMenu.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器

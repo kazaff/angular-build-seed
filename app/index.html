@@ -31,8 +31,11 @@
     <link rel="stylesheet" href="./css/bootstrap-responsive.css"/>
     <link rel="stylesheet" href="./css/matrix-style.css" />
     <link rel="stylesheet" href="./css/matrix-media.css" />
+    <link rel="stylesheet" href="./css/matrix-animate.css"/>
     <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
+    <!--
     <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
+    -->
     <style type="text/css">
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
             display: none !important;
@@ -56,19 +59,19 @@
 <div data-ng-cloak>
     <!--Header-part-->
     <div id="header">
-        <h1><a>Matrix Admin</a></h1>
+        <h1><a>Matrix</a></h1>
     </div>
     <!--close-Header-part-->
 
     <!--top-Header-menu-->
     <div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav">
-            <li  class="dropdown" id="profile-messages" >
+            <li  class="dropdown" id="profile-messages">
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">当前用户</span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a><i class="icon-user"></i> 我的资料</a></li>
+                    <li><a href="#"><i class="icon-user"></i> 我的资料</a></li>
                     <li class="divider"></li>
-                    <li><a><i class="icon-off"></i> 退出</a></li>
+                    <li><a href="#"><i class="icon-off"></i> 退出</a></li>
                 </ul>
             </li>
             <li class=""><a title=""><i class="icon-share-alt icon-white"></i> <span class="text">退出</span></a></li>
@@ -85,28 +88,12 @@
 
     <!--sidebar-menu-->
     <div id="sidebar" data-ng-controller="menuCtrl">
-        <ul>
-            <li data-ng-repeat="item in menu" class="ng-class:{'active': checkActive(item.sonUris)}; submenu">
-                <a href="#"><i class="{{ item.icon }}  icon-white"></i> <span>{{ item.title }}</span> <span class="label label-important">{{ item.son.length }}</span></a>
-                <ul>
-                    <li data-ng-repeat="operation in item.son">
-                        <a href="#!{{ operation.uri }}">{{ operation.title }}</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <kz-sidebar-menu data-data="menu" data-args="{page:1}"></kz-sidebar-menu>
     </div>
     <!--sidebar-menu-->
 
     <!--main-container-part-->
     <div id="content">
-
-        <!--breadcrumbs-->
-        <div id="content-header">
-            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-        </div>
-        <!--End-breadcrumbs-->
-
         <div data-ng-view></div>
     </div>
 

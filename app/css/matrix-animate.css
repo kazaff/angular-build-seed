@@ -1,0 +1,21 @@
+#sidebar .submenu ul.ng-hide-add,
+#sidebar .submenu ul.ng-hide-remove {
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+
+    display: block !important;
+}
+
+#sidebar .submenu ul.ng-hide-add.ng-hide-add-active,
+#sidebar .submenu ul.ng-hide-remove {
+    opacity: 0;
+    line-height: 0;
+}
+
+#sidebar .submenu ul.ng-hide-add,
+#sidebar .submenu ul.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+    line-height: 20px;
+}

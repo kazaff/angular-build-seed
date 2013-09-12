@@ -10,7 +10,7 @@ define(function(){
     var initialize = function(module){
 
         //主菜单
-        module.controller('menuCtrl', ['$scope', 'action', '$location', function($scope, action, $location){
+        module.controller('menuCtrl', ['$scope', 'action', function($scope, action){
             $scope.menu = [];
             action.menu().success(function(data){
 
@@ -23,23 +23,6 @@ define(function(){
 
                 $scope.menu = data;
             });
-
-            //判断当前菜单组是否被选中：包含当前url显示的页面
-            $scope.checkActive = function(uris){
-                var currentUri = $location.path()
-                    , flag = false;
-
-                angular.forEach(uris, function(item){
-                    var reg = new RegExp(item.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
-                    if(reg.test(currentUri)){
-                        flag = true;
-                        return false;
-                    }
-
-                });
-
-                return flag;
-            };
         }]);
 
         return module;

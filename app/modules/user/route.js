@@ -18,7 +18,7 @@ define(function(){
             , ifMenu: true
             , name: 'userList'
             , title: 'ап╠М'
-            , icon: ''
+            , icon: 'icon-user'
             , api: 'restV1/users/get'
         }
         , {
