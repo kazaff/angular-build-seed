@@ -147,9 +147,47 @@ define(function(){
                 return promise;
             };
 
+            var findRoute = function(uri){
+
+                var result = {};
+
+                angular.forEach(data, function(group){
+                    angular.forEach(group.son, function(route){
+                        var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
+                        if(reg.test(uri)){
+
+                            result = {
+                                group:  group.group
+                                , title: group.title
+                                , icon: group.icon
+                                , route: {
+                                    uri: route.uir
+                                    , controller: route.controller
+                                    , templateUrl: route.templateUrl
+                                    , ifMenu: route.ifMenu
+                                    , name: route.name
+                                    , title: route.title
+                                    , icon: route.icon
+                                    , api: route.api
+                                }
+                            };
+
+                            return false;
+                        }
+                    });
+
+                    if(!angular.isUndefined(result.group)){
+                        return false;
+                    }
+                });
+
+                return result;
+            };
+
             return {
                 link: link
                 , menu: menu
+                , findRoute: findRoute
             };
         }]);
 

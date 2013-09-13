@@ -61,6 +61,16 @@ define(function(){
             , icon: ''
             , api: 'restV1/user/delete'
 
+        },
+        {
+            uri: '/user/self'
+            , controller: 'userSelfCtrl'
+            , templateUrl: 'modules/user/templetes/user-self.html'
+            , ifMenu: false
+            , name: 'userSelf'
+            , title: '个人信息'
+            , icon: 'icon-user'
+            , api: 'restV1/user/get'
         }]
     };
 });
