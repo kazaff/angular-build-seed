@@ -14,12 +14,15 @@ define(function(){
                 restrict: 'EA'
                 , replace: true
                 , template: '<div id="breadcrumb">' +
-                                '<a class="tip-bottom"><i class="{{ info.group.icon }}"></i> {{ info.title }}</a>' +
+                                '<a class="tip-bottom"><i class="{{ info.icon }}"></i> {{ info.title }}</a>' +
                                 '<a class="current">{{ info.route.title }}</a> ' +
                             '</div>'
                 , link: function(scope, element, attrs){
-                    var uri = $location.path();
-                    scope.info = action.findRoute(uri);
+                    scope.$watch(function(){
+                        return $location.path();
+                    }, function(uri){
+                        scope.info = action.findRoute(uri);
+                    });
                 }
             };
         }]);
