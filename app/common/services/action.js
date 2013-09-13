@@ -188,6 +188,7 @@ define(function(){
                 link: link
                 , menu: menu
                 , findRoute: findRoute
+                , data: data
             };
         }]);
 

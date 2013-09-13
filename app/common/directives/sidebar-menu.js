@@ -15,7 +15,7 @@ define(function(){
                     restrict: 'EA'
                     , replace: true
                     , template: '<ul>' +
-                                    '<li data-ng-repeat="item in data" data-ng-class="{active: checkActive(item.sonUris)}" class="submenu">' +
+                                    '<li data-ng-repeat="item in data" data-ng-class="{active: checkActive(item.group)}" class="submenu">' +
                                         '<a data-ng-click="toggle(item)"><i class="{{ item.icon }}  icon-white"></i> <span>{{ item.title }}</span> <span class="label label-important">{{ item.son.length }}</span></a>' +
                                         '<ul data-slide-switch="item.switch">' +
                                             '<li data-ng-repeat="operation in item.son">' +
@@ -27,16 +27,23 @@ define(function(){
                     , scope: {
                         data: '='
                     }
-                    , controller: ['$location', function($location){
+                    , controller: ['$location', 'action', function($location, action){
                         //判断当前菜单组是否被选中：包含当前url显示的页面
-                        this.checkActive = function(uris){
+                        this.checkActive = function(group){
                             var currentUri = $location.path()
                                 , flag = false;
 
-                            angular.forEach(uris, function(item){
-                                var reg = new RegExp(item.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
-                                if(reg.test(currentUri)){
-                                    flag = true;
+                            angular.forEach(action.data, function(item){
+                                if(item.group == group){
+
+                                    angular.forEach(item.son, function(route){
+                                        var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
+                                        if(reg.test(currentUri)){
+                                            flag = true;
+                                            return false;
+                                        }
+                                    });
+
                                     return false;
                                 }
                             });
