@@ -14,7 +14,7 @@ define(function(){
             $scope.menu = [];
             action.menu().success(function(data){
 
-                //TODO
+                //把组下包含的uri抽出来，用于方便sidebar-menu指令验证当前组
                 angular.forEach(data, function(item, key){
                     data[key].sonUris = [];
                     angular.forEach(item.son, function(route){

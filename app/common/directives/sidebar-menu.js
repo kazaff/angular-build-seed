@@ -68,14 +68,14 @@ define(function(){
                 return function(scope, element, attrs){
                     scope.$watch(attrs.slideSwitch, function(value){
                         if(value){
-                            $animate.addClass(element, 'slideSwitch');
+                            $animate.addClass(element, 'slideSwitchAnimate');
                         }else{
-                            $animate.removeClass(element, 'slideSwitch');
+                            $animate.removeClass(element, 'slideSwitchAnimate');
                         }
                     });
                 }
             }])
-            .animation('.slideSwitch', function(){
+            .animation('.slideSwitchAnimate', function(){
                 return {
                     addClass: function(element, className){
                         element.slideDown();

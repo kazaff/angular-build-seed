@@ -61,6 +61,8 @@ app/
 mock/ 							-->模拟后端服务
 ~~~
 
+![关系图](http://pic.yupoo.com/kazaff/D9SAL5yH/medish.jpg)
+
 ## 约定
 
 每个模块(包含commom和modules下的每个文件夹)文件夹下，都应该包含`init.js`和`route.js`2个文件，前者是用来构造该模块，后者用来提供该模块的路由数据。
