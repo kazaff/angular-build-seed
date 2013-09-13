@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="./css/bootstrap-responsive.css"/>
     <link rel="stylesheet" href="./css/matrix-style.css" />
     <link rel="stylesheet" href="./css/matrix-media.css" />
-    <link rel="stylesheet" href="./css/matrix-animate.css"/>
+    <!--<link rel="stylesheet" href="./css/matrix-animate.css"/>-->
     <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
     <!--
     <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
@@ -45,7 +45,7 @@
     <script src="./lib/html5shiv.js"></script>
     <![endif]-->
 </head>
-<body>
+<body data-ng-controller="menuCtrl">
 <noscript>
     <div class="container">
         <div class="hero-unit" style="margin-top: 15px;">
@@ -69,12 +69,12 @@
             <li  class="dropdown" id="profile-messages">
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">当前用户</span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="icon-user"></i> 我的资料</a></li>
+                    <li><kz-action data-name="userEdit" data-group="user" data-args="{uid:1}" /></li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="icon-off"></i> 退出</a></li>
+                    <li><kz-action data-name="logout" data-group="publish" /></li>
                 </ul>
             </li>
-            <li class=""><a title=""><i class="icon-share-alt icon-white"></i> <span class="text">退出</span></a></li>
+            <li><kz-action data-name="logout" data-group="publish" /></li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
@@ -87,7 +87,7 @@
     <!--close-top-serch-->
 
     <!--sidebar-menu-->
-    <div id="sidebar" data-ng-controller="menuCtrl">
+    <div id="sidebar">
         <kz-sidebar-menu data-data="menu" data-args="{page:1}"></kz-sidebar-menu>
     </div>
     <!--sidebar-menu-->

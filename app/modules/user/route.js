@@ -38,7 +38,7 @@ define(function(){
             , ifMenu: false
             , name: 'userEdit'
             , title: '±à¼­'
-            , icon: ''
+            , icon: 'icon-user'
             , api: 'restV1/user/put'
         }
         ,{

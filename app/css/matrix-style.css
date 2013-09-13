@@ -177,6 +177,7 @@ hr{ border-top-color:#dadada;}
 #sidebar > ul li ul {
 	margin: 0;
 	padding: 0;
+    display: none;
 }
 #sidebar > ul li.open ul {
 	display: block;

@@ -20,6 +20,17 @@ define(function(){
             , title: 'ÒÇ±íÅÌ'
             , icon: 'icon-th'
             , api: 'restV1/dashboard/get'
+        }
+        ,{
+            uri: '/logout'
+            , controller: 'logoutCtrl'
+            , templateUrl: 'modules/publish/templetes/logout.html'
+            , ifMenu: false
+            , name: 'logout'
+            , title: 'ÍË³ö'
+            , icon: 'icon-off'
+            , api: ''
+            , status: 1
         }]
     };
 });

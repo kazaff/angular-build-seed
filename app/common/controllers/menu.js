@@ -14,6 +14,7 @@ define(function(){
             $scope.menu = [];
             action.menu().success(function(data){
 
+                //TODO
                 angular.forEach(data, function(item, key){
                     data[key].sonUris = [];
                     angular.forEach(item.son, function(route){
