@@ -8,15 +8,23 @@ define([
     //标准库
     'lib/console-min'
     , 'angular/angular'
-    , 'angular/angular-resource'
     //控制器
+    , 'modules/user/controllers/userSelf'
     //服务
-], function(console, angular){
+    , 'modules/user/services/user'
+    //库
+    , 'angular/angular-resource'
+    , 'angular/angular-strap'
+], function(console, angular, userSelfCtrl, user){
    'use strict';
 
     console.group('用户模块初始化');
 
-    var userModule = angular.module('userModule', ['ngResource']);
+    var userModule = angular.module('userModule', ['ngResource', '$strap.directives']);
+
+    userModule.factory('user', user);
+
+    userModule.controller('userSelfCtrl', userSelfCtrl);
 
     console.groupEnd();
 

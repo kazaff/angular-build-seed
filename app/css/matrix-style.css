@@ -203,6 +203,11 @@ hr{ border-top-color:#dadada;}
 	min-height:100%;
 	width: auto;
 }
+
+#content #mainFrame{
+    min-height: 560px;
+}
+
 #content-header {
 	position: abslute;
 	width: 100%;
@@ -1533,6 +1538,7 @@ body {
 #content {
 	margin-left: 43px;
 }
+
 #sidebar .content{ display:none;}
 }
 @media (max-width: 600px) {

@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-user"></i> </span>
+                    <h5>个人信息</h5>
+                </div>
+
+                <div class="widget-content text-center">
+                    <img style="width: 140px; height: 140px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" class="img-polaroid">
+                </div>
+
+                <div class="widget-content nopadding">
+                    <form name="userForm" novalidate class="form-horizontal" data-ng-submit="save()">
+                        <div class="control-group">
+                            <label class="control-label">帐 号</label>
+                            <div class="controls">
+                                <input name="useraccount" type="text" data-ng-model="user.account" class="span10" placeholder="登录用的帐号" disabled />
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: !user.name || userForm.username.$dirty && userForm.username.$invalid}">
+                            <label class="control-label">姓 名</label>
+                            <div class="controls">
+                                <input type="text" name="username" data-ng-model="user.name" class="span10" placeholder="真实用户名称" required />
+                                <div data-ng-show="!user.name || userForm.username.$dirty && userForm.username.$invalid">
+                                    <span data-ng-show="userForm.username.$error.required" class="help-inline">姓名是必填项哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.userIdCard.$dirty && userForm.userIdCard.$invalid}">
+                            <label class="control-label">身份证</label>
+                            <div class="controls">
+                                <input name="userIdCard" type="text" data-ng-model="user.idCard" class="span10" placeholder="现在身份证的号码有15位和18位" data-ng-pattern="/^\d{15}$|^\d{18}$/"  />
+                                <div data-ng-show="userForm.userIdCard.$dirty && userForm.userIdCard.$invalid">
+                                    <span data-ng-show="userForm.userIdCard.$error.pattern" class="help-inline">身份证号码格式要标准哟， 15位或18位</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">性别</label>
+                            <div class="controls">
+                                <div class="btn-group" ng-model="user.sex" bs-buttons-radio>
+                                    <button class="btn" type="button" value="1">俊朗</button>
+                                    <button class="btn" type="button" value="-1">中性</button>
+                                    <button class="btn" type="button" value="0">靓丽</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">账户类型</label>
+                            <div class="controls">
+                                <input name="usertype" type="text" data-ng-model="user.type" class="span10" placeholder="系统类型" disabled />
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.useremail.$dirty && userForm.useremail.$invalid}">
+                            <label class="control-label">邮箱</label>
+                            <div class="controls">
+                                <input name="useremail" type="email" data-ng-model="user.email" class="span4" placeholder="Email" />
+                                <div data-ng-show="userForm.useremail.$dirty && userForm.useremail.$invalid">
+                                    <span data-ng-show="userForm.useremail.$error.email" class="help-inline">要输入有效的email哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.userqq.$dirty && userForm.userqq.$invalid}">
+                            <label class="control-label">QQ</label>
+                            <div class="controls">
+                                <input name="userqq" type="text" data-ng-model="user.qq" class="span4" placeholder="QQ号码" data-ng-pattern="/^[1-9][0-9]{4,}$/" />
+                                <div data-ng-show="userForm.userqq.$dirty && userForm.userqq.$invalid">
+                                    <span data-ng-show="userForm.userqq.$error.pattern" class="help-inline">QQ号都是数字哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.userphone.$dirty && userForm.userphone.$invalid}">
+                            <label class="control-label">电话</label>
+                            <div class="controls">
+                                <input name="userphone" type="text" data-ng-model="user.phone" class="span10" placeholder="固定电话" data-ng-pattern="/^\d{3}-\d{8}$|^\d{4}-\d{7}$/" />
+                                <div data-ng-show="userForm.userphone.$dirty && userForm.userphone.$invalid">
+                                    <span data-ng-show="userForm.userphone.$error.pattern" class="help-inline">要符合国内固话格式哟，例如：010-1234567</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.usermobile.$dirty && userForm.usermobile.$invalid}">
+                            <label class="control-label">手机</label>
+                            <div class="controls">
+                                <input name="usermobile" type="text" data-ng-model="user.mobile" class="span10" placeholder="移动电话" data-ng-pattern="/^[1][358]\d{9}$/" />
+                                <div data-ng-show="userForm.usermobile.$dirty && userForm.usermobile.$invalid">
+                                    <span data-ng-show="userForm.usermobile.$error.pattern" class="help-inline">请填写合法的手机号码哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">备注</label>
+                            <div class="controls">
+                                <textarea name="userinfo" data-ng-model="user.info" class="span10" placeholder="个性签名"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid">保存</button>
+                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged()">重置</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

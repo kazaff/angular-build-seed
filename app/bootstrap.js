@@ -16,8 +16,10 @@ require.config({
         , 'angular/angular-resource': ['angular/angular']
         , 'angular/angular-route': ['angular/angular']
         , 'angular/angular-animate': ['angular/angular']
+        , 'angular/angular-strap': ['angular/angular', 'lib/bootstrap/bootstrap']
         , 'angular/angular': {
             exports: 'angular'
+            , deps: ['lib/jquery']
         }
         , 'lib/console-min': {
             exports: 'console'
