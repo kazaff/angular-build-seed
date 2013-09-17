@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-lock"></i> </span>
+                    <h5>修改密码</h5>
+                </div>
+
+                <div class="widget-content nopadding">
+                    <form name="authForm" novalidate class="form-horizontal" data-ng-hide="isAuthed">
+                        <div class="control-group">
+                            <label class="control-label">原始密码</label>
+                            <div class="controls">
+                                <input name="useraccount" type="password" data-ng-model="originalPsw"class="span4" placeholder="请输入当前密码" required data-ng-minlength="6" />
+                                <button class="btn btn-primary" data-ng-click="auth()" data-ng-disabled="authForm.$invalid">认证</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form name="pswForm" class="form-horizontal" data-ng-show="isAuthed">
+                        <div class="control-group" data-ng-class="{error: pswForm.newpsw.$dirty && pswForm.newpsw.$invalid}">
+                            <label class="control-label">设定新密码</label>
+                            <div class="controls">
+                                <data-kz-password-strength password="newPsw">
+                                    <input name="newpsw"
+                                           type="password"
+                                           data-ng-model="$parent.newPsw"
+                                           class="span4"
+                                           placeholder="请输入新密码"
+                                           required
+                                           data-ng-minlength="6"
+                                           data-ng-change="$parent.isSame=isUnsame()"
+                                    />
+                                </data-kz-password-strength>
+                                <div data-ng-show="pswForm.newpsw.$dirty && pswForm.newpsw.$invalid">
+                                    <span data-ng-show="pswForm.newpsw.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 密码不能为空哟~</span>
+                                    <span data-ng-show="pswForm.newpsw.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 密码不能少于六位哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: isSame}">
+                            <label class="control-label">再次输入新密码</label>
+                            <div class="controls">
+                                <input name="comparepsw"
+                                       type="password"
+                                       data-ng-model="comparePsw"
+                                       class="span4"
+                                       placeholder="请再次输入新密码"
+                                       required
+                                       data-ng-change="isSame=isUnsame()"
+                                />
+                                <div data-ng-show="isSame">
+                                    <span class="help-inline"><i class="icon-warning-sign"></i> 两次输入的新密码要一致哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-success" data-ng-click="save()" data-ng-disabled="isUnsame() || pswForm.$invalid"><i class="icon-ok"></i> 保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

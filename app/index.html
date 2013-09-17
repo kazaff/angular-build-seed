@@ -42,7 +42,8 @@
             display: none !important;
         }
     </style>
-    <!--[if lt IE 9]>
+    <!--[if lt IE9]>
+    <link rel="stylesheet" href="./css/ie.css"/>
     <script src="./lib/html5shiv.js"></script>
     <![endif]-->
 </head>
@@ -57,6 +58,7 @@
         </div>
     </div>
 </noscript>
+
 <div data-ng-cloak>
     <!--Header-part-->
     <div id="header">
@@ -72,7 +74,7 @@
                 <ul class="dropdown-menu">
                     <li><kz-action data-name="userSelf" data-group="user" /></li>
                     <li class="divider"></li>
-                    <li><kz-action data-name="logout" data-group="publish" /></li>
+                    <li><kz-action data-name="userSelfPsw" data-group="user" /></li>
                 </ul>
             </li>
             <li><kz-action data-name="logout" data-group="publish" /></li>

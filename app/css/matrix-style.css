@@ -1158,6 +1158,21 @@ form {
 .help-block, .help-inline {
 	color: #999999;
 }
+
+.passwordStrength .progress{
+    display: none;
+}
+.csstransitions .passwordStrength .progress {
+    display: block;
+    float:none;
+    margin-bottom: -2px;
+    line-height: 20px;
+    min-height: 20px;
+}
+.csstransitions .passwordStrength .progress .bar {
+    height: 20px;
+}
+
 /***********light-box***************/
 #lightbox {
 	position:fixed; /* keeps the lightbox window in the current viewport */

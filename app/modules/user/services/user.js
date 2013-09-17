@@ -14,7 +14,15 @@ define([
         return $resource(config.domain + 'user/:uid', {uid: '@id'}, {
             updateSelf: {
                 method: 'POST'
-                , params: {uid:'self'}
+                , params: {uid: 'self'}
+            }
+            , updateSelfPsw: {
+                method: 'POST'
+                , params: {uid: 'selfPsw'}
+            }
+            , authSelf: {
+                method: 'POST'
+                , params: {uid: 'selfAuth'}
             }
         });
     }];

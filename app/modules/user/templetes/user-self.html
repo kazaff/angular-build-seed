@@ -2,7 +2,7 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="widget-box">
-                <div class="widget-title"> <span class="icon"> <i class="icon-user"></i> </span>
+                <div class="widget-title"> <span class="icon"> <i class="icon-list-alt"></i> </span>
                     <h5>个人信息</h5>
                 </div>
 
@@ -23,7 +23,7 @@
                             <div class="controls">
                                 <input type="text" name="username" data-ng-model="user.name" class="span10" placeholder="真实用户名称" required />
                                 <div data-ng-show="!user.name || userForm.username.$dirty && userForm.username.$invalid">
-                                    <span data-ng-show="userForm.username.$error.required" class="help-inline">姓名是必填项哟~</span>
+                                    <span data-ng-show="userForm.username.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 姓名是必填项哟~</span>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="controls">
                                 <input name="userIdCard" type="text" data-ng-model="user.idCard" class="span10" placeholder="现在身份证的号码有15位和18位" data-ng-pattern="/^\d{15}$|^\d{18}$/"  />
                                 <div data-ng-show="userForm.userIdCard.$dirty && userForm.userIdCard.$invalid">
-                                    <span data-ng-show="userForm.userIdCard.$error.pattern" class="help-inline">身份证号码格式要标准哟， 15位或18位</span>
+                                    <span data-ng-show="userForm.userIdCard.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 身份证号码格式要标准哟， 15位或18位</span>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             <div class="controls">
                                 <input name="useremail" type="email" data-ng-model="user.email" class="span4" placeholder="Email" />
                                 <div data-ng-show="userForm.useremail.$dirty && userForm.useremail.$invalid">
-                                    <span data-ng-show="userForm.useremail.$error.email" class="help-inline">要输入有效的email哟~</span>
+                                    <span data-ng-show="userForm.useremail.$error.email" class="help-inline"><i class="icon-warning-sign"></i> 要输入有效的email哟~</span>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             <div class="controls">
                                 <input name="userqq" type="text" data-ng-model="user.qq" class="span4" placeholder="QQ号码" data-ng-pattern="/^[1-9][0-9]{4,}$/" />
                                 <div data-ng-show="userForm.userqq.$dirty && userForm.userqq.$invalid">
-                                    <span data-ng-show="userForm.userqq.$error.pattern" class="help-inline">QQ号都是数字哟~</span>
+                                    <span data-ng-show="userForm.userqq.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> QQ号都是数字哟~</span>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                             <div class="controls">
                                 <input name="userphone" type="text" data-ng-model="user.phone" class="span10" placeholder="固定电话" data-ng-pattern="/^\d{3}-\d{8}$|^\d{4}-\d{7}$/" />
                                 <div data-ng-show="userForm.userphone.$dirty && userForm.userphone.$invalid">
-                                    <span data-ng-show="userForm.userphone.$error.pattern" class="help-inline">要符合国内固话格式哟，例如：010-1234567</span>
+                                    <span data-ng-show="userForm.userphone.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 要符合国内固话格式哟，例如：010-1234567</span>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             <div class="controls">
                                 <input name="usermobile" type="text" data-ng-model="user.mobile" class="span10" placeholder="移动电话" data-ng-pattern="/^[1][358]\d{9}$/" />
                                 <div data-ng-show="userForm.usermobile.$dirty && userForm.usermobile.$invalid">
-                                    <span data-ng-show="userForm.usermobile.$error.pattern" class="help-inline">请填写合法的手机号码哟~</span>
+                                    <span data-ng-show="userForm.usermobile.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 请填写合法的手机号码哟~</span>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +95,8 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid">保存</button>
-                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged()">重置</button>
+                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid"><i class="icon-ok"></i> 保存</button>
+                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged()"><i class="icon-repeat"></i> 重置</button>
                         </div>
                     </form>
                 </div>

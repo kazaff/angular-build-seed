@@ -41,7 +41,7 @@ define(function(){
             , icon: 'icon-user'
             , api: 'restV1/user/put'
         }
-        ,{
+        , {
             uri: '/user/info/:uid'
             , controller: 'userInfoCtrl'
             , templateUrl: 'modules/user/templetes/user-info.html'
@@ -51,7 +51,7 @@ define(function(){
             , icon: ''
             , api: 'restV1/user/get'
         }
-        ,{
+        , {
             uri: '/user/delete/:uid'
             , controller: 'userDeleteCtrl'
             , templateUrl: 'modules/user/templetes/user-delete.html'
@@ -61,15 +61,25 @@ define(function(){
             , icon: ''
             , api: 'restV1/user/delete'
 
-        },
-        {
+        }
+        , {
             uri: '/user/self'
             , controller: 'userSelfCtrl'
             , templateUrl: 'modules/user/templetes/user-self.html'
             , ifMenu: false
             , name: 'userSelf'
             , title: '个人信息'
-            , icon: 'icon-user'
+            , icon: 'icon-list-alt'
+            , api: 'restV1/user/get'
+        }
+        , {
+            uri: '/user/self-psw'
+            , controller: 'userSelfPswCtrl'
+            , templateUrl: 'modules/user/templetes/user-self-psw.html'
+            , ifMenu: false
+            , name: 'userSelfPsw'
+            , title: '更改口令'
+            , icon: 'icon-lock'
             , api: 'restV1/user/get'
         }]
     };
