@@ -4,3 +4,32 @@
  * Date: 13-9-4
  * Time: 下午3:42
  */
+define(function(){
+    'use strict';
+
+    return {
+        group: 'log'
+        , title: '日志管理'
+        , icon: 'icon-inbox'
+        , son:[{
+            uri: '/login-log/list/:page'
+            , controller: 'logLoginAllCtrl'
+            , templateUrl: 'modules/log/templetes/all-login-list.html'
+            , ifMenu: true
+            , name: 'loginAllList'
+            , title: '登录日志'
+            , icon: 'icon-inbox'
+            , api: 'restV1/logLogin/get'
+        }
+        , {
+            uri: '/login-log/user/:uid/list/:page'
+            , controller: 'logLoginUserCtrl'
+            , templateUrl: 'modules/log/templetes/login-list.html'
+            , ifMenu: false
+            , name: 'loginList'
+            , title: '登录日志'
+            , icon: 'icon-inbox'
+            , api: 'restV1/logLogin/get'
+        }]
+    };
+});

@@ -9,8 +9,8 @@ define(function(){
     return window.config = {
         domain: 'http://192.168.137.77/angular-build-seed/mock/index.php?rest/V1/'
         , modules:[
-            //'modules/publish', 'modules/user', 'modules/privilege', 'modules/application', 'modules/log'
-            'modules/publish', 'modules/user'
+            //'modules/publish', 'modules/user', 'modules/privilege', 'modules/application',
+            'modules/publish', 'modules/user', 'modules/log'
         ]
     };
 });

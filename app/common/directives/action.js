@@ -14,7 +14,9 @@ define(function(){
                 , replace: true
                 , template: '<a></a>'
                 , link: function(scope, element, attrs){
-                    action.link(attrs.name, attrs.group).success(function(data){
+                    action.link(attrs.name, attrs.group).success(function(response){
+
+                        var data = angular.copy(response);
 
                         element.html('<i class="'+ data.icon + ' ' + (attrs.color ? attrs.color : '') + '"></i> ' + data.title);
 

@@ -25,9 +25,31 @@ define(function(){
             User.updateSelf({user:encodeURIComponent(JSON.stringify($scope.user))}).$promise.then(function(response){
 
                 if(response['status'] == 1){
+                    //修改成功提示
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '个人信息更新成功!'
+                        , class_name: 'winner'
+                        , image: 'img/save.png'
+                        , sticky: true
+                    });
+
                     //更新本地存储
                     auth.userInfo($scope.user);
                     $scope.pristine = angular.copy($scope.user);
+
+                }else{
+                    //修改错误提示
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '个人信息更新失败!'
+                        , class_name: 'loser'
+                        , image: 'img/save.png'
+                        , sticky: true
+                        , before_close: function(e, manual_close){
+                            $scope.$apply(action.forward('userSelf', 'user'));
+                        }
+                    });
                 }
             });
         };

@@ -10,16 +10,18 @@ require.config({
     baseUrl: '.'
     , paths: {
         'angular': 'lib/angularJS'
+        , 'jquery' : 'lib/jquery'
     }
     , shim: {
-        'lib/bootstrap/bootstrap': ['lib/jquery']
+        'lib/bootstrap': ['jquery/jquery']
+        , 'jquery/jquery.gritter.min': ['jquery/jquery']
         , 'angular/angular-resource': ['angular/angular']
         , 'angular/angular-route': ['angular/angular']
         , 'angular/angular-animate': ['angular/angular']
-        , 'angular/angular-strap': ['angular/angular', 'lib/bootstrap/bootstrap']
+        , 'angular/angular-strap': ['angular/angular', 'lib/bootstrap']
         , 'angular/angular': {
             exports: 'angular'
-            , deps: ['lib/jquery']
+            , deps: ['jquery/jquery']
         }
         , 'lib/console-min': {
             exports: 'console'
@@ -39,11 +41,12 @@ require([
                                    // 在直接加载一个JavaScript文件，否则，当字符串是类似”my/module”的时候，它会认为这
                                    // 是一个模块，并且会以用户配置的baseUrl和paths来加载相应的模块所在的JavaScript文件。
     , 'utils/loader'
-    , 'lib/jquery'
+    , 'jquery/jquery'
     , 'angular/angular'
     , 'config'
     , 'lib/modernizr'
-    , 'lib/bootstrap/bootstrap'
+    , 'lib/bootstrap'
+    , 'jquery/jquery.gritter.min'
 ], function(require, console, loader, jquery, angular, config){      //这里的参数都是使用define()方法定义的模块
 
     console.group('webOS应用');

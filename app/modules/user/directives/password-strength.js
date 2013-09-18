@@ -56,6 +56,7 @@ define(function(){
 
             }, link: function(scope, element, attrs, controller){
                 scope.$watch('password', function(psw){
+
                     var msg = ['危险', '凑合', '不错', '完美'];
                     var className = ['progress-danger', 'progress-warning', 'progress-success', ''];
                     if(!angular.isUndefined(psw)){

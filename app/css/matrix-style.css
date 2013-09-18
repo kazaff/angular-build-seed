@@ -1058,6 +1058,11 @@ div.dataTables_wrapper .ui-widget-header {
 .table tr.checked td {
 	background-color: #FFFFE3 !important;
 }
+
+.table .center{
+    text-align: center;
+}
+
 /* Misc */
 .nopadding {
 	padding: 0 !important;
@@ -1159,17 +1164,16 @@ form {
 	color: #999999;
 }
 
-.passwordStrength .progress{
+.no-csstransitions .passwordStrength .progress{
     display: none;
 }
-.csstransitions .passwordStrength .progress {
-    display: block;
+ .passwordStrength .progress {
     float:none;
     margin-bottom: -2px;
     line-height: 20px;
     min-height: 20px;
 }
-.csstransitions .passwordStrength .progress .bar {
+.passwordStrength .progress .bar {
     height: 20px;
 }
 

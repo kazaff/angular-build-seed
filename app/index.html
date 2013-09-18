@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="./css/bootstrap-responsive.css"/>
     <link rel="stylesheet" href="./css/matrix-style.css" />
     <link rel="stylesheet" href="./css/matrix-media.css" />
-    <!--<link rel="stylesheet" href="./css/matrix-animate.css"/>-->
+    <link rel="stylesheet" href="css/jquery.gritter.css" />
     <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
     <!--
@@ -42,8 +42,7 @@
             display: none !important;
         }
     </style>
-    <!--[if lt IE9]>
-    <link rel="stylesheet" href="./css/ie.css"/>
+    <!--[if lt IE 9]>
     <script src="./lib/html5shiv.js"></script>
     <![endif]-->
 </head>
@@ -75,6 +74,8 @@
                     <li><kz-action data-name="userSelf" data-group="user" /></li>
                     <li class="divider"></li>
                     <li><kz-action data-name="userSelfPsw" data-group="user" /></li>
+                    <li class="divider"></li>
+                    <li><kz-action data-name="loginList" data-group="log" data-args="{'uid': 'myself', 'page': 1}" /></li>
                 </ul>
             </li>
             <li><kz-action data-name="logout" data-group="publish" /></li>
