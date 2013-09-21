@@ -37,12 +37,33 @@
 
              User.updateSelfPsw({psw: encodeURIComponent(JSON.stringify(psw))}).$promise.then(function(response){
                  if(response['status'] == 1){
-                     //TODO 修改成功提示
+
+                     //修改成功提示
+                     angular.element.gritter.add({
+                         title: '提示'
+                         , text: '密码更改成功!'
+                         , class_name: 'winner'
+                         , image: 'img/card.png'
+                         , sticky: false
+                     });
 
                      $scope.originalPsw = null;
-                     $scope.newPsw = null;
+                     $scope.newPsw = '';
                      $scope.comparePsw = null;
                      $scope.isAuthed = 0;
+
+                 }else{
+                     //修改错误提示
+                     angular.element.gritter.add({
+                         title: '提示'
+                         , text: '密码更改失败!'
+                         , class_name: 'loser'
+                         , image: 'img/card.png'
+                         , sticky: true
+                         , before_close: function(e, manual_close){
+                             $scope.$apply(action.forward('userSelfPsw', 'user'));
+                         }
+                     });
                  }
              });
          };

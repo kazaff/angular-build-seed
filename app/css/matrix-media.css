@@ -60,6 +60,13 @@ body {
 }
 @media (min-width: 768px) and (max-width: 970px) {.quick-actions_homepage .quick-actions li{ min-width:20.5%;}}
 @media (min-width: 481px) and (max-width: 767px) {
+    .uneditable-input[class*="span"],
+    .row-fluid [class*="span"] {
+        width: 60%;
+    }
+    .span12, .row-fluid .span12 {
+        width: 100%;
+    }
 	#sidebar > ul ul:before {
 	}
 	#sidebar > ul ul:after {
