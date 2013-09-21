@@ -4,3 +4,4 @@ bower_components
 .project
 .settings
 .buildpath
+app/config.js
