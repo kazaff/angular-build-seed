@@ -7,30 +7,95 @@
                 </div>
 
                 <div class="widget-content nopadding">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>登录时间</th>
-                                <th>IPv4</th>
-                                <th>IPv6</th>
-                                <th>状态</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="center">2013-08-09 13:41:57</td>
-                                <td class="center">127.0.0.1</td>
-                                <td class="center"></td>
-                                <td class="center"><span class="btn btn-mini btn-success">成功</span></td>
-                            </tr>
-                            <tr>
-                                <td class="center">2013-09-16 10:13:53</td>
-                                <td class="center"></td>
-                                <td class="center">192.168.137.77</td>
-                                <td class="center"><span class="btn btn-mini btn-danger">失败</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="dataTables_wrapper">
+                        <div>
+                            <div class="dataTables_length">
+                                <button
+                                    data-ng-disabled="!resetFlag"
+                                    data-ng-click="resetFilter()"
+                                    class="btn btn-info"
+                                >
+                                    <i class="icon-filter"></i> <span data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover">重置规则</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true" class="sortBtn">
+                                        <span ng-if="predicate=='dateTime'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                        时间
+                                    </th>
+                                    <th ng-click="predicate='ipv4'; reverse=!reverse; resetFlag=true" class="sortBtn">
+                                        <span ng-if="predicate=='ipv4'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                        IPv4
+                                    </th>
+                                    <th ng-click="predicate='ipv6'; reverse=!reverse; resetFlag=true" class="sortBtn">
+                                        <span ng-if="predicate=='ipv6'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                        IPv6
+                                    </th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                    <td class="center">{{ item.dateTime }}</td>
+                                    <td class="center">{{ item.ipv4 }}</td>
+                                    <td class="center">{{ item.ipv6 }}</td>
+                                    <td class="center">
+                                        <span
+                                            class="btn btn-mini "
+                                            data-ng-class="{'btn-success': item.status=='1', 'btn-danger': item.status=='0'}"
+                                            data-ng-switch on="item.status"
+                                            data-ng-click="statusFilter(item.status)"
+                                        >
+                                            <b data-ng-switch-when="1">成功</b>
+                                            <b data-ng-switch-when="0">失败</b>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="ui-toolbar ui-widget-header">
+                            <div class="dataTables_filter">
+                                <label>
+                                    <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                    <input
+                                        data-ng-change="resetFlag=true"
+                                        data-ng-model="searchText"
+                                        type="text"
+                                        placeholder="过滤条件"
+                                    />
+                                </label>
+                            </div>
+
+                            <div class="dataTables_paginate">
+                                <img data-ng-show="isLoading" src="./img/loading.gif" alt=""/>
+                                <button
+                                    class="btn btn-info"
+                                    data-ng-click="downloadData()"
+                                    data-ng-disabled="!hasManyData || isLoading"
+                                >
+                                    <i class="icon-download-alt"></i>
+                                    <span data-trigger="hover" data-bs-tooltip="'将从服务器端获取更多数据'" data-ng-switch on="hasManyData">
+                                        <span data-ng-switch-when="true"> 更多</span>
+                                        <span data-ng-switch-when="false"> 暂时没有更多啦</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

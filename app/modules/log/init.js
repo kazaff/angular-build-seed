@@ -12,15 +12,19 @@ define([
     , 'modules/log/controllers/login-user'
     , 'modules/log/controllers/login-all'
     //服务
+    , 'modules/log/services/log'
     //指令
     //库
     , 'angular/angular-resource'
-], function(console, angular, loginUserCtrl, loginAllCtrl){
+    , 'angular/angular-strap'
+], function(console, angular, loginUserCtrl, loginAllCtrl, log){
     'use strict';
 
     console.group('日志模块初始化');
 
-    var logModule = angular.module('logModule', ['ngResource']);
+    var logModule = angular.module('logModule', ['ngResource', '$strap.directives']);
+
+    logModule.factory('log', log);
 
     logModule.controller('logLoginUserCtrl', loginUserCtrl);
     logModule.controller('logLoginAllCtrl', loginAllCtrl);
