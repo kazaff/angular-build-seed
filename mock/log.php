@@ -82,7 +82,7 @@
 			
 			$uid = $uri[5];	//用户id
 			
-			$action = isset($_GET['action']) ? mb_convert_encoding($_GET['action'], 'gbk', 'utf-8') : '';	//获取搜索关键字
+			$action = isset($_GET['action']) ? mb_convert_encoding(urldecode($_GET['action']), 'gbk', 'utf-8') : '';	//获取搜索关键字
 			
 			$page = intval($uri[7]); //请求页码
 			$preNum = 7;	//每页条数
@@ -120,7 +120,7 @@
 					$result->hasMore = false;
 				}
 				
-				sleep(2);
+				sleep(1);
 				
 				echo json_encode($result);
 				

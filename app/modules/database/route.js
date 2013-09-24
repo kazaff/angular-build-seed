@@ -27,6 +27,27 @@ define(function(){
             , title: '±¸·Ý'
             , icon: 'icon-save'
             , api: 'restV1/database/put'
+        }
+        , {
+            ifMenu: false
+            , name: 'dbDelete'
+            , title: 'É¾³ý'
+            , icon: 'icon-trash'
+            , api: 'restV1/database/delete'
+        }
+        , {
+            ifMenu: false
+            , name: 'dbDownload'
+            , title: 'ÏÂÔØ'
+            , icon: 'icon-download-alt'
+            , api: ''
+        }
+        , {
+            ifMenu: false
+            , name: 'dbRecover'
+            , title: '»Ö¸´'
+            , icon: 'icon-time'
+            , api: 'restV1/database/post'
         }]
     };
 });

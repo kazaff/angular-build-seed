@@ -79,7 +79,7 @@ define(function(){
             , ifMenu: false
             , name: 'userSelfPsw'
             , title: '¸ü¸Ä¿ÚÁî'
-            , icon: 'icon-lock'
+            , icon: 'icon-key'
             , api: 'restV1/user/get'
         }]
     };

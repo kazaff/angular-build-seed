@@ -20,61 +20,55 @@
                             </div>
                         </div>
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
                             <tr>
                                 <th ng-click="predicate='userName'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='userName'" ng-switch on="reverse">
-                                        <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                        <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
                                     用户名
                                 </th>
                                 <th ng-click="predicate='action'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='action'" ng-switch on="reverse">
-                                        <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                        <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
                                     行为
                                 </th>
-                                <th ng-click="predicate='ipv4'; reverse=!reverse; resetFlag=true">
+                                <th class="hidden-phone" ng-click="predicate='ipv4'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='ipv4'" ng-switch on="reverse">
-                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                    操作地址（IPv4）
+                                    IPv4
                                 </th>
-                                <th ng-click="predicate='ipv6'; reverse=!reverse; resetFlag=true">
+                                <th class="hidden-phone" ng-click="predicate='ipv6'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='ipv6'" ng-switch on="reverse">
-                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                    操作地址（IPv6）
+                                    IPv6
                                 </th>
                                 <th ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='dateTime'" ng-switch on="reverse">
-                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
                                     操作时间
-                                </th>
-                                <th ng-click="predicate='info'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='info'" ng-switch on="reverse">
-                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
-                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
-                                        </span>
-                                    备注
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">{{ item.userName }}</td>
-                                <td class="center">{{ item.action }}</td>
-                                <td class="center">{{ item.ipv4 }}</td>
-                                <td class="center">{{ item.ipv6 }}</td>
+                                <td class="center">
+                                    {{ item.action }} <i class="icon-tag" data-bs-tooltip="item.info" data-trigger="hover"></i>
+                                </td>
+                                <td class="center hidden-phone">{{ item.ipv4 }}</td>
+                                <td class="center hidden-phone">{{ item.ipv6 }}</td>
                                 <td class="center">{{ item.dateTime }}</td>
-                                <td class="center">{{ item.info }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -87,11 +81,14 @@
                                             data-ng-change="resetFlag=true"
                                             data-ng-model="searchText"
                                             type="text"
-                                            placeholder="过滤条件"
+                                            placeholder="过滤条件 或 查询关键字"
                                             />
-                                    <button class="btn"
+                                    <button class="btn btn-primary"
                                             data-ng-click="searchData()"
-                                            >搜索</button>
+                                            data-bs-tooltip="'将从服务器端进行检索'"
+                                            data-trigger="hover"
+                                            data-ng-disabled="!searchText"
+                                            ><i class="icon-search"></i></button>
                                 </label>
                             </div>
 
