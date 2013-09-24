@@ -11,13 +11,14 @@ define([
     //控制器
     , 'modules/log/controllers/login-user'
     , 'modules/log/controllers/login-all'
+    , 'modules/log/controllers/action-all'
     //服务
     , 'modules/log/services/log'
     //指令
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, loginUserCtrl, loginAllCtrl, log){
+], function(console, angular, loginUserCtrl, loginAllCtrl, actionAllCtrl, log){
     'use strict';
 
     console.group('日志模块初始化');
@@ -28,6 +29,7 @@ define([
 
     logModule.controller('logLoginUserCtrl', loginUserCtrl);
     logModule.controller('logLoginAllCtrl', loginAllCtrl);
+    logModule.controller('logActionAllCtrl', actionAllCtrl);
 
     console.groupEnd();
 

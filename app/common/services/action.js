@@ -153,26 +153,28 @@ define(function(){
 
                 angular.forEach(data, function(group){
                     angular.forEach(group.son, function(route){
-                        var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
-                        if(reg.test(uri)){
+                        if(!angular.isUndefined(route.uri)){
+                            var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
+                            if(reg.test(uri)){
 
-                            result = {
-                                group:  group.group
-                                , title: group.title
-                                , icon: group.icon
-                                , route: {
-                                    uri: route.uir
-                                    , controller: route.controller
-                                    , templateUrl: route.templateUrl
-                                    , ifMenu: route.ifMenu
-                                    , name: route.name
-                                    , title: route.title
-                                    , icon: route.icon
-                                    , api: route.api
-                                }
-                            };
+                                result = {
+                                    group:  group.group
+                                    , title: group.title
+                                    , icon: group.icon
+                                    , route: {
+                                        uri: route.uir
+                                        , controller: route.controller
+                                        , templateUrl: route.templateUrl
+                                        , ifMenu: route.ifMenu
+                                        , name: route.name
+                                        , title: route.title
+                                        , icon: route.icon
+                                        , api: route.api
+                                    }
+                                };
 
-                            return false;
+                                return false;
+                            }
                         }
                     });
 

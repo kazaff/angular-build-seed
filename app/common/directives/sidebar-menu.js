@@ -37,11 +37,15 @@ define(function(){
                                 if(item.group == group){
 
                                     angular.forEach(item.son, function(route){
-                                        var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
-                                        if(reg.test(currentUri)){
-                                            flag = true;
-                                            return false;
+
+                                        if(!angular.isUndefined(route.uri)){
+                                            var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
+                                            if(reg.test(currentUri)){
+                                                flag = true;
+                                                return false;
+                                            }
                                         }
+
                                     });
 
                                     return false;

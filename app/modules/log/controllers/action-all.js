@@ -1,23 +1,24 @@
 /**
  * Created with JetBrains WebStorm.
  * User: @kazaff
- * Date: 13-9-17
- * Time: 下午3:52
+ * Date: 13-9-23
+ * Time: 上午10:00
  */
 define(function(){
     'use strict';
 
-    return ['$scope', '$routeParams', 'auth', 'action', 'log', function($scope, $routeParams, auth, action, Log){
+    return ['$scope', '$routeParams','auth', 'action', 'log', function($scope, $routeParams, auth, action, Log){
         var page = $routeParams.page;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
 
         $scope.data = [];
-        Log.loginList({page: page, uid:0}).$promise.then(function(response){
-
+        Log.actionList({page: page, uid:0}).$promise.then(function(response){
             angular.forEach(response.items, function(item){
                 item.userName = decodeURI(item.userName);
+                item.action = decodeURI(item.action);
+                item.info = decodeURI(item.info);
                 $scope.data.push(item);
             });
 
@@ -45,14 +46,27 @@ define(function(){
             $scope.resetFlag = 0;
         };
 
+        //搜索相关的数据
+        $scope.searchData = function(){
+           page=$routeParams.page-1;
+            $scope.data=[];
+            $scope.status = '';
+            $scope.predicate = '';
+            $scope.reverse = false;
+            $scope.hasManyData=true;
+            $scope.downloadData();
+        };
+
         //获取更多的数据
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Log.loginList({page: ++page, uid: 0}).$promise.then(function(response){
+            Log.actionList({page: ++page, uid: 0,action :$scope.searchText}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.userName = decodeURI(item.userName);
+                    item.action = decodeURI(item.action);
+                    item.info = decodeURI(item.info);
                     $scope.data.push(item);
                 });
 

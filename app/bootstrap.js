@@ -1,11 +1,5 @@
 'use strict';
-/*baseUrl指明的是所有模块的base URL，比如”lib/jquery”所加载的script实际上就是./lib/jquery.js。注意，以.js结尾的文件加载时不会使用该baseUrl，
-它们仍然会使用当前index.html所在的相对路径来加载，所以仍然要加上”./js/”。如果baseUrl没有指定，那么就会使用data-main中指定的路径。
-paths中定义的路径是用于替换模块中的路径，如下面的'angular/angular'具体的JavaScript文件路径是/lib/angularJS/angular.js。
-waitSeconds是指定最多花多长等待时间来加载一个JavaScript文件，用户不指定的情况下默认为7秒。
-另外一个重要的配置是packages，它可以指定其他符合CommonJS AMD规范的目录结构，由此带来了丰富的扩展性。如Dojo、jQuery等的模块也可以通过该配置来让RequireJS加载。
-其他可配置的选项还包括locale、context、deps、callback等，有兴趣的读者可以在RequireJS的官方网站查阅相关文档。
-*/
+
 require.config({
     baseUrl: '.'
     , paths: {
@@ -15,6 +9,7 @@ require.config({
     , shim: {
         'lib/bootstrap': ['jquery/jquery']
         , 'jquery/jquery.gritter.min': ['jquery/jquery']
+        , 'jquery/table-fixed-header': ['jquery/jquery']
         , 'angular/angular-resource': ['angular/angular']
         , 'angular/angular-route': ['angular/angular']
         , 'angular/angular-animate': ['angular/angular']
@@ -47,6 +42,7 @@ require([
     , 'lib/modernizr'
     , 'lib/bootstrap'
     , 'jquery/jquery.gritter.min'
+    , 'jquery/table-fixed-header'
 ], function(require, console, loader, jquery, angular, config){      //这里的参数都是使用define()方法定义的模块
 
     console.group('webOS应用');

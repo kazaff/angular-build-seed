@@ -41,12 +41,14 @@ define([
                 if(typeof(item) != 'undefined'){
                     angular.forEach(item.son, function(route){
 
-                        console.info('增加路由：', route.uri);
+                        if(!angular.isUndefined(route.uri)){
+                            console.info('增加路由：', route.uri);
 
-                        $routeProvider.when(route.uri, {
-                            templateUrl: route.templateUrl
-                            , controller: route.controller
-                        });
+                            $routeProvider.when(route.uri, {
+                                templateUrl: route.templateUrl
+                                , controller: route.controller
+                            });
+                        }
                     });
                 }
             });

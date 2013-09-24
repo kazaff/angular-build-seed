@@ -30,6 +30,16 @@ define(function(){
             , title: '登录日志'
             , icon: 'icon-inbox'
             , api: 'restV1/logLogin/get'
+        }
+        , {
+            uri: '/action-log/list/:page'
+            , controller: 'logActionAllCtrl'
+            , templateUrl: 'modules/log/templetes/all-action-list.html'
+            , ifMenu: true
+            , name: 'actionAllList'
+            , title: '行为日志'
+            , icon: 'icon-inbox'
+            , api: 'restV1/logAction/get'
         }]
     };
 });

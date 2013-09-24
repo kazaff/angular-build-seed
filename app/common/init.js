@@ -15,9 +15,10 @@ define([
     , 'common/directives/action'
     , 'common/directives/sidebar-menu'
     , 'common/directives/bread-crumbs'
+    , 'common/directives/table-fixed-header'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, menu){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -29,11 +30,12 @@ define([
         acl.initialize(module, routeRules);
         actionS.initialize(module, routeRules);
 
-        console.info('初始化指令：', ['action', 'siderbar-menu', 'bread-crumbs']);
+        console.info('初始化指令：', ['action', 'siderbar-menu', 'bread-crumbs', 'table-fixed-header']);
         //初始化指令
         actionD.initialize(module);
         siderbarMenu.initialize(module);
         breadCrumbs.initialize(module);
+        tableFixedHeader.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器

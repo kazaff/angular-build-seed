@@ -17,7 +17,7 @@ define([
             }
             , actionList: {
                 method: 'GET'
-                , params: {type: 'action'}
+                , params: {type: 'action',action:'@action'}
             }
         });
     }];
