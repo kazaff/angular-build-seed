@@ -9,14 +9,23 @@
                 <div class="widget-content nopadding">
                     <div class="dataTables_wrapper">
                         <div>
-                            <div class="dataTables_length">
-                                <button
-                                    data-ng-disabled="!resetFlag"
-                                    data-ng-click="resetFilter()"
-                                    class="btn btn-info"
-                                >
-                                    <i class="icon-filter"></i> <span data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover">重置规则</span>
-                                </button>
+                            <div class="dataTables_length form-horizontal">
+                                <label>
+                                    <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                    <input
+                                            data-ng-change="resetFlag=true"
+                                            data-ng-model="searchText"
+                                            type="text"
+                                            placeholder="过滤条件 或 查询关键字"
+                                            />
+                                    <button
+                                            data-ng-disabled="!resetFlag"
+                                            data-ng-click="resetFilter()"
+                                            class="btn btn-info"
+                                            >
+                                        <i class="icon-retweet"></i> <span data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover">重置规则</span>
+                                    </button>
+                                </label>
                             </div>
                         </div>
 
@@ -68,33 +77,19 @@
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
-                            <div class="dataTables_filter">
-                                <label>
-                                    <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
-                                    <input
-                                        data-ng-change="resetFlag=true"
-                                        data-ng-model="searchText"
-                                        type="text"
-                                        placeholder="过滤条件"
-                                    />
-                                </label>
-                            </div>
-
                             <div class="dataTables_paginate">
-                                <div data-trigger="click" data-bs-tooltip="hasManyData?'将从服务器端获取更多数据':'暂时没有更多啦'">
-                                    <button
-                                            class="btn"
-                                            data-ng-click="downloadData()"
-                                            data-ng-disabled="!hasManyData"
-                                            data-ng-hide="isLoading"
-                                            >
-                                    <span data-ng-switch on="hasManyData">
-                                        <span data-ng-switch-when="true"><i class="icon-download-alt"></i></span>
-                                        <span data-ng-switch-when="false"><i class="icon-twitter"></i></span>
-                                    </span>
-                                    </button>
-                                    <img data-ng-show="isLoading" src="./img/loading.gif" />
-                                </div>
+                                <button
+                                        class="btn"
+                                        data-ng-click="downloadData()"
+                                        data-ng-disabled="!hasManyData"
+                                        data-ng-hide="isLoading"
+                                        >
+                                        <span data-ng-switch on="hasManyData">
+                                            <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
+                                            <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
+                                        </span>
+                                </button>
+                                <img data-ng-show="isLoading" src="./img/loading.gif" />
                             </div>
                         </div>
                     </div>

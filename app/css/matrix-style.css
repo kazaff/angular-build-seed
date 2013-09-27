@@ -1332,9 +1332,9 @@ form {
 }
 #user-nav > ul {
 	right: 0px;
-	margin-left:20%!important;
+	margin-left:19%!important;
 	margin-top:0px;
-	width:100%;
+	width:80%;
 	background:#000;
 	position: relative;
 }
@@ -1597,7 +1597,9 @@ body {
 #search {
 	display: none;
 }
-#user-nav > ul > li > a > span.text {
+#user-nav > ul > li > a > span.text,
+table > tbody > tr > td > span > a > span.text,
+button > span.text{
 	display: none;
 }
 #sidebar .content{ display:none;}

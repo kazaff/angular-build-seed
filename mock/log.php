@@ -92,7 +92,6 @@
 			
 			if($uid == '0'){
 				//所有用户
-				//所有用户
 				$result = new stdClass();
 				$result->page = $page;
 				$result->maxNum = $maxNum;
@@ -112,7 +111,7 @@
 						$item->dateTime = date('Y-m-d H:i:s', time() + $i * 1000);
 						$item->ipv4 = '192.168.137.'.mt_rand(2, 254);
 						$item->ipv6 = '';
-						$item->info = urlencode(mb_convert_encoding(str_repeat('波拉波拉波拉波拉',mt_rand(1, 5)), 'utf-8', 'gbk'));;	//必须是字符串行，不然ng会有bug
+						$item->info = urlencode(mb_convert_encoding(str_repeat('波拉波拉波拉波拉',mt_rand(1, 5)), 'utf-8', 'gbk'));
 				
 						$result->items[] = $item;
 					}

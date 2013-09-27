@@ -14,13 +14,13 @@ define([
                 verify: function(argument){
                     return $http({
                         method: 'GET'
-                        , url: config.domain + 'privilege/menu/' + encodeURIComponent(JSON.stringify(argument))
+                        , url: config.domain + 'acl/menu/' + encodeURIComponent(JSON.stringify(argument))
                     });
                 }
                 , status: function(api){
                     return $http({
                         method: 'GET'
-                        , url: config.domain + 'privilege/api/' + encodeURIComponent(api)
+                        , url: config.domain + 'acl/api/' + encodeURIComponent(api)
                     });
                 }
             };

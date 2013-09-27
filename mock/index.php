@@ -3,4 +3,11 @@ header('Content-Type: text/html; charset=gbk');
 
 $uri = explode('/', $_SERVER['QUERY_STRING']);
 
-require($uri[2].'.php');
+$index = strpos($uri[2], '&');
+if($index){
+	$file = substr($uri[2], 0, $index);
+}else{
+	$file = $uri[2];
+}
+
+require($file.'.php');

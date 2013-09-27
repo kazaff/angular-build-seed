@@ -17,7 +17,7 @@ define(function(){
             , templateUrl: 'modules/database/templetes/backup-list.html'
             , ifMenu: true
             , name: 'dbBackupList'
-            , title: '数据库备份'
+            , title: '数据库'
             , icon: 'icon-hdd'
             , api: 'restV1/database/get'
         }
@@ -40,7 +40,7 @@ define(function(){
             , name: 'dbDownload'
             , title: '下载'
             , icon: 'icon-download-alt'
-            , api: ''
+            , api: 'restV1/database/get'
         }
         , {
             ifMenu: false

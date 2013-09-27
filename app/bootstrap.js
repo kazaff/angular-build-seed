@@ -14,6 +14,7 @@ require.config({
         , 'angular/angular-route': ['angular/angular']
         , 'angular/angular-animate': ['angular/angular']
         , 'angular/angular-strap': ['angular/angular', 'lib/bootstrap']
+        , 'jquery/bootstrap-switch.min': ['jquery/jquery', 'lib/bootstrap']
         , 'angular/angular': {
             exports: 'angular'
             , deps: ['jquery/jquery']
@@ -32,18 +33,24 @@ require.config({
 
 require([
     'require'
-    , 'lib/console-min'          //当字符串是以”.js”结尾，或者以”/”开头，或者就是一个URL时，RequireJS会认为用户是
-                                   // 在直接加载一个JavaScript文件，否则，当字符串是类似”my/module”的时候，它会认为这
-                                   // 是一个模块，并且会以用户配置的baseUrl和paths来加载相应的模块所在的JavaScript文件。
+
+    , 'lib/console-min'
     , 'utils/loader'
     , 'jquery/jquery'
     , 'angular/angular'
+
     , 'config'
+
     , 'lib/modernizr'
     , 'lib/bootstrap'
+
     , 'jquery/jquery.gritter.min'
     , 'jquery/table-fixed-header'
-], function(require, console, loader, jquery, angular, config){      //这里的参数都是使用define()方法定义的模块
+    , 'jquery/bootstrap-switch.min'
+
+    , 'lib/blob'
+    , 'lib/FileSaver'
+], function(require, console, loader, jquery, angular, config){
 
     console.group('webOS应用');
 

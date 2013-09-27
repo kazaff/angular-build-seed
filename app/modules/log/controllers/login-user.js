@@ -20,7 +20,6 @@ define(function(){
             $scope.isLoading = true;
 
             Log.loginList({page: ++page, uid: $routeParams.uid}).$promise.then(function(response){
-
                 angular.forEach(response.items, function(item){
                     $scope.data.push(item);
                 });
@@ -48,7 +47,6 @@ define(function(){
             $scope.searchText = '';
             $scope.predicate = '';
             $scope.reverse = false;
-
             $scope.resetFlag = 0;
         };
     }];

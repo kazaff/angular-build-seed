@@ -12,7 +12,11 @@
                         <p>前端团队--宣</p>
                         <span data-kz-action data-name="userList" data-group="user" data-args="{page:1}" class="btn"></span>
 
-                        <kz-action class="btn btn-primary" data-name="dbBackup" data-group="database" data-ng-click="test()" />
+                        <kz-action
+                            class="btn btn-primary"
+                            data-name="dbDownload"
+                            data-group="database"
+                            data-ng-click="$parent.test(this)" />
                     </div>
                 </div>
             </div>

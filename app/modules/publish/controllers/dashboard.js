@@ -4,14 +4,24 @@
  * Date: 13-9-5
  * Time: ÏÂÎç2:45
  */
-define(function(){
+define([
+    'config'
+], function(config){
     'use strict';
 
-    return ['$scope', 'auth', 'action', function($scope, auth, action){
+    return ['$scope', 'auth', 'action', '$http', function($scope, auth, action, $http){
         //auth();
 
-        $scope.test = function(){
-            console.log('test');
+
+        $scope.test = function(element){
+
+           $http({method:'GET', url: config.domain + 'database/', params: {'download': 1}, responseType: 'arraybuffer', transformResponse: function(data, headersGetter){
+               // if(headersGetter('Content-Disposition')){
+
+                    var blob = new Blob([data], {type: "application/octet-stream"});
+                    saveAs(blob, 'hello.png');
+               //}
+           }});
         };
     }];
 });

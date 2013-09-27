@@ -14,7 +14,6 @@ define(function(){
         $scope.isLoading = true;
 
         $scope.data = [];
-
         //获取更多的数据
         $scope.downloadData = function(){
             $scope.isLoading = true;

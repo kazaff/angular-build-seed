@@ -12,7 +12,6 @@ define(function(){
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
-
         $scope.data = [];
 
         //获取更多的数据
@@ -34,15 +33,6 @@ define(function(){
 
                 $scope.isLoading = false;
             });
-        };
-
-        $scope.downloadData();
-
-        //根据status筛选结果集
-        $scope.statusFilter = function(value){
-            $scope.status = {status: value};
-
-            $scope.resetFlag = 1;
         };
 
         //重置结果集，清空所有筛选条件，包括排序
@@ -68,5 +58,7 @@ define(function(){
 
             $scope.downloadData();
         };
+
+        $scope.downloadData();
     }];
 });

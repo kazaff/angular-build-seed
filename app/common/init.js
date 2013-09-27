@@ -16,9 +16,10 @@ define([
     , 'common/directives/sidebar-menu'
     , 'common/directives/bread-crumbs'
     , 'common/directives/table-fixed-header'
+    , 'common/directives/switch'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, menu){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -36,6 +37,7 @@ define([
         siderbarMenu.initialize(module);
         breadCrumbs.initialize(module);
         tableFixedHeader.initialize(module);
+        switchD.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器

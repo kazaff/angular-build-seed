@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                    <h5>数据库备份</h5>
+                </div>
+
+                <div class="widget-content nopadding">
+                    <div class="dataTables_wrapper">
+                        <div>
+                            <div class="dataTables_length">
+                                <button
+                                        data-ng-disabled="!resetFlag"
+                                        data-ng-click="resetFilter()"
+                                        class="btn btn-info"
+                                        >
+                                    <i class="icon-filter"></i> <span data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover">重置规则</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered" data-kz-table-fixed-header>
+                            <thead>
+                            <tr>
+                                <th ng-click="predicate='fileName'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='fileName'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                    备份文件名
+                                </th>
+                                <th class="hidden-phone" ng-click="predicate='fileSize'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='fileSize'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                    文件尺寸
+                                </th>
+                                <th class="hidden-phone" ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='dateTime'" ng-switch on="reverse">
+                                            <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                            <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                        </span>
+                                    备份时间
+                                </th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">{{ item.fileName }}</td>
+                                <td class="center hidden-phone">{{ item.fileSize }}</td>
+                                <td class="center hidden-phone">{{ item.dateTime }}</td>
+                                <td class="center hidden-phone">{{ item.opreate }}</td>
+                                <td class="center">
+                                        <span
+                                                class="btn btn-mini "
+                                                data-ng-class="{'btn-success': item.status=='1', 'btn-danger': item.status=='0'}"
+                                                data-ng-switch on="item.status"
+                                                data-ng-click="statusFilter(item.status)"
+                                                >
+                                            <b data-ng-switch-when="1">成功</b>
+                                            <b data-ng-switch-when="0">失败</b>
+                                        </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="ui-toolbar ui-widget-header">
+                            <div class="dataTables_filter">
+                                <label>
+                                    <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                    <input
+                                            data-ng-change="resetFlag=true"
+                                            data-ng-model="searchText"
+                                            type="text"
+                                            placeholder="过滤条件"
+                                            />
+                                </label>
+                            </div>
+
+                            <div class="dataTables_paginate">
+                                <div data-trigger="click" data-bs-tooltip="hasManyData?'将从服务器端获取更多数据':'暂时没有更多啦'">
+                                    <button
+                                            class="btn"
+                                            data-ng-click="downloadData()"
+                                            data-ng-disabled="!hasManyData"
+                                            data-ng-hide="isLoading"
+                                            >
+                                    <span data-ng-switch on="hasManyData">
+                                        <span data-ng-switch-when="true"><i class="icon-download-alt"></i></span>
+                                        <span data-ng-switch-when="false"><i class="icon-twitter"></i></span>
+                                    </span>
+                                    </button>
+                                    <img data-ng-show="isLoading" src="./img/loading.gif" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
