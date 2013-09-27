@@ -53,9 +53,7 @@ define([], function(){
 
         $scope.delete = function(object, index){
 
-            $scope.data[index].validity = false;
-
-            //$scope.data.splice(index, 1);
+            $scope.data.splice(index, 1);
         };
 
         //更改有效性

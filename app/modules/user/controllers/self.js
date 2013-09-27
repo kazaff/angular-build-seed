@@ -31,7 +31,7 @@ define(function(){
                         , text: '个人信息更新成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
-                        , sticky: true
+                        , sticky: false
                     });
 
                     //更新本地存储
