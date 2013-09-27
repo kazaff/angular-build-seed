@@ -906,9 +906,14 @@ hr{ border-top-color:#dadada;}
 .activity-list li {
 	border-bottom: 1px solid #EEEEEE;
 	display: block;
+    padding: 10px 0;
 }
 .activity-list li:last-child {
 	border-bottom: medium none;
+}
+.activity-list li span.text{
+    font-weight: bold;
+    color: #28b779;
 }
 .activity-list li a {
 	display: block;

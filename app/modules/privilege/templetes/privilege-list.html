@@ -38,8 +38,8 @@
                         <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
                             <tr>
-                                <th ng-click="predicate='privilegeName'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='privilegeName'" ng-switch on="reverse">
+                                <th ng-click="predicate='privName'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='privName'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
@@ -71,7 +71,9 @@
                             </thead>
                             <tbody>
                             <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                <td class="center">{{ item.privName }} <i class="icon-tag" data-bs-tooltip="item.info" data-trigger="hover"></i></td>
+                                <td class="center">
+                                    <span data-trigger="click" data-unique="1" data-placement="right" data-title="详细" data-bs-popover="'info.html'">{{ item.privName }} <i class="icon-tag"></i></span>
+                                </td>
                                 <td class="center hidden-phone">
                                     {{ item.app }} <i class="icon-caret-right"></i> {{ item.group }}
                                 </td>
@@ -132,3 +134,18 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="info.html">
+    <ul class="activity-list">
+        <li>
+            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ item.privName }}
+        </li>
+        <li>
+            <span class="text">所属 <i class="icon-caret-right"></i></span> {{ item.app }} <i class="icon-arrow-right"></i> {{ item.group }}
+        </li>
+        <li>
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
+        </li>
+    </ul>
+    <button class="btn btn-success pull-right" data-ng-click="dismiss()">Close</button>
+    <div class="clearfix"></div>
+</script>
