@@ -36,6 +36,10 @@ define(function(){
                     scope.$watch('model', function(value){
                         element.bootstrapSwitch('setState', value, true);   //第三个参数用于禁止触发'switch-change'事件，避免死循环
                     });
+
+                    scope.$watch('active', function(value){
+                        element.bootstrapSwitch('setActive', value);
+                    });
                 }
             };
         }]);

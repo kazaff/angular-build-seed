@@ -11,10 +11,11 @@
 		}
 		
 		//列表
-		$page = $uri[3]; //请求页码
+		$page = $uri[4]; //请求页码
 		$preNum = 7;	//每页条数
 		$maxNum = 10;	//总条数
 		$maxPage = ceil($maxNum / $preNum);
+		$rowid=$preNum*$page;
 		
 		if($page <= $maxPage){
 			$result = new stdClass();
@@ -29,8 +30,10 @@
 				mt_srand((double)microtime()*1000000);
 					
 				$item = new stdClass();
+				$item->id = $rowid+$i+1;				
 				$item->dateTime = date('Y-m-d H:i:s', time() + $i * 1000);
-				$item->size = mt_rand(0, 5).'MB';
+				$item->fileName = urlencode(mb_convert_encoding('备份文件'.mt_rand(0, 100), 'utf-8', 'gbk'));
+				$item->fileSize = mt_rand(0, 5).'MB';
 					
 				$result->items[] = $item;
 			}

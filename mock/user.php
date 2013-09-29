@@ -13,7 +13,7 @@
 			
 			$user = json_decode(urldecode($data->user));
 			//var_dump(mb_convert_encoding($user->name, 'gbk', 'utf-8'));
-			
+			sleep(5);
 			echo '{"status":1}';
 		
 		}elseif($uri[3] == 'selfPsw'){	//修改当前用户密码

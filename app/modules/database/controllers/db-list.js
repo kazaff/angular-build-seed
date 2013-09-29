@@ -8,13 +8,14 @@ define(function(){
     'use strict';
 
     return ['$scope', '$routeParams', 'auth', 'action', 'db', function($scope, $routeParams, auth, action, db){
-        var page = $routeParams.page;
+        var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
+        $scope.isSuccess =true;
 
         $scope.data = [];
-        db.dbList({page: page}).$promise.then(function(response){
+        db.query({file: 0,page: page}).$promise.then(function(response){
 
             angular.forEach(response.items, function(item){
                 item.fileName = decodeURI(item.fileName);
@@ -34,6 +35,23 @@ define(function(){
             $scope.resetFlag = 1;
         };
 
+        $scope.dbRecover = function(fileName){
+            $scope.isSuccess=true;
+            $().popover(options).popover('hide');
+        };
+
+        $scope.dbDownload = function(id){
+            db.query({file: 0,page: page,Download:1}).$promise.then(function(data){
+                var blob = new Blob([data], {type: "application/octet-stream"});
+                saveAs(blob, 'hello.png');
+            });
+        };
+
+        $scope.dbDelete = function(id,index){
+            $scope.isSuccess=true;
+            $("tr#"+id).addClass("delete-line").fadeOut(1000,function(){$scope.data.splice(index, 1)}) ;
+            $scope.isSuccess=false;
+        };
         //重置结果集，清空所有筛选条件，包括排序
         $scope.resetFilter = function(){
             $scope.status = '';
@@ -47,7 +65,7 @@ define(function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            db.dbList({page: ++page}).$promise.then(function(response){
+            db.query({file:0,page: ++page}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.fileName = decodeURI(item.fileName);

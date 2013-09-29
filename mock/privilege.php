@@ -63,6 +63,18 @@
 		}
 		
 		echo '{"status": '.mt_rand(0, 1).'}';
+	
+	}elseif($method == 'PUT'){
+		//±¸·Ý
+		sleep(2);		
+		echo '{"status":'.mt_rand(0, 1).'}';
+		
+	}elseif($method == 'DELETE'){
+		
+		//É¾³ý
+		sleep(2);
+		echo '{"status":'.mt_rand(0, 1).'}';
+		
 	}
 	
 	

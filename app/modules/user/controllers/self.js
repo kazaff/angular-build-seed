@@ -45,7 +45,7 @@ define(function(){
                         , text: '个人信息更新失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
-                        , sticky: true
+                        , sticky: false
                         , before_close: function(e, manual_close){
                             $scope.$apply(action.forward('userSelf', 'user'));
                         }

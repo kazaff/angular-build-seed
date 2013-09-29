@@ -45,87 +45,88 @@
                                         </span>
                                     权限名称
                                 </th>
+                                <th class="hidden-phone" ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='app'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                    所属系统
+                                </th>
                                 <th class="hidden-phone" ng-click="predicate='group'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='group'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                    所属
+                                    所属父组
                                 </th>
-                                <th ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='validity'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
                                     有效性
                                 </th>
-                                <th class="hidden-phone" ng-click="predicate='default'; reverse=!reverse; resetFlag=true">
+                                <th class="span2" ng-click="predicate='default'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='default'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
                                     默认状态
                                 </th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                            <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">
-                                    <span data-trigger="click" data-unique="1" data-placement="right" data-title="详细" data-bs-popover="'info.html'">{{ item.privName }} <i class="icon-tag"></i></span>
+                                    <span
+                                        data-trigger="click"
+                                        data-unique="1"
+                                        data-placement="right"
+                                        data-title="详细"
+                                        data-bs-popover="'info.html'"
+                                    >
+                                        <a class="help-info">{{ item.privName }} <i class="icon-tag"></i></a>
+                                    </span>
                                 </td>
-                                <td class="center hidden-phone">
-                                    {{ item.app }} <i class="icon-caret-right"></i> {{ item.group }}
+                                <td class="center hidden-phone">{{ item.app }}</td>
+                                <td class="center hidden-phone">{{ item.group }}</td>
+                                <td class="center">
+                                    <kz-switch
+                                            data-id="{{ $parent.$index }}"
+                                            data-method="changeValidity(id, status)"
+                                            data-model="item.validity"
+                                            data-on-label="是"
+                                            data-off-label="否"
+                                            data-active="true"
+                                    />
                                 </td>
                                 <td class="center">
-                                        <kz-switch
-                                                data-id="{{ $parent.$index }}"
-                                                data-method="changeValidity(id, status)"
-                                                data-model="item.validity"
-                                                data-on-label="是"
-                                                data-off-label="否"
-                                                data-active="switchFlag"
-                                        />
-                                </td>
-                                <td class="center hidden-phone">
                                     <kz-switch
                                             data-id="{{ $parent.$index }}"
                                             data-method="changeDefault(id, status)"
                                             data-model="item.default"
                                             data-on-label="是"
                                             data-off-label="否"
-                                            data-active="switchFlag"
+                                            data-active="true"
                                     />
-                                </td>
-                                <td class="center">
-                                    <span><kz-action data-name="privilegeEdit" data-group="privilege" data-args="{{ '{pid:' + $parent.item.privId + '}' }}" /></span>
-                                    <span> | </span>
-                                    <span><kz-action data-name="privilegeDelete" data-group="privilege" data-ng-click="$parent.delete($parent.item, $parent.$index)" /></span>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
-                            <div class="dataTables_filter">
-                                <label>
-                                    <kz-action class="btn btn-success" data-name="privilegeAdd" data-group="privilege" />
-                                </label>
-                            </div>
-
                             <div class="dataTables_paginate">
-                                    <button
-                                            class="btn"
-                                            data-ng-click="downloadData()"
-                                            data-ng-disabled="!hasManyData"
-                                            data-ng-hide="isLoading"
-                                    >
-                                        <span data-ng-switch on="hasManyData">
-                                            <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
-                                            <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
-                                        </span>
-                                    </button>
-                                    <img data-ng-show="isLoading" src="./img/loading.gif" />
+                                <button
+                                        class="btn"
+                                        data-ng-click="downloadData()"
+                                        data-ng-disabled="!hasManyData"
+                                        data-ng-hide="isLoading">
+                                    <span data-ng-switch on="hasManyData">
+                                        <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
+                                        <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
+                                    </span>
+                                </button>
+                                <img data-ng-show="isLoading" src="./img/loading.gif" />
                             </div>
                         </div>
                     </div>
@@ -146,6 +147,6 @@
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
-    <button class="btn btn-success pull-right" data-ng-click="dismiss()">Close</button>
+    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()">关闭</button>
     <div class="clearfix"></div>
 </script>

@@ -16,8 +16,10 @@ body {
 }
 a{color:#666;}
 a:hover, a:focus {
-	text-decoration: none; color:#28b779;
+	text-decoration: none;
 }
+a.help-info:hover { cursor: help;}
+table a:hover, table a:focus{ color:#28b779; border-bottom: 1px dashed #28b779; cursor: pointer;}
 .dropdown-menu .divider{ margin:4px 0px;}
 .dropdown-menu{ min-width:180px;}
 .dropdown-menu > li > a{ padding:3px 10px; color:#666; font-size:12px;}
@@ -36,6 +38,7 @@ hr{ border-top-color:#dadada;}
 .label-important, .badge-important{ background:#f74d4d;}
 
 .cursor-pointer{ cursor: pointer}
+.delete-line{ text-decoration:line-through;}
 
 /*Metro Background color class*/
 .bg_lb{ background:#27a9e3;}
@@ -1603,7 +1606,7 @@ body {
 	display: none;
 }
 #user-nav > ul > li > a > span.text,
-table > tbody > tr > td > span > a > span.text,
+table > tbody > tr > td span > a > span.text,
 button > span.text{
 	display: none;
 }

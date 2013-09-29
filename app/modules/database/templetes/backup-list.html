@@ -30,7 +30,7 @@
                                         </span>
                                     备份文件名
                                 </th>
-                                <th class="hidden-phone" ng-click="predicate='fileSize'; reverse=!reverse; resetFlag=true">
+                                <th class="hidden-phone span2" ng-click="predicate='fileSize'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='fileSize'" ng-switch on="reverse">
                                             <i class="icon-arrow-up" ng-switch-when="false"></i>
                                             <i class="icon-arrow-down" ng-switch-when="true"></i>
@@ -48,22 +48,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                            <tr id="{{item.id}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">{{ item.fileName }}</td>
                                 <td class="center hidden-phone">{{ item.fileSize }}</td>
                                 <td class="center hidden-phone">{{ item.dateTime }}</td>
-                                <td class="center hidden-phone">{{ item.opreate }}</td>
                                 <td class="center">
-                                        <span
-                                                class="btn btn-mini "
-                                                data-ng-class="{'btn-success': item.status=='1', 'btn-danger': item.status=='0'}"
-                                                data-ng-switch on="item.status"
-                                                data-ng-click="statusFilter(item.status)"
-                                                >
-                                            <b data-ng-switch-when="1">成功</b>
-                                            <b data-ng-switch-when="0">失败</b>
-                                        </span>
-                                </td>
+                                    <span>
+                                        <span data-trigger="click"
+                                              data-unique="1"
+                                              data-placement="left"
+                                              data-title="提示"
+                                              data-bs-popover="'delete.html'"><kz-action  data-name="dbDelete" data-group="database"  /></span>
+                                        <span>|</span>
+                                        <span data-trigger="click"  data-bs-tooltip="isSuccess?'还原成功':'还原失败'"><kz-action  data-name="dbRecover" data-group="database" data-ng-click="$parent.dbRecover($parent.item.fileName) " /></span>
+                                        <span>|</span>
+                                        <span ><kz-action  data-name="dbDownload" data-group="database" data-ng-click="$parent.dbDownload($parent.item.fileName)" /></span>
+                                    </span>
+                                  </td>
                             </tr>
                             </tbody>
                         </table>
@@ -82,7 +83,7 @@
                             </div>
 
                             <div class="dataTables_paginate">
-                                <div data-trigger="click" data-bs-tooltip="hasManyData?'将从服务器端获取更多数据':'暂时没有更多啦'">
+                                <div data-trigger="click"  data-bs-tooltip="hasManyData?'将从服务器端获取更多数据':'暂时没有更多啦'">
                                     <button
                                             class="btn"
                                             data-ng-click="downloadData()"
@@ -94,6 +95,7 @@
                                         <span data-ng-switch-when="false"><i class="icon-twitter"></i></span>
                                     </span>
                                     </button>
+                                    <span data-trigger="click"><kz-action class="btn btn-primary " data-name="dbBackup" data-group="database" data-ng-click="$parent.dbBackup() " /></span>
                                     <img data-ng-show="isLoading" src="./img/loading.gif" />
                                 </div>
                             </div>
@@ -104,3 +106,13 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="delete.html">
+    <ul class="activity-list">
+        <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.privName }}</span>么？</li>
+    </ul>
+    <div class="pull-right">
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id, $parent.$index)">确定</button>
+        <button class="btn btn-mini" >取消</button>
+    </div>
+    <div class="clearfix"></div>
+</script>

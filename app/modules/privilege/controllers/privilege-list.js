@@ -14,11 +14,6 @@ define([], function(){
         $scope.isLoading = true;
         $scope.data = [];
 
-        //检查用户是否拥有编辑权限，用于判断是否激活修改开关数据
-        Action.link('privilegeEdit', 'privilege').success(function(response){
-            $scope.switchFlag = response.status;
-        });
-
         //获取更多的数据
         $scope.downloadData = function(){
             $scope.isLoading = true;
@@ -51,11 +46,6 @@ define([], function(){
             $scope.resetFlag = 0;
         };
 
-        $scope.delete = function(object, index){
-
-            $scope.data.splice(index, 1);
-        };
-
         //更改有效性
         $scope.changeValidity = function(index, status){
 
@@ -69,7 +59,7 @@ define([], function(){
                         , text: '权限的有效性更改失败!'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
-                        , sticky: true
+                        , sticky: false
                         , before_close: function(e, manual_close){
                             $scope.$apply(Action.forward('privilegeList', 'privilege' , {page:1}));
                         }

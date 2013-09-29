@@ -11,7 +11,7 @@ define([
     //控制器
     , 'modules/database/controllers/db-list'
     //服务
-    , 'modules/database/services/db'
+    , 'modules/database/services/database'
     //指令
     //库
     , 'angular/angular-resource'

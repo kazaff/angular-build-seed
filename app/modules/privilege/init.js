@@ -16,7 +16,7 @@ define([
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, privListCtrl, privServ){
+], function(console, angular, prvListCtrl, privServ){
     'use strict';
 
     console.group('权限模块初始化');
@@ -25,7 +25,7 @@ define([
 
     privilegeModule.factory('privilege', privServ);
 
-    privilegeModule.controller('prvlistCtrl', privListCtrl);
+    privilegeModule.controller('prvListCtrl', prvListCtrl);
 
     console.groupEnd();
 

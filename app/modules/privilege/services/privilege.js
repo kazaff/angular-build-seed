@@ -10,7 +10,7 @@ define([
     'use strict';
 
     return ['$resource', function($resource){
-        return $resource(config.domain + 'privilege/:pid/:page', {}, {
+        return $resource(config.domain + 'privilege/:pid/:page', {pid:'@privId'}, {
             query:{
                 method: 'GET'
                 , params: {pid: 0}
@@ -19,6 +19,9 @@ define([
             , changStatus: {
                 method: 'POST'
                 , params: {opt: 'onlyStatus'}
+            }
+            , remove: {
+                method: 'DELETE'
             }
         });
     }];
