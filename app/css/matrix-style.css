@@ -1607,6 +1607,7 @@ body {
 }
 #user-nav > ul > li > a > span.text,
 table > tbody > tr > td span > a > span.text,
+.ui-toolbar > .dataTables_filter a > span.text,
 button > span.text{
 	display: none;
 }
