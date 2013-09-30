@@ -83,8 +83,7 @@
                                         data-unique="1"
                                         data-placement="right"
                                         data-title="详细"
-                                        data-bs-popover="'info.html'"
-                                    >
+                                        data-bs-popover="'info.html'">
                                         <a class="help-info">{{ item.privName }} <i class="icon-tag"></i></a>
                                     </span>
                                 </td>
@@ -92,13 +91,12 @@
                                 <td class="center hidden-phone">{{ item.group }}</td>
                                 <td class="center">
                                     <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeValidity(id, status)"
-                                            data-model="item.validity"
-                                            data-on-label="是"
-                                            data-off-label="否"
-                                            data-active="true"
-                                    />
+                                        data-id="{{ $parent.$index }}"
+                                        data-method="changeValidity(id, status)"
+                                        data-model="item.validity"
+                                        data-on-label="是"
+                                        data-off-label="否"
+                                        data-active="true" />
                                 </td>
                                 <td class="center">
                                     <kz-switch

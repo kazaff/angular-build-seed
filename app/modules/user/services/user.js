@@ -11,7 +11,7 @@ define([
 
     return ['$resource', function($resource){
 
-        return $resource(config.domain + 'user/:uid', {uid: '@id'}, {
+        return $resource(config.domain + 'user/:uid/:page', {uid: '@id'}, {
             updateSelf: {
                 method: 'POST'
                 , params: {uid: 'self'}
@@ -23,6 +23,17 @@ define([
             , authSelf: {
                 method: 'POST'
                 , params: {uid: 'selfAuth'}
+            }
+            , userList: {
+                method: 'GET'
+                , params: {uid: 0}
+            }
+            , changStatus: {
+                method: 'POST'
+                , params: {uid: 'onlyStatus'}
+            }
+            , remove: {
+                method: 'DELETE'
             }
         });
     }];

@@ -47,8 +47,20 @@
 		
 	}elseif($method == 'PUT'){
 		//备份
-		sleep(2);		
-		echo '{"status":'.mt_rand(0, 1).'}';
+		
+		$result = new stdClass();
+		$result->status = mt_rand(0, 1);
+		
+		if($result->status == 1){
+			$result->data = new stdClass();
+			$result->data->id = mt_rand(0, 999);
+			$result->data->dateTime = date('Y-m-d H:i:s', time() + 6 * 1000);
+			$result->data->fileName = urlencode(mb_convert_encoding('备份文件'.mt_rand(0, 100), 'utf-8', 'gbk'));
+			$result->data->fileSize = mt_rand(0, 5).'MB';
+		}
+		
+		sleep(2);
+		echo json_encode($result);
 		
 	}elseif($method == 'DELETE'){
 		//删除

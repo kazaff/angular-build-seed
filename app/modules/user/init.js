@@ -11,6 +11,7 @@ define([
     //控制器
     , 'modules/user/controllers/self'
     , 'modules/user/controllers/self-psw'
+    , 'modules/user/controllers/user-list'
     //服务
     , 'modules/user/services/user'
     //指令
@@ -18,7 +19,7 @@ define([
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, userSelfCtrl, userSelfPswCtrl, user, pswStrength){
+], function(console, angular, userSelfCtrl, userSelfPswCtrl, userListCtrl, user, pswStrength){
    'use strict';
 
     console.group('用户模块初始化');
@@ -29,6 +30,7 @@ define([
 
     userModule.controller('userSelfCtrl', userSelfCtrl);
     userModule.controller('userSelfPswCtrl', userSelfPswCtrl);
+    userModule.controller('userListCtrl', userListCtrl);
 
     userModule.directive('kzPasswordStrength', pswStrength);
 

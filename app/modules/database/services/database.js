@@ -14,6 +14,18 @@ define([
             query:{
                 method: 'GET'
                 , isArray: false
+            },
+            delete:{
+                method: 'DELETE'
+                , isArray: false
+            } ,
+            backup:{
+                method: 'PUT'
+                , isArray: false
+            },
+            recover:{
+                method: 'POST'
+                , isArray: false
             }
         });
     }];

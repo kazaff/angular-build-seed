@@ -20,6 +20,16 @@ define(function(){
             , title: '权限列表'
             , icon: 'icon-eye-open'
             , api: 'restV1/privilege/get'
+        }
+        ,{
+            uri: '/privilege/user/:uid/list/:page'
+            , controller: 'prvUserListCtrl'
+            , templateUrl: 'modules/privilege/templetes/user-privilege-list.html'
+            , ifMenu: false
+            , name: 'privilegeUserList'
+            , title: '权限列表'
+            , icon: 'icon-screenshot'
+            , api: 'restV1/privilege/get'
         }]
     };
 });

@@ -38,7 +38,7 @@ define(function(){
             , ifMenu: false
             , name: 'userEdit'
             , title: '编辑'
-            , icon: 'icon-user'
+            , icon: 'icon-edit'
             , api: 'restV1/user/put'
         }
         , {
@@ -52,15 +52,11 @@ define(function(){
             , api: 'restV1/user/get'
         }
         , {
-            uri: '/user/delete/:uid'
-            , controller: 'userDeleteCtrl'
-            , templateUrl: 'modules/user/templetes/user-delete.html'
-            , ifMenu: false
+            ifMenu: false
             , name: 'userDelete'
             , title: '删除'
-            , icon: ''
+            , icon: 'icon-trash'
             , api: 'restV1/user/delete'
-
         }
         , {
             uri: '/user/self'
@@ -80,7 +76,37 @@ define(function(){
             , name: 'userSelfPsw'
             , title: '更改口令'
             , icon: 'icon-key'
-            , api: 'restV1/user/get'
+            , api: 'restV1/user/put'
+        }
+        , {
+            uri: '/user/:uid/group/list/:page'
+            , controller: 'userGroupListCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-list.html'
+            , ifMenu: false
+            , name: 'userGroupList'
+            , title: '所属用户组'
+            , icon: 'icon-group'
+            , api: 'restV1/userGroup/get'
+        }
+        , {
+            uri: '/user/:uid/psw'
+            , controller: 'userPswCtrl'
+            , templateUrl: 'modules/user/templetes/user-psw.html'
+            , ifMenu: false
+            , name: 'userPsw'
+            , title: '更改口令'
+            , icon: 'icon-key'
+            , api: 'restV1/user/put'
+        }
+        , {
+            uri: '/user/:uid/psw'
+            , controller: 'userSystemListCtrl'
+            , templateUrl: 'modules/user/templetes/user-system-list.html'
+            , ifMenu: false
+            , name: 'userSystemList'
+            , title: '可访问系统'
+            , icon: 'icon-cloud'
+            , api: 'restV1/userSystem/get'
         }]
     };
 });

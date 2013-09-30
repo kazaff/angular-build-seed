@@ -17,7 +17,10 @@ define(function(){
                 , link: function(scope, element, attrs){
                     action.link(attrs.name, attrs.group).success(function(response){
                         var data = angular.copy(response);
-                        element.html('<i class="'+ data.icon + '"></i> <span class="text">' + data.title + '</span>');
+
+                        element.html('<i data-toggle="tooltip" data-placement="top" title="" data-trigger="hover"  data-original-title="'+ data.title +'" class="'+ data.icon + '"></i> <span class="text">' + data.title + '</span>');
+                        element.find('i').tooltip();
+
                         if(data.status == 0){
                             //TODO 需要判断当前用户是否有权限进行该操作
                             //element.remove(); //若无权限，则不显示该链接

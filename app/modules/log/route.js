@@ -28,7 +28,7 @@ define(function(){
             , ifMenu: false
             , name: 'loginList'
             , title: '登录日志'
-            , icon: 'icon-inbox'
+            , icon: 'icon-signin'
             , api: 'restV1/logLogin/get'
         }
         , {
@@ -39,6 +39,16 @@ define(function(){
             , name: 'actionAllList'
             , title: '行为日志'
             , icon: 'icon-inbox'
+            , api: 'restV1/logAction/get'
+        }
+        , {
+            uri: '/action-log/user/:uid/list/:page'
+            , controller: 'logActionUserCtrl'
+            , templateUrl: 'modules/log/templetes/action-list.html'
+            , ifMenu: true
+            , name: 'actionList'
+            , title: '行为日志'
+            , icon: 'icon-eye-open'
             , api: 'restV1/logAction/get'
         }]
     };
