@@ -99,8 +99,7 @@ define(function(){
             , api: 'restV1/user/put'
         }
         , {
-            uri: '/user/:uid/psw'
-            , controller: 'userSystemListCtrl'
+            controller: 'userSystemListCtrl'
             , templateUrl: 'modules/user/templetes/user-system-list.html'
             , ifMenu: false
             , name: 'userSystemList'

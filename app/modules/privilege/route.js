@@ -22,7 +22,7 @@ define(function(){
             , api: 'restV1/privilege/get'
         }
         ,{
-            uri: '/privilege/user/:uid/list/:page'
+            uri: '/privilege/uid/:uid/list/:page'
             , controller: 'prvUserListCtrl'
             , templateUrl: 'modules/privilege/templetes/user-privilege-list.html'
             , ifMenu: false

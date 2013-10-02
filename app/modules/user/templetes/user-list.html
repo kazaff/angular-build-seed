@@ -103,7 +103,7 @@
                                                 <kz-action data-name="userDelete" data-group="user" />
                                             </span>
                                             <span>&nbsp;</span>
-                                            <span><kz-action data-name="privilegeUserList" data-group="privilege" /></span>
+                                            <span><kz-action data-name="privilegeUserList" data-group="privilege" data-args="{uid: {{ $parent.item.userId }}, page: 1}" /></span>
                                             <span>&nbsp;</span>
                                             <span><kz-action data-name="userGroupList" data-group="user" /></span>
                                             <span>&nbsp;</span>
@@ -176,7 +176,7 @@
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
-    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()">关闭</button>
+    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
     <div class="clearfix"></div>
 </script>
 <script type="text/ng-template" id="delete.html">
@@ -184,9 +184,9 @@
         <li><i class="icon-bullhorn"></i> 您确定删除 用户<span class="text">{{ item.name }}</span> 么？</li>
     </ul>
     <div class="pull-right">
-        <button class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.item, $parent.$index);hide()">确定</button>
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.item, $parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
         <span>&nbsp;</span>
-        <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
+        <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
 </script>
