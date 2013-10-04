@@ -128,7 +128,7 @@ define([], function(){
                         }($routeParams.uid)
                     });
                 }else{
-                    $scope.data[index].default = status;
+                    $scope.data[index].rule = status;
                 }
             });
 

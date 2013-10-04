@@ -26,7 +26,7 @@
                                             data-ng-change="resetFlag=true"
                                             data-ng-model="searchText"
                                             type="text"
-                                            placeholder="过滤条件 或 查询关键字"
+                                            placeholder="过滤条件"
                                             />
                                     <button
                                             data-ng-disabled="!resetFlag"
@@ -56,15 +56,15 @@
                                             </span>
                                         所属
                                     </th>
-                                    <th class="hidden-phone" ng-click="predicate='group'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='group'" ng-switch on="reverse">
+                                    <th class="hidden-phone" ng-click="predicate='begin'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='begin'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
                                         时间段
                                     </th>
-                                    <th class="span2" ng-click="predicate='default'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='default'" ng-switch on="reverse">
+                                    <th class="span2" ng-click="predicate='rule'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='rule'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
@@ -101,7 +101,7 @@
                                         <kz-switch
                                                 data-id="{{ $parent.$index }}"
                                                 data-method="changeRule(id, status)"
-                                                data-model="item.default"
+                                                data-model="item.rule"
                                                 data-on-label="允许"
                                                 data-off-label="禁止"
                                                 data-active="switchFlag && !item.isDelete" />
@@ -116,15 +116,18 @@
                                                 data-active="switchFlag && !item.isDelete" />
                                     </td>
                                     <td class="center">
-                                        <span><kz-action data-name="privilegeUserEdit" data-group="privilege" data-args="{pid: '{{ $parent.item.privId }}', uid: {{ $parent.uid }} }" /></span>
-                                        <span>&nbsp;</span>
-                                        <span data-trigger="click"
-                                              data-unique="1"
-                                              data-placement="left"
-                                              data-title="提示"
-                                              data-bs-popover="'delete.html'">
-                                            <kz-action data-name="privilegeUserDelete" data-group="privilege" />
-                                        </span>
+                                        <div data-ng-hide="item.isDelete">
+                                            <span><kz-action data-name="privilegeUserEdit" data-group="privilege" data-args="{pid: '{{ $parent.item.privId }}', uid: {{ $parent.uid }} }" /></span>
+                                            <span>&nbsp;</span>
+                                            <span data-trigger="click"
+                                                  data-unique="1"
+                                                  data-placement="left"
+                                                  data-title="提示"
+                                                  data-bs-popover="'delete.html'">
+                                                <kz-action data-name="privilegeUserDelete" data-group="privilege" />
+                                            </span>
+                                        </div>
+                                        <i class="icon-lock" data-ng-show="item.isDelete"></i>
                                     </td>
                                 </tr>
                             </tbody>

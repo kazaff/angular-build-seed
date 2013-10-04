@@ -93,7 +93,10 @@
                                     <td class="center hidden-phone">{{ item.app }}</td>
                                     <td class="center hidden-phone">{{ item.group }}</td>
                                     <td class="center">
-                                        {{ item.default }}
+                                        <span data-ng-switch data-on="item.default">
+                                            <span ng-switch-when="1">是</span>
+                                            <span ng-switch-when="0">否</span>
+                                        </span>
                                     </td>
                                     <td class="center">
                                         <a data-ng-click="modalWin(item.privId)"><i class="icon-plus"></i> <span class="text">添加</span></a>
