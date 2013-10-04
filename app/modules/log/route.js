@@ -22,7 +22,7 @@ define(function(){
             , api: 'restV1/logLogin/get'
         }
         , {
-            uri: '/login-log/user/:uid/list/:page'
+            uri: '/login-log/uid/:uid/list/:page'
             , controller: 'logLoginUserCtrl'
             , templateUrl: 'modules/log/templetes/login-list.html'
             , ifMenu: false
@@ -42,10 +42,10 @@ define(function(){
             , api: 'restV1/logAction/get'
         }
         , {
-            uri: '/action-log/user/:uid/list/:page'
+            uri: '/action-log/uid/:uid/list/:page'
             , controller: 'logActionUserCtrl'
             , templateUrl: 'modules/log/templetes/action-list.html'
-            , ifMenu: true
+            , ifMenu: false
             , name: 'actionList'
             , title: '行为日志'
             , icon: 'icon-eye-open'

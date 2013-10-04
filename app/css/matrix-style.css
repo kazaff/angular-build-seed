@@ -19,7 +19,7 @@ a:hover, a:focus {
 	text-decoration: none;
 }
 a.help-info:hover { cursor: help;}
-table a:hover, table a:focus{ color:#28b779; border-bottom: 1px dashed #28b779; cursor: pointer;}
+table a:hover, table a:focus, h5 a:hover, h5 a:focus{ color:#28b779; border-bottom: 1px dashed #28b779; cursor: pointer;}
 .dropdown-menu .divider{ margin:4px 0px;}
 .dropdown-menu{ min-width:180px;}
 .dropdown-menu > li > a{ padding:3px 10px; color:#666; font-size:12px;}
@@ -556,6 +556,12 @@ hr{ border-top-color:#dadada;}
 	border-bottom: 1px solid #CDCDCD;
 	height: 36px;  
 }
+.widget-title .nav-tabs > li {
+    margin-right: -1px;
+}
+.widget-content.tab-content {
+    overflow: visible;
+}
 .widget-title .nav-tabs {
 	border-bottom: 0 none; 
 }
@@ -571,9 +577,6 @@ hr{ border-top-color:#dadada;}
 	padding: 9px 10px 8px;
 	font-weight: bold; 
 	text-shadow: 0 1px 0 #FFFFFF;
-}
-.widget-title .nav-tabs li:first-child a {
-	border-left: medium none !important;
 }
 .widget-title .nav-tabs li a:hover {
 	background-color: transparent !important;
@@ -1115,7 +1118,6 @@ div.dataTables_wrapper .ui-widget-header {
 .line {
 	background: url("../img/line.png") repeat-x scroll 0 0 transparent;
 	display: block;
-	height: 8px;
 }
 .modal {
 	z-index: 99999 !important;

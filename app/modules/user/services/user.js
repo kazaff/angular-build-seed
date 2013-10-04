@@ -11,7 +11,7 @@ define([
 
     return ['$resource', function($resource){
 
-        return $resource(config.domain + 'user/:uid/:page', {uid: '@id'}, {
+        return $resource(config.domain + 'user/:uid/:page', {}, {
             updateSelf: {
                 method: 'POST'
                 , params: {uid: 'self'}

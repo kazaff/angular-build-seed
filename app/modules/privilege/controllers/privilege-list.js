@@ -49,7 +49,7 @@ define([], function(){
         //更改有效性
         $scope.changeValidity = function(index, status){
 
-            var promise = Privilege.changStatus({id: $scope.data[index].privId, status: status, type: 'validity'}).$promise;
+            var promise = Privilege.changStatus({pid: $scope.data[index].privId, status: status, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -75,7 +75,7 @@ define([], function(){
         //更改默认状态
         $scope.changeDefault = function(index, status){
 
-            var promise = Privilege.changStatus({id: $scope.data[index].privId, status: status, type: 'default'}).$promise;
+            var promise = Privilege.changStatus({pid: $scope.data[index].privId, status: status, type: 'default'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示

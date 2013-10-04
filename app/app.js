@@ -67,6 +67,20 @@ define([
         //加载通用模块
         common.initialize(mainModule, routeRules);
 
+        //日期控件的配置
+        mainModule.value('$strapConfig', {
+            datepicker: {
+                language:  'zh-CN'
+                , weekStart: 1
+                , todayBtn:  1
+                , autoclose: 1
+                , todayHighlight: 1
+                , keyboardNavigation: 1
+                , pickerPosition: 'bottom-left'
+                , format: 'yyyy-mm-dd'
+            }
+        });
+
         return mainModule;
     };
 

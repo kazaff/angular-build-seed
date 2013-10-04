@@ -10,13 +10,16 @@ define([
     , 'angular/angular'
     //控制器
     , 'modules/privilege/controllers/privilege-list'
+    , 'modules/privilege/controllers/user-privilege-list'
+    , 'modules/privilege/controllers/user-privilege-add'
     //服务
     , 'modules/privilege/services/privilege'
+    , 'modules/privilege/services/userPrivilege'
     //指令
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, prvListCtrl, privServ){
+], function(console, angular, prvListCtrl, userPrvListCtrl, userPrvAddCtrl, privServ, userPrvServ){
     'use strict';
 
     console.group('权限模块初始化');
@@ -24,8 +27,11 @@ define([
     var privilegeModule = angular.module('privilegeModule', ['ngResource']);
 
     privilegeModule.factory('privilege', privServ);
+    privilegeModule.factory('userPrivilege', userPrvServ);
 
     privilegeModule.controller('prvListCtrl', prvListCtrl);
+    privilegeModule.controller('prvUserListCtrl', userPrvListCtrl);
+    privilegeModule.controller('userPrvAddCtrl', userPrvAddCtrl);
 
     console.groupEnd();
 

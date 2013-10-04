@@ -3,17 +3,16 @@
 	$method = $_SERVER['REQUEST_METHOD'];
 
 	if($method == 'GET'){
-
-		//所有权限
-		$page = intval($uri[4]); //请求页码
-		$preNum = 7;	//每页条数
-		$maxNum = 18;	//总条数
-		
-		$maxPage = ceil($maxNum / $preNum);
-		$action = isset($_GET['user']) ? mb_convert_encoding(urldecode($_GET['user']), 'gbk', 'utf-8') : '';	//获取搜索关键字
 		
 		if($uri[3] == 0){
 			//所有用户
+			$page = intval($uri[4]); //请求页码
+			$preNum = 7;	//每页条数
+			$maxNum = 18;	//总条数
+			
+			$maxPage = ceil($maxNum / $preNum);
+			$action = isset($_GET['user']) ? mb_convert_encoding(urldecode($_GET['user']), 'gbk', 'utf-8') : '';	//获取搜索关键字
+			
 			$result = new stdClass();
 			$result->page = $page;
 			$result->maxNum = $maxNum;
@@ -48,6 +47,26 @@
 			}
 				
 			echo json_encode($result);
+		
+		}else{
+			//指定用户
+				
+			$item = new stdClass();
+			$item->userId = $uri[3];
+			$item->name = urlencode(mb_convert_encoding('白富美'.$uri[3], 'utf-8', 'gbk'));
+			$item->account = 'xxx'.mt_rand(1, 999);
+			$item->idCard = '123456789012345';
+			$item->sex = mt_rand(0, 1);
+			$item->type = mt_rand(0, 1);
+			$item->email = 'mail'.mt_rand(1, 999).'@163.com';
+			$item->qq = '664566173';
+			$item->phone = '0372-5980188';	
+			$item->mobile = '13729837023';
+			//$item->photo = '';	//后端用户头像如何暴露uri？
+			$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
+			$item->validity = (bool)mt_rand(0, 1);
+			
+			echo json_encode($item);	
 		}
 		
 	}elseif($method == 'POST'){

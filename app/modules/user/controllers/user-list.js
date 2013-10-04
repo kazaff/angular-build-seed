@@ -123,7 +123,7 @@ define(function(){
                     });
                 }
             });
-        }
+        };
 
         //获取第一屏数据
         $scope.downloadData();

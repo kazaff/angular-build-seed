@@ -10,10 +10,13 @@ require.config({
         'lib/bootstrap': ['jquery/jquery']
         , 'jquery/jquery.gritter.min': ['jquery/jquery']
         , 'jquery/table-fixed-header': ['jquery/jquery']
+        , 'jquery/jquery.ztree.all-3.5.min': ['jquery/jquery']
         , 'angular/angular-resource': ['angular/angular']
         , 'angular/angular-route': ['angular/angular']
         , 'angular/angular-animate': ['angular/angular']
         , 'angular/angular-strap': ['angular/angular', 'lib/bootstrap']
+        , 'angular/bootstrap-datepicker': ['angular/angular-strap']
+        , 'angular/bootstrap-datepicker.zh-CN': ['angular/bootstrap-datepicker']
         , 'jquery/bootstrap-switch.min': ['jquery/jquery', 'lib/bootstrap']
         , 'angular/angular': {
             exports: 'angular'
@@ -47,6 +50,8 @@ require([
     , 'jquery/jquery.gritter.min'
     , 'jquery/table-fixed-header'
     , 'jquery/bootstrap-switch.min'
+    , 'jquery/jquery.ztree.all-3.5.min'
+    , 'angular/bootstrap-datepicker.zh-CN'
 
     , 'lib/blob'
     , 'lib/FileSaver'

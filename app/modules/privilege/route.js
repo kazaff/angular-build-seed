@@ -21,7 +21,7 @@ define(function(){
             , icon: 'icon-eye-open'
             , api: 'restV1/privilege/get'
         }
-        ,{
+        , {
             uri: '/privilege/uid/:uid/list/:page'
             , controller: 'prvUserListCtrl'
             , templateUrl: 'modules/privilege/templetes/user-privilege-list.html'
@@ -29,7 +29,34 @@ define(function(){
             , name: 'privilegeUserList'
             , title: '权限列表'
             , icon: 'icon-screenshot'
-            , api: 'restV1/privilege/get'
+            , api: 'restV1/userPrivilege/get'
+        }
+        , {
+            ifMenu: false
+            , name: 'privilegeUserDelete'
+            , title: '删除'
+            , icon: 'icon-trash'
+            , api: 'restV1/userPrivilege/delete'
+        }
+        ,{
+            uri: '/privilege/uid/:uid/pid/:pid'
+            , controller: 'privilegeUserEditCtrl'
+            , templateUrl: 'modules/privilege/templetes/user-privilege-info.html'
+            , ifMenu: false
+            , name: 'privilegeUserEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/userPrivilege/put'
+        }
+        ,{
+            uri: '/privilege/uid/:uid/add'
+            , controller: 'userPrvAddCtrl'
+            , templateUrl: 'modules/privilege/templetes/user-privilege-add.html'
+            , ifMenu: false
+            , name: 'privilegeUserAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/userPrivilege/post'
         }]
     };
 });

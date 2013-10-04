@@ -43,7 +43,7 @@
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                    权限名称
+                                    权限
                                 </th>
                                 <th class="hidden-phone" ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='app'" ng-switch on="reverse">
@@ -133,6 +133,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/ng-template" id="info.html">
     <ul class="activity-list">
         <li>
@@ -145,6 +146,6 @@
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
-    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()">关闭</button>
+    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()">i class="icon-remove"></i> <span class="text">关闭</span></button>
     <div class="clearfix"></div>
 </script>

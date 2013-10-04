@@ -17,9 +17,10 @@ define([
     , 'common/directives/bread-crumbs'
     , 'common/directives/table-fixed-header'
     , 'common/directives/switch'
+    , 'common/directives/ztree'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, menu){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -38,6 +39,7 @@ define([
         breadCrumbs.initialize(module);
         tableFixedHeader.initialize(module);
         switchD.initialize(module);
+        ztree.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器
