@@ -7,7 +7,7 @@
  define(function(){
      'use strict';
 
-     return ['$scope', 'user', function($scope, User){
+     return ['$scope', 'user', 'action', function($scope, User, Action){
 
          //检查是否通过原始密码的认证
          $scope.auth = function(){
@@ -35,7 +35,7 @@
                  , fresh: $scope.newPsw
              };
 
-             User.updateSelfPsw({psw: encodeURIComponent(JSON.stringify(psw))}).$promise.then(function(response){
+             User.updateSelfPsw(psw).$promise.then(function(response){
                  if(response['status'] == 1){
 
                      //修改成功提示
@@ -59,9 +59,9 @@
                          , text: '密码更改失败!'
                          , class_name: 'loser'
                          , image: 'img/card.png'
-                         , sticky: true
+                         , sticky: false
                          , before_close: function(e, manual_close){
-                             $scope.$apply(action.forward('userSelfPsw', 'user'));
+                             $scope.$apply(Action.forward('userSelfPsw', 'user'));
                          }
                      });
                  }

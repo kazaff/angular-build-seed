@@ -72,7 +72,7 @@
 	}elseif($method == 'POST'){
 
 		//接受到post提交的数据，格式为json
-		$data = json_decode(file_get_contents("php://input"));
+		$data = json_decode(file_get_contents("php://input"));		
 		
 		//处理单纯的状态修改， 包括：有效性
 		if($uri[3] == 'onlyStatus'){
@@ -82,16 +82,15 @@
 
 		}elseif($uri[3] == 'self'){	//更新当前用户资料
 
-			$user = json_decode(urldecode($data->user));
-			//var_dump(mb_convert_encoding($user->name, 'gbk', 'utf-8'));
-			sleep(5);
+			//var_dump(mb_convert_encoding($data->info, 'gbk', 'utf-8'));
+			
+			sleep(1);
 			echo '{"status":1}';
 		
 		}elseif($uri[3] == 'selfPsw'){	//修改当前用户密码
-
-			$psw = json_decode(urldecode($data->psw));
-			//var_dump($psw->original);
-			//var_dump($psw->fresh);
+		
+			//var_dump($data->original);
+			//var_dump($data->fresh);
 			
 			echo '{"status": 1}';
 		

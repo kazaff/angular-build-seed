@@ -2,14 +2,14 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-13
- * Time: ÏÂÎç2:54
+ * Time: ï¿½ï¿½ï¿½ï¿½2:54
  */
 define(function(){
     'use strict';
 
     var initialize = function(module){
 
-        module.directive('kzBreadcrumbs', ['action', '$location', function(action, $location){
+        module.directive('kzBreadcrumbs', ['action', '$location', function(Action, $location){
             return {
                 restrict: 'EA'
                 , replace: true
@@ -32,7 +32,7 @@ define(function(){
                     scope.$watch(function(){
                         return $location.path();
                     }, function(uri){
-                        scope.info = action.findRoute(uri);
+                        scope.info = Action.findRoute(uri);
                     });
                 }
             };

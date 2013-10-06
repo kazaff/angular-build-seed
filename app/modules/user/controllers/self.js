@@ -22,7 +22,7 @@ define(function(){
 
         $scope.save = function(){
             //去后端更新
-            User.updateSelf({user: encodeURIComponent(JSON.stringify($scope.user))}).$promise.then(function(response){
+            User.updateSelf($scope.user).$promise.then(function(response){
 
                 if(response['status'] == 1){
                     //修改成功提示

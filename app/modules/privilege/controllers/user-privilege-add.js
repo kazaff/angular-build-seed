@@ -10,7 +10,7 @@ define([
     'use strict';
 
     return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userPrivilege', 'privilege', '$location', function($scope, Action, $routeParams, $modal, $q, UserPrivilege, Privilege, $location){
-        var page = $routeParams.page - 1;
+        var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
@@ -65,7 +65,7 @@ define([
         //获取第一屏数据
         $scope.downloadData();
 
-        $scope.form = {validity: 1};
+        $scope.form = {validity: 1, uid: $routeParams.uid};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -87,6 +87,7 @@ define([
                 enable: true
                 , type: 'get'
                 , url: config.domain + 'userPrivilege'
+                , autoParam:['id']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
             }
             , view: {

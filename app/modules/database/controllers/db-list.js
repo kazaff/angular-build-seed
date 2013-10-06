@@ -8,7 +8,7 @@ define(function(){
     'use strict';
 
     return ['$scope', '$routeParams', 'auth', 'action', 'db', function($scope, $routeParams, auth, Action, Db){
-        var page = $routeParams.page - 1;
+        var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
@@ -43,7 +43,7 @@ define(function(){
             }
 
             $scope.isLoading = true;
-            Db.backup({file: 0,page: page}).$promise.then(function(response){
+            Db.backup({file: 0, page: page}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({
@@ -105,7 +105,7 @@ define(function(){
         //下载
         //TODO
         $scope.dbDownload = function(){
-            Db.query({file: 0,page: page,Download:1}).$promise.then(function(data){
+            Db.query({file: 0, page: page, Download: 1}).$promise.then(function(data){
                 var blob = new Blob([data], {type: "application/octet-stream"});
                 saveAs(blob, 'hello.png');
             });
@@ -115,7 +115,7 @@ define(function(){
         //id: 要删除的文件id
         //index 当前行的数据索引位置
         $scope.dbDelete = function(id, index){
-            Db.delete({file: 0, page: page}).$promise.then(function(response){
+            Db.delete({file: id, page: page}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({

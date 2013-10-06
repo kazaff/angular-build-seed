@@ -154,7 +154,7 @@ define(function(){
                 angular.forEach(data, function(group){
                     angular.forEach(group.son, function(route){
                         if(!angular.isUndefined(route.uri)){
-                            var reg = new RegExp(route.uri.replace(/:(.*)[\/]?/g, '(.*)'), 'ig');
+                            var reg = new RegExp(route.uri.replace(/:\w*/g, '(.*)'), 'ig');
                             if(reg.test(uri)){
 
                                 result = {
@@ -162,7 +162,7 @@ define(function(){
                                     , title: group.title
                                     , icon: group.icon
                                     , route: {
-                                        uri: route.uir
+                                        uri: route.uri
                                         , controller: route.controller
                                         , templateUrl: route.templateUrl
                                         , ifMenu: route.ifMenu

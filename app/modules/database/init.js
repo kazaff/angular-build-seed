@@ -16,13 +16,15 @@ define([
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, dbBackupListCtrl,db){
+], function(console, angular, dbBackupListCtrl, db){
     'use strict';
 
     console.group('数据库模块初始化');
 
     var dbModule = angular.module('dbModule', ['ngResource', '$strap.directives']);
+
     dbModule.factory('db', db);
+
     dbModule.controller('dbBackupListCtrl', dbBackupListCtrl);
 
 
