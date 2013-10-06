@@ -17,7 +17,7 @@ define(function(){
             , templateUrl: 'modules/user/templetes/user-list.html'
             , ifMenu: true
             , name: 'userList'
-            , title: '列表'
+            , title: '用户列表'
             , icon: 'icon-user'
             , api: 'restV1/users/get'
         }
