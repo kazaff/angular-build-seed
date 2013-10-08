@@ -18,11 +18,11 @@
                                 <input name="useraccount" type="text" data-ng-model="user.account" class="span10" placeholder="登录用的帐号" disabled />
                             </div>
                         </div>
-                        <div class="control-group" data-ng-class="{error: !user.name || userForm.username.$dirty && userForm.username.$invalid}">
+                        <div class="control-group" data-ng-class="{error:userForm.username.$dirty && userForm.username.$invalid}">
                             <label class="control-label">姓 名</label>
                             <div class="controls">
                                 <input type="text" name="username" data-ng-model="user.name" class="span10" placeholder="真实用户名称" required />
-                                <div data-ng-show="!user.name || userForm.username.$dirty && userForm.username.$invalid">
+                                <div data-ng-show="userForm.username.$dirty && userForm.username.$invalid">
                                     <span data-ng-show="userForm.username.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 姓名是必填项哟~</span>
                                 </div>
                             </div>
@@ -98,8 +98,10 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok"></i> 保存</button>
-                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat"></i> 重置</button>
+                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
+                            </button>
+                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
+                            </button>
                         </div>
                     </form>
                 </div>

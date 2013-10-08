@@ -19,7 +19,6 @@ define(function(){
                 }
             };
         }]);
-
         return module;
     };
 

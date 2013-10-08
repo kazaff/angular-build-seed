@@ -1,0 +1,102 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-plus"></i> </span>
+                    <h5>添加可访问系统</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <div class="dataTables_wrapper">
+                        <div>
+                            <div class="dataTables_length form-horizontal">
+                                <label>
+                                    <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                    <input
+                                            data-ng-change="resetFlag=true"
+                                            data-ng-model="searchText"
+                                            type="text"
+                                            placeholder="过滤条件"
+                                            />
+                                    <button
+                                            data-ng-disabled="!resetFlag"
+                                            data-ng-click="resetFilter()"
+                                            class="btn btn-info"
+                                            >
+                                        <i class="icon-retweet" data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover"></i> <span class="text">重置规则</span>
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered" data-kz-table-fixed-header>
+                            <thead>
+                            <tr>
+                                <th ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
+                                    <span ng-if="predicate=='app'" ng-switch on="reverse">
+                                        <i class="icon-caret-up" ng-switch-when="false"></i>
+                                        <i class="icon-caret-down" ng-switch-when="true"></i>
+                                    </span>
+                                    应用系统
+                                </th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">{{ item.app }}</td>
+                                <td class="center">
+                                    <a data-ng-click="modalWin(item.appId)"><i class="icon-plus"></i> <span class="text">添加</span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="ui-toolbar ui-widget-header">
+                            <div class="dataTables_paginate">
+                                <button
+                                        class="btn"
+                                        data-ng-click="downloadData()"
+                                        data-ng-disabled="!hasManyData"
+                                        data-ng-hide="isLoading">
+                                <span data-ng-switch on="hasManyData">
+                                    <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
+                                    <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
+                                </span>
+                                </button>
+                                <img data-ng-show="isLoading" src="./img/loading.gif" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">规则</label>
+                <div class="controls">
+                    <kz-switch
+                            data-id="0"
+                            data-method="changeIpLimit(id, status)"
+                            data-model="form.ipLimit"
+                            data-on-label="允许"
+                            data-off-label="禁止"
+                            data-active="true" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="addNewApp();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

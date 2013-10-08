@@ -37,8 +37,8 @@ define(function(){
             , templateUrl: 'modules/user/templetes/user-add.html'
             , ifMenu: false
             , name: 'userAdd'
-            , title: '新增用户'
-            , icon: ''
+            , title: '新增'
+            , icon: 'icon-plus'
             , api: 'restV1/user/post'
         }
         , {
@@ -52,10 +52,7 @@ define(function(){
             , api: 'restV1/user/put'
         }
         , {
-            uri: '/group/edit/:gid'
-            , controller: 'groupEditCtrl'
-            , templateUrl: 'modules/user/templetes/group-edit.html'
-            , ifMenu: false
+            ifMenu: false
             , name: 'groupEdit'
             , title: '编辑'
             , icon: 'icon-edit'
@@ -86,7 +83,7 @@ define(function(){
             , name: 'userSelfPsw'
             , title: '更改口令'
             , icon: 'icon-key'
-            , api: 'restV1/user/put'
+            , api: 'restV1/user/post'
         }
         , {
             uri: '/user/:uid/group/list/:page'
@@ -109,6 +106,16 @@ define(function(){
             , api: 'restV1/userGroup/get'
         }
         , {
+            uri: '/group/edit/:gid'
+            , controller: 'groupEditCtrl'
+            , templateUrl: 'modules/user/templetes/group-edit.html'
+            , ifMenu: false
+            , name: 'groupEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/userGroup/put'
+        }
+        , {
             uri: '/group/:gid/user/list/:page'
             , controller: 'userGroupCtrl'
             , templateUrl: 'modules/user/templetes/user-group-user.html'
@@ -128,24 +135,39 @@ define(function(){
             , icon: 'icon-group'
             , api: 'restV1/userGroup/get'
         }
-            , {
-                uri: '/user/:uid/psw'
-                , controller: 'userPswCtrl'
-                , templateUrl: 'modules/user/templetes/user-psw.html'
-                , ifMenu: false
-                , name: 'userPsw'
-                , title: '更改口令'
-                , icon: 'icon-key'
-                , api: 'restV1/user/put'
-            }
         , {
-            controller: 'userSystemListCtrl'
-            , templateUrl: 'modules/user/templetes/user-system-list.html'
+            ifMenu: false
+            , name: 'userPsw'
+            , title: '更改口令'
+            , icon: 'icon-key'
+            , api: 'restV1/user/put'
+        }
+        , {
+            uri: '/user/:uid/app/:aid/list/:page'
+            , controller: 'userAppListCtrl'
+            , templateUrl: 'modules/user/templetes/user-app-list.html'
             , ifMenu: false
-            , name: 'userSystemList'
+            , name: 'userAppList'
             , title: '可访问系统'
             , icon: 'icon-cloud'
-            , api: 'restV1/userSystem/get'
+            , api: 'restV1/userApp/get'
+        }
+        ,{
+            ifMenu: false
+            , name: 'userAppDelete'
+            , title: '删除'
+            , icon: 'icon-trash'
+            , api: 'restV1/userApp/delete'
+        }
+        ,{
+            uri: '/user/:uid/app/add'
+            , controller: 'userAppAddCtrl'
+            , templateUrl: 'modules/user/templetes/user-app-add.html'
+            , ifMenu: false
+            , name: 'userAppAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/userApp/post'
         }]
     };
 });

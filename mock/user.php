@@ -100,15 +100,33 @@
 			//var_dump($psw);
 			
 			echo '{"status": 1}';
+		
+		}elseif($uri[3] == 'add'){
+			//新增用户
+			
+			//var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
+			
+			sleep(1);
+			echo '{"status":'.mt_rand(0, 1).'}';
 		}
 		
 	}elseif($method == 'PUT'){
 		
-		//$data = json_decode(file_get_contents("php://input"));
-		//var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
-		
-		sleep(2);		
-		echo '{"status":'.mt_rand(0, 1).'}';
+		if(isset($uri[3]) && $uri[3] == 'password'){
+			//更改指定用户密码
+			
+			sleep(2);
+			echo '{"status":'.mt_rand(0, 1).'}';
+			
+		}else{
+			//更改指定用户信息
+			
+			//$data = json_decode(file_get_contents("php://input"));
+			//var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
+			
+			sleep(2);
+			echo '{"status":'.mt_rand(0, 1).'}';
+		}
 		
 	}elseif($method == 'DELETE'){
 		

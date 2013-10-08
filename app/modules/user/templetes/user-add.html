@@ -6,23 +6,51 @@
                     <h5>用户信息</h5>
                 </div>
 
-                <div class="widget-content text-center">
-                    <img style="width: 140px; height: 140px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" class="img-polaroid">
-                </div>
-
                 <div class="widget-content nopadding">
                     <form name="userForm" novalidate class="form-horizontal" data-ng-submit="save()">
-                        <div class="control-group">
+                        <div class="control-group" data-ng-class="{error: userForm.account.$dirty && userForm.account.$invalid}">
                             <label class="control-label">帐 号</label>
                             <div class="controls">
-                                <input name="useraccount" type="text" data-ng-model="user.account" class="span10" placeholder="登录用的帐号" disabled />
+                                <input name="account"
+                                       type="text"
+                                       data-ng-model="user.account"
+                                       class="span10"
+                                       placeholder="登录用的帐号"
+                                       required
+                                       data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
+                                       data-ng-minlength="2"
+                                       data-ng-maxlength="20" />
+                                <div data-ng-show="userForm.account.$dirty && userForm.account.$invalid">
+                                    <span data-ng-show="userForm.account.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 帐号是必填项哟~</span>
+                                    <span data-ng-show="userForm.account.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 帐号只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
+                                    <span data-ng-show="userForm.account.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 帐号不能少于2位哟~</span>
+                                    <span data-ng-show="userForm.account.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 帐号不能多于20位哟~</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="control-group" data-ng-class="{error: !user.name || userForm.username.$dirty && userForm.username.$invalid}">
+                        <div class="control-group" data-ng-class="{error: userForm.password.$dirty && userForm.password.$invalid}">
+                            <label class="control-label">设定密码</label>
+                            <div class="controls">
+                                <data-kz-password-strength password="user.password" />
+                                <input name="password"
+                                       type="text"
+                                       data-ng-model="user.password"
+                                       class="span3"
+                                       placeholder="请输入新密码"
+                                       required
+                                       data-ng-minlength="6" />
+
+                                <div data-ng-show="userForm.password.$dirty && userForm.password.$invalid">
+                                    <span data-ng-show="userForm.password.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 密码不能为空哟~</span>
+                                    <span data-ng-show="userForm.password.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 密码不能少于六位哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-ng-class="{error: userForm.username.$dirty && userForm.username.$invalid}">
                             <label class="control-label">姓 名</label>
                             <div class="controls">
                                 <input type="text" name="username" data-ng-model="user.name" class="span10" placeholder="真实用户名称" required />
-                                <div data-ng-show="!user.name || userForm.username.$dirty && userForm.username.$invalid">
+                                <div data-ng-show="userForm.username.$dirty && userForm.username.$invalid">
                                     <span data-ng-show="userForm.username.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 姓名是必填项哟~</span>
                                 </div>
                             </div>
@@ -114,7 +142,6 @@
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
                             <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
-                            <kz-action class="btn btn-primary" data-name="userPsw" data-group="user" data-ng-click="$parent.modalWin()" />
                         </div>
                     </form>
                 </div>
@@ -122,37 +149,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/ng-template" id="form.html">
-    <div style="padding-top:5px">
-        <form class="form-horizontal" name="pswForm">
-            <div class="control-group" data-ng-class="{error: pswForm.password.$dirty && pswForm.password.$invalid}">
-                <label class="control-label">设定新密码</label>
-                <div class="controls">
-                    <data-kz-password-strength password="password">
-                        <input name="password"
-                               type="password"
-                               data-ng-model="$parent.password"
-                               class="span3"
-                               placeholder="请输入新密码"
-                               required
-                               data-ng-minlength="6" />
-                    </data-kz-password-strength>
-
-                    <div data-ng-show="pswForm.password.$dirty && pswForm.password.$invalid">
-                        <span data-ng-show="pswForm.password.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 密码不能为空哟~</span>
-                        <span data-ng-show="pswForm.password.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 密码不能少于六位哟~</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="controls">
-                    <button type="button" class="btn btn-success" data-ng-disabled="pswForm.$invalid" data-ng-click="updatePsw();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
-                    <span>&nbsp;</span>
-                    <button type="button" class="btn" data-ng-click="hide();resetPsw()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</script>

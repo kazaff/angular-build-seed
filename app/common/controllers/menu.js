@@ -23,7 +23,6 @@ define(function(){
                 });
 
                 $scope.menu = data;
-                console.log(data);
             });
         }]);
 

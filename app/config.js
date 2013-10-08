@@ -9,8 +9,8 @@ define(function(){
     return window.config = {
         domain: 'http://10.0.0.102/angular-build-seed/mock/index.php?rest/V1/'
         , modules:[
-            //'modules/privilege', 'modules/application'
-            'modules/publish','modules/privilege', 'modules/user', 'modules/log', 'modules/database'
+            //'modules/privilege'
+            'modules/publish','modules/privilege', 'modules/user', 'modules/log', 'modules/database', 'modules/application'
         ]
     };
 });

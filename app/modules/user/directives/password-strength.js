@@ -13,7 +13,7 @@ define(function(){
             , transclude: true
             , template: '<div class="passwordStrength">' +
                             '<div data-ng-transclude>' +
-                                '<div class="progress {{ strongC }} active progress-striped span4">' +
+                                '<div class="progress {{ strongC }} active progress-striped span3" style="margin-left: 0">' +
                                     '<div class="bar" style="width: {{ strongW }}%;">{{ strongV }}</div>' +
                                 '</div>' +
                             '</div>' +

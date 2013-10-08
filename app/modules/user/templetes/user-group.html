@@ -92,7 +92,7 @@
                                 </td>
                                 <td class="center">
                                     <div data-ng-hide="item.isDelete">
-                                        <span><kz-action data-name="groupEdit" data-group="user" data-args="{uid: {{ $parent.item.groupId }}, page: 1}" /></span>
+                                        <span><kz-action data-name="groupEdit" data-group="user" data-ng-click="$parent.modalWin($parent.item)" /></span>
                                         <span>&nbsp;</span>
                                             <span
                                                     data-trigger="click"
@@ -179,4 +179,48 @@
         <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
+</script>
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="name">用户组名称</label>
+                <div class="controls">
+                    <input type="text" id="name" placeholder="输入用户组名称" data-ng-model="form.name"  />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="parentName">所属用户组</label>
+                <div class="controls">
+                    <button id="parentName" class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.item, $parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
+
+                </div>
+            </div>
+            <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+                <ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">有效性</label>
+                <div class="controls">
+                    <kz-switch
+                            data-id="0"
+                            data-method="changeValidity(id, status)"
+                            data-model="form.validity"
+                            data-on-label="允许"
+                            data-off-label="禁止"
+                            data-active="true" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">更新</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </script>

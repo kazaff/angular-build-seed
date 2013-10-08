@@ -182,6 +182,7 @@ define([], function(){
             , backdrop: 'static'
             , scope: $scope
         });
+
         var modal = $q.when(modalPromise);
 
         $scope.form = {uid: $scope.uid};

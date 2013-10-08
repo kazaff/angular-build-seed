@@ -38,6 +38,14 @@ define([
             , updateUser: {
                 method: 'PUT'
             }
+            , updatePsw: {
+                method: 'PUT'
+                , params: {uid: 'password'}
+            }
+            , create: {
+                method: 'POST'
+                , params: {uid: 'add'}
+            }
         });
     }];
 });

@@ -97,7 +97,7 @@
                                             <span>&nbsp;</span>
                                             <span><kz-action data-name="userGroupList" data-group="user" /></span>
                                             <span>&nbsp;</span>
-                                            <span><kz-action data-name="userSystemList" data-group="user" /></span>
+                                            <span><kz-action data-name="userAppList" data-group="user" data-args="{uid: {{ $parent.item.userId }}, page: 1, aid: 0}" /></span>
                                             <span>&nbsp;</span>
                                             <span
                                                     data-trigger="click"
@@ -114,6 +114,15 @@
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
+                            <div class="dataTables_filter">
+                                <label>
+                                    <kz-action
+                                            class="btn btn-success"
+                                            data-name="userAdd"
+                                            data-group="user" />
+                                </label>
+                            </div>
+
                             <div class="dataTables_paginate">
                                 <button
                                     class="btn"

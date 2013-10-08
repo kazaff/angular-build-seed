@@ -65,7 +65,7 @@ define([
         //获取第一屏数据
         $scope.downloadData();
 
-        $scope.form = {validity: 1, uid: $routeParams.uid};
+        $scope.form = {rule: 1, uid: $routeParams.uid};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -106,10 +106,10 @@ define([
             }
         };
 
-        //修改有效性
-        $scope.changeValidity = function(index, status){
+        //修改规则
+        $scope.changeRule = function(index, status){
 
-            $scope.form.validity = status;
+            $scope.form.rule = status;
 
             //必须返回promise，供switch指令使用
             var deferred = $q.defer();
