@@ -35,6 +35,9 @@ define([
             , remove: {
                 method: 'DELETE'
             }
+            , updateUser: {
+                method: 'PUT'
+            }
         });
     }];
 });

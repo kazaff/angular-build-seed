@@ -3,7 +3,7 @@
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"> <i class="icon-list-alt"></i> </span>
-                    <h5>个人信息</h5>
+                    <h5>用户信息</h5>
                 </div>
 
                 <div class="widget-content text-center">
@@ -27,6 +27,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="control-group">
+                            <label class="control-label">有效性</label>
+                            <div class="controls">
+                                <kz-switch
+                                        data-id="0"
+                                        data-method="changeValidity(id, status)"
+                                        data-model="user.validity"
+                                        data-on-label="是"
+                                        data-off-label="否"
+                                        data-active="!isLoading" />
+                            </div>
+                        </div>
+
                         <div class="control-group" data-ng-class="{error: userForm.userIdCard.$dirty && userForm.userIdCard.$invalid}">
                             <label class="control-label">身份证</label>
                             <div class="controls">
@@ -39,7 +53,7 @@
                         <div class="control-group">
                             <label class="control-label">性别</label>
                             <div class="controls">
-                                <div class="btn-group" data-ng-model="user.sex" bs-buttons-radio>
+                                <div class="btn-group" ng-model="user.sex" bs-buttons-radio>
                                     <button class="btn" type="button" value="1">俊朗</button>
                                     <button class="btn" type="button" value="-1">中性</button>
                                     <button class="btn" type="button" value="0">靓丽</button>
@@ -49,10 +63,10 @@
                         <div class="control-group">
                             <label class="control-label">账户类型</label>
                             <div class="controls">
-                                <span data-ng-switch on="user.type">
-                                    <input data-ng-switch-when="1" type="text" value="管理帐号" class="span10" placeholder="系统类型" disabled />
-                                    <input data-ng-switch-when="0" type="text" value="会员帐号" class="span10" placeholder="系统类型" disabled />
-                                </span>
+                                <div class="btn-group" ng-model="user.type" bs-buttons-radio>
+                                    <button class="btn btn-primary" type="button" value="1">管理账户</button>
+                                    <button class="btn btn-primary" type="button" value="0">会员账户</button>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group" data-ng-class="{error: userForm.useremail.$dirty && userForm.useremail.$invalid}">

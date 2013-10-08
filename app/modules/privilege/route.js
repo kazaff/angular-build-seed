@@ -39,10 +39,7 @@ define(function(){
             , api: 'restV1/userPrivilege/delete'
         }
         ,{
-            uri: '/privilege/uid/:uid/pid/:pid'
-            , controller: 'privilegeUserEditCtrl'
-            , templateUrl: 'modules/privilege/templetes/user-privilege-info.html'
-            , ifMenu: false
+            ifMenu: false
             , name: 'privilegeUserEdit'
             , title: '±à¼­'
             , icon: 'icon-edit'

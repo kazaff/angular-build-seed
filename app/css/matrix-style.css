@@ -20,6 +20,7 @@ a:hover, a:focus {
 }
 a.help-info:hover { cursor: help;}
 table a:hover, table a:focus, h5 a:hover, h5 a:focus{ color:#28b779; border-bottom: 1px dashed #28b779; cursor: pointer;}
+table a[class~="btn"]:hover, table a[class~="btn"]:focus {border-bottom: 1px solid; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);}
 .dropdown-menu .divider{ margin:4px 0px;}
 .dropdown-menu{ min-width:180px;}
 .dropdown-menu > li > a{ padding:3px 10px; color:#666; font-size:12px;}

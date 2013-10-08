@@ -22,6 +22,9 @@ define([
             , create: {
                 method: 'POST'
             }
+            , updateDate: {
+                method: 'PUT'
+            }
         });
     }];
 });

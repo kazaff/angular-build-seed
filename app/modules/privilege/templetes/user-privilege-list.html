@@ -117,7 +117,7 @@
                                     </td>
                                     <td class="center">
                                         <div data-ng-hide="item.isDelete">
-                                            <span><kz-action data-name="privilegeUserEdit" data-group="privilege" data-args="{pid: '{{ $parent.item.privId }}', uid: {{ $parent.uid }} }" /></span>
+                                            <span><kz-action data-name="privilegeUserEdit" data-group="privilege" data-ng-click="$parent.modalWin($parent.item)" /></span>
                                             <span>&nbsp;</span>
                                             <span data-trigger="click"
                                                   data-unique="1"
@@ -225,4 +225,32 @@
         <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
+</script>
+
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="begin">开始时间</label>
+                <div class="controls">
+                    <input type="text" id="begin" placeholder="默认不限制" data-ng-model="form.begin" data-date-format="yyyy-mm-dd" bs-datepicker />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="end">结束时间</label>
+                <div class="controls">
+                    <input type="text" id="end" placeholder="默认不限制"  data-ng-model="form.end" data-date-format="yyyy-mm-dd" bs-datepicker />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">更新</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </script>

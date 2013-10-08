@@ -7,7 +7,7 @@
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'user', 'userPrivilege', function($scope, Auth, Action, Privilege, $location, $routeParams, User, UserPrivilege){
+    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'user', 'userPrivilege', '$modal', '$q', '$filter', function($scope, Auth, Action, Privilege, $location, $routeParams, User, UserPrivilege, $modal, $q, $filter){
         var page = $routeParams.page - 1;
         $scope.uid = $routeParams.uid;
         $scope.resetFlag = false;
@@ -169,6 +169,67 @@ define([], function(){
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false
+                    });
+                }
+            });
+        };
+
+
+        var modalPromise = $modal({
+            template: 'form.html'
+            , persist: true
+            , show: false
+            , backdrop: 'static'
+            , scope: $scope
+        });
+        var modal = $q.when(modalPromise);
+
+        $scope.form = {uid: $scope.uid};
+
+        //触发编辑的模态窗口
+        $scope.modalWin = function(rule){
+
+            $scope.updateRule = rule;   //用于指向当前编辑的规则数据对象，用于更新显示列表
+
+            $scope.form.begin = rule.begin;
+            $scope.form.end = rule.end;
+            $scope.form.pid = rule.privId;
+
+            modal.then(function(modalEl){
+                modalEl.modal('show');
+            });
+        };
+
+        //更新指定规则的有效时间
+        $scope.updateDate = function(){
+            UserPrivilege.updateDate($scope.form).$promise.then(function(response){
+                if(response['status'] == 1){
+
+                    $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
+                    $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
+
+                    //成功提示
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '权限规则更改成功!'
+                        , class_name: 'winner'
+                        , image: 'img/save.png'
+                        , sticky: false
+                    });
+
+                }else{
+                    //错误提示
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '权限规则更改失败!'
+                        , class_name: 'loser'
+                        , image: 'img/save.png'
+                        , sticky: false
+                        , before_close:function(uid){
+                            return function(e, manual_close){
+                                $scope.$apply(Action.forward('privilegeUserList', 'privilege' , {uid: uid, page: 1}));
+                            };
+                        }($routeParams.uid)
                     });
                 }
             });

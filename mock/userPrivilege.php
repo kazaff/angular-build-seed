@@ -96,7 +96,7 @@
 	
 	}elseif($method == 'PUT'){
 
-		sleep(2);		
+		sleep(1);		
 		echo '{"status":'.mt_rand(0, 1).'}';
 		
 	}elseif($method == 'DELETE'){

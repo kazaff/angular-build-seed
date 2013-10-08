@@ -93,7 +93,7 @@ define([
             , view: {
                 addDiyDom: function(treeId, treeNode){
 
-                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '">+</span>');
+                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"><img src="./img/plus_alt.png" alt=""/></span>');
 
                     jQuery("#diyBtn_"+treeNode.id).on("click", function(){
 
@@ -126,8 +126,6 @@ define([
             modal.then(function(modalEl){
                 modalEl.modal('show');
             });
-
-            console.log($scope.form.pid);
         };
 
         //用于保存新添加的权限信息

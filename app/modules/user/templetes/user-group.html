@@ -3,9 +3,8 @@
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                    <h5>用户列表</h5>
+                    <h5>用户组列表</h5>
                 </div>
-
                 <div class="widget-content nopadding">
                     <div class="dataTables_wrapper">
                         <div>
@@ -37,68 +36,64 @@
 
                         <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
-                                <tr>
-                                    <th class="span2" ng-click="predicate='name'; reverse=!reverse; resetFlag=true">
+                            <tr>
+                                <th class="span2" ng-click="predicate='name'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='name'">
                                             <i class="icon-group"></i>
                                         </span>
-                                        姓名
-                                    </th>
-                                    <th class="hidden-phone span2" ng-click="predicate='account'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='account'" ng-switch on="reverse">
+                                    组名
+                                </th>
+                                <th class="hidden-phone span2" ng-click="predicate='parentName'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='parentName'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                        账户名
-                                    </th>
-                                    <th class="hidden-phone span2" ng-click="predicate='mobile'; reverse=!reverse; resetFlag=true">
+                                    父组名称
+                                </th>
+                                <th class="hidden-phone span1" ng-click="predicate='mobile'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='mobile'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                        手机
-                                    </th>
-                                    <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                    用户数量
+                                </th>
+                                <th class="span1" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='validity'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                        有效性
-                                    </th>
-                                    <th class="span4">操作</th>
-                                </tr>
+                                    有效性
+                                </th>
+                                <th class="span4">操作</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                    <td class="center">
+                            <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">
                                         <span
-                                            data-trigger="click"
-                                            data-unique="1"
-                                            data-placement="right"
-                                            data-title="详细"
-                                            data-bs-popover="'info.html'">
+                                                data-trigger="click"
+                                                data-unique="1"
+                                                data-placement="right"
+                                                data-title="详细"
+                                                data-bs-popover="'info.html'">
                                             <a class="help-info">{{ item.name }} <i class="icon-tag"></i></a>
                                         </span>
-                                    </td>
-                                    <td class="center hidden-phone">{{ item.account }}</td>
-                                    <td class="center hidden-phone">{{ item.mobile }}</td>
-                                    <td class="center">
-                                        <kz-switch
+                                </td>
+                                <td class="center hidden-phone">{{ item.parentName }}</td>
+                                <td class="center hidden-phone">{{ item.userCount }}</td>
+                                <td class="center">
+                                    <kz-switch
                                             data-id="{{ $parent.$index }}"
                                             data-method="changeValidity(id, status)"
                                             data-model="item.validity"
                                             data-on-label="是"
                                             data-off-label="否"
                                             data-active="switchFlag && !item.isDelete" />
-                                    </td>
-                                    <td class="center">
-                                        <div data-ng-hide="item.isDelete">
-                                            <span><kz-action data-name="privilegeUserList" data-group="privilege" data-args="{uid: {{ $parent.item.userId }}, page: 1}" /></span>
-                                            <span>&nbsp;</span>
-                                            <span><kz-action data-name="userGroupList" data-group="user" /></span>
-                                            <span>&nbsp;</span>
-                                            <span><kz-action data-name="userSystemList" data-group="user" /></span>
-                                            <span>&nbsp;</span>
+                                </td>
+                                <td class="center">
+                                    <div data-ng-hide="item.isDelete">
+                                        <span><kz-action data-name="groupEdit" data-group="user" data-args="{uid: {{ $parent.item.groupId }}, page: 1}" /></span>
+                                        <span>&nbsp;</span>
                                             <span
                                                     data-trigger="click"
                                                     data-placement="left"
@@ -106,20 +101,27 @@
                                                     data-bs-popover="'delete.html'">
                                                 <kz-action data-name="userDelete" data-group="user" />
                                             </span>
-                                        </div>
-                                        <i class="icon-lock" data-ng-show="item.isDelete"></i>
-                                    </td>
-                                </tr>
+                                        <span>&nbsp;</span>
+                                        <span><kz-action data-name="userGroupPrivilege" data-group="user" /></span>
+                                        <span>&nbsp;</span>
+                                        <span><kz-action data-name="userGroupUserList" data-group="user" /></span>
+                                        <span>&nbsp;</span>
+                                        <span><kz-action data-name="userGroupBind" data-group="user" /></span>
+
+                                    </div>
+                                    <i class="icon-lock" data-ng-show="item.isDelete"></i>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
                             <div class="dataTables_paginate">
                                 <button
-                                    class="btn"
-                                    data-ng-click="downloadData()"
-                                    data-ng-disabled="!hasManyData"
-                                    data-ng-hide="isLoading">
+                                        class="btn"
+                                        data-ng-click="downloadData()"
+                                        data-ng-disabled="!hasManyData"
+                                        data-ng-hide="isLoading">
                                         <span data-ng-switch on="hasManyData">
                                             <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
                                             <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
@@ -137,39 +139,30 @@
 <script type="text/ng-template" id="info.html">
     <ul class="activity-list">
         <li class="text-center">
-            <div class="label label-important" data-ng-show="item.type"><i class="icon-map-marker"></i>{{ item.type?"WebOS用户":"" }}</div>
+            <div class="label label-important" data-ng-show="item.type"><i class="icon-map-marker"></i>{{ item.type?"WebOS用户组":"" }}</div>
             <div>
                 <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
             </div>
         </li>
         <li>
-            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ item.name }} ({{ item.sex?"男":"女" }})
+            <span class="text">用户组名称 <i class="icon-caret-right"></i></span> {{ item.name }}
         </li>
-        <li data-ng-show="item.qq">
-            <span class="text">QQ <i class="icon-caret-right"></i></span> {{ item.qq }}
+        <li data-ng-show="item.parentName">
+            <span class="text">父用户组 <i class="icon-caret-right"></i></span> {{ item.parentName }}
         </li>
-        <li data-ng-show="item.phone">
-            <span class="text">电话 <i class="icon-caret-right"></i></span> {{ item.phone }}
+        <li data-ng-show="item.userCount">
+            <span class="text">用户数量 <i class="icon-caret-right"></i></span> {{ item.userCount }}
         </li>
-        <li data-ng-show="item.mobile">
-            <span class="text">手机 <i class="icon-caret-right"></i></span> {{ item.mobile }}
+        <li data-ng-show="item.validity">
+            <span class="text">是否有效 <i class="icon-caret-right"></i></span> {{ item.validity?"是":"否" }}
         </li>
-        <li data-ng-show="item.email">
-            <span class="text">邮箱 <i class="icon-caret-right"></i></span> {{ item.email }}
+        <li data-ng-show="item.bindGroup">
+            <span class="text">绑定用户组 <i class="icon-caret-right"></i></span> {{ item.bindGroup }}
         </li>
         <li data-ng-show="item.info">
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
-
-    <div>
-        <span><kz-action class="btn btn-warning btn-mini" data-name="userEdit" data-group="user" data-args="{uid:'{{ $parent.item.userId }}'}" /></span>
-        <span>&nbsp;</span>
-        <span><kz-action class="btn btn-info btn-mini" data-name="loginList" data-group="log" data-args="{uid:'{{ $parent.item.userId }}', page:1}" /></span>
-        <span>&nbsp;</span>
-        <span><kz-action class="btn btn-info btn-mini" data-name="actionList" data-group="log" data-args="{uid:'{{ $parent.item.userId }}', page:1}" /></span>
-    </div>
-
     <div style="margin-top:15px">
         <button class="btn btn-mini btn-success pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
     </div>

@@ -20,7 +20,17 @@ define(function(){
             , title: '用户列表'
             , icon: 'icon-user'
             , api: 'restV1/users/get'
-        }
+        }  ,
+            {
+                uri: '/users/grouplist/:page'
+                , controller: 'userGroupCtrl'
+                , templateUrl: 'modules/user/templetes/user-group.html'
+                , ifMenu: true
+                , name: 'userGroup'
+                , title: '用户组'
+                , icon: 'icon-user'
+                , api: 'restV1/users/get'
+            }
         , {
             uri: '/user/add'
             , controller: 'userAddCtrl'
@@ -32,7 +42,7 @@ define(function(){
             , api: 'restV1/user/post'
         }
         , {
-            uri: '/user/edit/:uid'
+            uri: '/user/:uid/info'
             , controller: 'userEditCtrl'
             , templateUrl: 'modules/user/templetes/user-edit.html'
             , ifMenu: false
@@ -42,14 +52,14 @@ define(function(){
             , api: 'restV1/user/put'
         }
         , {
-            uri: '/user/info/:uid'
-            , controller: 'userInfoCtrl'
-            , templateUrl: 'modules/user/templetes/user-info.html'
+            uri: '/group/edit/:gid'
+            , controller: 'groupEditCtrl'
+            , templateUrl: 'modules/user/templetes/group-edit.html'
             , ifMenu: false
-            , name: 'userInfo'
-            , title: '详细信息'
-            , icon: ''
-            , api: 'restV1/user/get'
+            , name: 'groupEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/user/put'
         }
         , {
             ifMenu: false
@@ -80,8 +90,8 @@ define(function(){
         }
         , {
             uri: '/user/:uid/group/list/:page'
-            , controller: 'userGroupListCtrl'
-            , templateUrl: 'modules/user/templetes/user-group-list.html'
+            , controller: 'userGroupCtrl'
+            , templateUrl: 'modules/user/templetes/user-group.html'
             , ifMenu: false
             , name: 'userGroupList'
             , title: '所属用户组'
@@ -89,15 +99,45 @@ define(function(){
             , api: 'restV1/userGroup/get'
         }
         , {
-            uri: '/user/:uid/psw'
-            , controller: 'userPswCtrl'
-            , templateUrl: 'modules/user/templetes/user-psw.html'
+            uri: '/group/:gid/privilege/list/:page'
+            , controller: 'userGroupPrivilegeCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-Privilege.html'
             , ifMenu: false
-            , name: 'userPsw'
-            , title: '更改口令'
-            , icon: 'icon-key'
-            , api: 'restV1/user/put'
+            , name: 'userGroupPrivilege'
+            , title: '用户组权限'
+            , icon: 'icon-group'
+            , api: 'restV1/userGroup/get'
         }
+        , {
+            uri: '/group/:gid/user/list/:page'
+            , controller: 'userGroupCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-user.html'
+            , ifMenu: false
+            , name: 'userGroupUserList'
+            , title: '用户组成员'
+            , icon: 'icon-group'
+            , api: 'restV1/userGroup/get'
+        }
+        , {
+            uri: '/group/:gid/bind/list/:page'
+            , controller: 'userGroupCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-bind.html'
+            , ifMenu: false
+            , name: 'userGroupBind'
+            , title: '绑定用户组'
+            , icon: 'icon-group'
+            , api: 'restV1/userGroup/get'
+        }
+            , {
+                uri: '/user/:uid/psw'
+                , controller: 'userPswCtrl'
+                , templateUrl: 'modules/user/templetes/user-psw.html'
+                , ifMenu: false
+                , name: 'userPsw'
+                , title: '更改口令'
+                , icon: 'icon-key'
+                , api: 'restV1/user/put'
+            }
         , {
             controller: 'userSystemListCtrl'
             , templateUrl: 'modules/user/templetes/user-system-list.html'

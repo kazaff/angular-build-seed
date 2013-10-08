@@ -7,7 +7,7 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'user', function($scope, auth, action, User){
+    return ['$scope', 'auth', 'action', 'user', function($scope, auth, Action, User){
 
         $scope.user = auth.userInfo();
         $scope.pristine = angular.copy($scope.user);
@@ -21,8 +21,13 @@ define(function(){
         };
 
         $scope.save = function(){
+
+            $scope.isLoading = true;
+
             //去后端更新
             User.updateSelf($scope.user).$promise.then(function(response){
+
+                $scope.isLoading = false;
 
                 if(response['status'] == 1){
                     //修改成功提示
@@ -47,7 +52,7 @@ define(function(){
                         , image: 'img/save.png'
                         , sticky: false
                         , before_close: function(e, manual_close){
-                            $scope.$apply(action.forward('userSelf', 'user'));
+                            $scope.$apply(Action.forward('userSelf', 'user'));
                         }
                     });
                 }
