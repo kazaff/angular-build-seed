@@ -95,7 +95,7 @@
                                         <div data-ng-hide="item.isDelete">
                                             <span><kz-action data-name="privilegeUserList" data-group="privilege" data-args="{uid: {{ $parent.item.userId }}, page: 1}" /></span>
                                             <span>&nbsp;</span>
-                                            <span><kz-action data-name="userGroupList" data-group="user" /></span>
+                                            <span><kz-action data-name="userGroupList" data-group="user" data-args="{uid: {{ $parent.item.userId }}, page: 1}" /></span>
                                             <span>&nbsp;</span>
                                             <span><kz-action data-name="userAppList" data-group="user" data-args="{uid: {{ $parent.item.userId }}, page: 1, aid: 0}" /></span>
                                             <span>&nbsp;</span>

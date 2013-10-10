@@ -1,8 +1,8 @@
 /**
  * Created with JetBrains WebStorm.
  * User: @kazaff
- * Date: 13-10-8
- * Time: обнГ2:59
+ * Date: 13-10-10
+ * Time: ионГ9:08
  */
 define([
     'config'
@@ -10,10 +10,10 @@ define([
     'use strict';
 
     return ['$resource', function($resource){
-        return $resource(config.domain + 'application/:aid/:page', {}, {
+        return $resource(config.domain + 'appIp/:aid/:pid/:page', {}, {
             query: {
                 method: 'GET'
-                , params: {aid: 0}
+                , params: {pid: 0}
                 , isArray: false
             }
             , changStatus: {

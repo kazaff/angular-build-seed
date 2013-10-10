@@ -59,6 +59,17 @@ define([], function(){
                     item.app = decodeURI(item.app);
                     item.group = decodeURI(item.group);
                     item.info = decodeURI(item.info);
+                    if(item.begin == -1){
+                        item.begin = '不限制';
+                    }else{
+                        item.begin = Date.parse(item.begin);
+                    }
+                    if(item.end == -1){
+                        item.end = '不限制';
+                    }else{
+                        item.end = Date.parse(item.end);
+                    }
+
                     $scope.data.push(item);
                 });
 
@@ -192,8 +203,18 @@ define([], function(){
 
             $scope.updateRule = rule;   //用于指向当前编辑的规则数据对象，用于更新显示列表
 
-            $scope.form.begin = rule.begin;
-            $scope.form.end = rule.end;
+            if(rule.begin == '不限制'){
+                $scope.form.begin = null;
+            }else{
+                $scope.form.begin = $filter('date')(rule.begin, 'yyyy-MM-dd');
+            }
+
+            if(rule.end == '不限制'){
+                $scope.form.end = null;
+            }else{
+                $scope.form.end = $filter('date')(rule.end, 'yyyy-MM-dd');
+            }
+
             $scope.form.pid = rule.privId;
 
             modal.then(function(modalEl){

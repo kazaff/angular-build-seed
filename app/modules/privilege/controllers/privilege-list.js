@@ -107,8 +107,6 @@ define([], function(){
             $scope.hasManyData=true;
 
             $location.hash($scope.searchText);
-
-            $scope.downloadData();
         };
 
         //获取第一屏数据

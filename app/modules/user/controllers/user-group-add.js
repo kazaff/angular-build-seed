@@ -1,15 +1,15 @@
 /**
  * Created with JetBrains WebStorm.
- * User: fengtao
- * Date: 13-10-3
- * Time: 下午2:08
+ * User: @kazaff
+ * Date: 13-10-9
+ * Time: 上午10:01
  */
 define([
     'config'
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userPrivilege', 'privilege', '$location', function($scope, Action, $routeParams, $modal, $q, UserPrivilege, Privilege, $location){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', '$location', 'group', function($scope, Action, $routeParams, $modal, $q, $location, Group){
         var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
@@ -20,12 +20,12 @@ define([
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Privilege.query({page: ++page, privilege: $location.hash()}).$promise.then(function(response){
+            Group.groupList({page: ++page, group: $location.hash()}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
-                    item.privName = decodeURI(item.privName);
-                    item.app = decodeURI(item.app);
-                    item.group = decodeURI(item.group);
+                    item.name = decodeURI(item.name);
+                    item.parentName = decodeURI(item.parentName);
+                    item.bindGroup = decodeURI(item.bindGroup);
                     item.info = decodeURI(item.info);
                     $scope.data.push(item);
                 });
@@ -50,12 +50,12 @@ define([
 
         //搜索相关的数据
         $scope.searchData = function(){
-            page=$routeParams.page-1;
-            $scope.data=[];
+            page = 0;
+            $scope.data = [];
             $scope.status = '';
             $scope.predicate = '';
             $scope.reverse = false;
-            $scope.hasManyData=true;
+            $scope.hasManyData = true;
 
             $location.hash($scope.searchText);
         };
@@ -63,7 +63,7 @@ define([
         //获取第一屏数据
         $scope.downloadData();
 
-        $scope.form = {rule: 1, uid: $routeParams.uid};
+        $scope.form = {uid: $routeParams.uid};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -84,7 +84,7 @@ define([
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userPrivilege'
+                , url: config.domain + 'userGroup'
                 , autoParam:['id']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
             }
@@ -104,37 +104,29 @@ define([
             }
         };
 
-        //修改规则
-        $scope.changeRule = function(index, status){
-
-            $scope.form.rule = status;
-
-            //必须返回promise，供switch指令使用
-            var deferred = $q.defer();
-            deferred.resolve();
-            return deferred.promise;
-        };
-
-
         //用于触发 权限信息 的模态窗口
-        $scope.modalWin = function(pid){
+        $scope.modalWin = function(gid){
 
-            $scope.form.pid = pid; //保存要增加的权限pid
+            $scope.form.gid = gid; //保存要增加的权限pid
 
             modal.then(function(modalEl){
                 modalEl.modal('show');
             });
         };
 
-        //用于保存新添加的权限信息
-        $scope.addNewPrivilege = function(){
+        //用于保存新添加的所属用户组
+        $scope.addNewGroup = function(object, index){
 
-            UserPrivilege.create($scope.form).$promise.then(function(response){
+            if(!angular.isUndefined(object) && !angular.isUndefined(index)){
+                $scope.form.gid = object.groupId;
+            }
+
+            Group.create($scope.form).$promise.then(function(response){
                 if(response['status'] == 1){
                     //成功提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '权限规则添加成功!'
+                        , text: '用户所属用户组添加成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false
@@ -144,13 +136,13 @@ define([
                     //错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '权限规则添加失败!'
+                        , text: '用户所属用户组添加失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
                         , before_close:function(uid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserAdd', 'privilege' , {uid: uid}));
+                                $scope.$apply(Action.forward('userGroupAdd', 'user' , {uid: uid}));
                             };
                         }($routeParams.uid)
                     });

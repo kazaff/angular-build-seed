@@ -84,8 +84,6 @@ define(function(){
             $scope.hasManyData=true;
 
             $location.hash($scope.searchText);
-
-            $scope.downloadData();
         };
 
         //删除指定用户

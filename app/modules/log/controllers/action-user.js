@@ -60,8 +60,6 @@ define(function(){
             $scope.hasManyData = true;
 
             $location.hash($scope.searchText);
-
-            $scope.downloadData();
         };
 
         $scope.downloadData();

@@ -20,17 +20,17 @@ define(function(){
             , title: '用户列表'
             , icon: 'icon-user'
             , api: 'restV1/users/get'
-        }  ,
-            {
-                uri: '/users/grouplist/:page'
-                , controller: 'userGroupCtrl'
-                , templateUrl: 'modules/user/templetes/user-group.html'
-                , ifMenu: true
-                , name: 'userGroup'
-                , title: '用户组'
-                , icon: 'icon-user'
-                , api: 'restV1/users/get'
-            }
+        }
+        ,{
+            uri: '/users/grouplist/:page'
+            , controller: 'userGroupCtrl'
+            , templateUrl: 'modules/user/templetes/user-group.html'
+            , ifMenu: true
+            , name: 'userGroup'
+            , title: '用户组'
+            , icon: 'icon-user'
+            , api: 'restV1/users/get'
+        }
         , {
             uri: '/user/add'
             , controller: 'userAddCtrl'
@@ -87,8 +87,8 @@ define(function(){
         }
         , {
             uri: '/user/:uid/group/list/:page'
-            , controller: 'userGroupCtrl'
-            , templateUrl: 'modules/user/templetes/user-group.html'
+            , controller: 'someoneGroupCtrl'
+            , templateUrl: 'modules/user/templetes/someone-group.html'
             , ifMenu: false
             , name: 'userGroupList'
             , title: '所属用户组'
@@ -104,16 +104,6 @@ define(function(){
             , title: '用户组权限'
             , icon: 'icon-group'
             , api: 'restV1/userGroup/get'
-        }
-        , {
-            uri: '/group/edit/:gid'
-            , controller: 'groupEditCtrl'
-            , templateUrl: 'modules/user/templetes/group-edit.html'
-            , ifMenu: false
-            , name: 'groupEdit'
-            , title: '编辑'
-            , icon: 'icon-edit'
-            , api: 'restV1/userGroup/put'
         }
         , {
             uri: '/group/:gid/user/list/:page'
@@ -165,6 +155,16 @@ define(function(){
             , templateUrl: 'modules/user/templetes/user-app-add.html'
             , ifMenu: false
             , name: 'userAppAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/userApp/post'
+        }
+        ,{
+            uri: '/user/:uid/group/add'
+            , controller: 'userGroupAddCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-add.html'
+            , ifMenu: false
+            , name: 'userGroupAdd'
             , title: '新增'
             , icon: 'icon-plus'
             , api: 'restV1/userApp/post'

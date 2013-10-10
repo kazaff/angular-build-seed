@@ -17,6 +17,8 @@ define([
     , 'modules/user/controllers/user-app-list'
     , 'modules/user/controllers/user-app-add'
     , 'modules/user/controllers/user-add'
+    , 'modules/user/controllers/someone-group'
+    , 'modules/user/controllers/user-group-add'
     //服务
     , 'modules/user/services/user'
     , 'modules/user/services/group'
@@ -27,7 +29,23 @@ define([
     , 'angular/angular-resource'
     , 'angular/angular-strap'
 
-], function(console, angular, userSelfCtrl, userSelfPswCtrl, userListCtrl, userEditCtrl, userGroupCtrl, userAppListCtrl, userAppAddCtrl, userAddCtrl, user, group, userApp, pswStrength){
+], function(
+        console
+        , angular
+        , userSelfCtrl
+        , userSelfPswCtrl
+        , userListCtrl
+        , userEditCtrl
+        , userGroupCtrl
+        , userAppListCtrl
+        , userAppAddCtrl
+        , userAddCtrl
+        , someoneGroupCtrl
+        , userGroupAddCtrl
+        , user
+        , group
+        , userApp
+        , pswStrength){
    'use strict';
 
     console.group('用户模块初始化');
@@ -46,6 +64,8 @@ define([
     userModule.controller('userAppListCtrl', userAppListCtrl);
     userModule.controller('userAppAddCtrl', userAppAddCtrl);
     userModule.controller('userAddCtrl', userAddCtrl);
+    userModule.controller('someoneGroupCtrl', someoneGroupCtrl);
+    userModule.controller('userGroupAddCtrl', userGroupAddCtrl);
 
     userModule.directive('kzPasswordStrength', pswStrength);
 

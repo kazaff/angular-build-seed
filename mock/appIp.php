@@ -4,11 +4,9 @@
 	
 	if($method == 'GET'){
 		
-		if($uri[3] == 0){
-			//所有系统列表
-
-			//所有系统列表
-			$page = intval($uri[4]); //请求页码
+		if($uri[4] == 0){
+			//指定用户的所有IP列表
+			$page = intval($uri[5]); //请求页码
 			$preNum = 7;	//每页条数
 			$maxNum = 18;	//总条数
 				
@@ -27,16 +25,13 @@
 					mt_srand((double)microtime()*1000000);
 			
 					$item = new stdClass();
-					$item->appId = mt_rand(1, 1000);
-					$item->app = urlencode(mb_convert_encoding('系统'.mt_rand(1,999), 'utf-8', 'gbk'));
-					$item->tag = 'DEMO';
-					$item->logo = '';
-					$item->domain = 'http://www.codingcool.com';
-					$item->ipLimit = mt_rand(0, 1);
+					$item->ipId = mt_rand(1, 1000);
+					$item->ip = '192.168.1.1';
 					$item->validity = mt_rand(0, 1);
-					$item->authorization = mt_rand(0, 1);
 					$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
-			
+					$item->begin = '2013-10-20';
+					$item->end = -1;
+					
 					$result->items[] = $item;
 				}
 			}else{

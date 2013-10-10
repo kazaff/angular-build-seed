@@ -53,8 +53,8 @@
 				$item->info = urlencode(mb_convert_encoding(str_repeat('波拉波拉波拉波拉',mt_rand(1, 5)), 'utf-8', 'gbk'));
 				$item->validity = (bool)mt_rand(0, 1);
 				$item->rule = mt_rand(0, 1);
-				$item->begin = date('Y-m-d', time()-1000000);
-				$item->end = date('Y-m-d', time()+1000000);
+				$item->begin = -1;
+				$item->end = -1;
 		
 				$result->items[] = $item;
 			}

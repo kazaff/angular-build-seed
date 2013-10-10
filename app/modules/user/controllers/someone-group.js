@@ -1,13 +1,13 @@
 /**
  * Created with JetBrains WebStorm.
  * User: @kazaff
- * Date: 13-10-8
- * Time: 上午10:14
+ * Date: 13-10-9
+ * Time: 上午8:51
  */
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$location', '$routeParams', 'userApp', function($scope, Auth, Action, $location, $routeParams, UserApp){
+    return ['$scope', 'auth', 'action', '$location', '$routeParams', 'group', function($scope, Auth, Action, $location, $routeParams, Group){
         var page = $routeParams.page - 1;
         $scope.uid = $routeParams.uid;
         $scope.resetFlag = false;
@@ -23,10 +23,10 @@ define([], function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            UserApp.query({page: ++page, uid: $routeParams.uid}).$promise.then(function(response){
+            Group.groupList({page: ++page, uid: $routeParams.uid}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
-                    item.app = decodeURI(item.app);
+                    item.name = decodeURI(item.name);
                     $scope.data.push(item);
                 });
 
@@ -48,38 +48,11 @@ define([], function(){
             $scope.resetFlag = 0;
         };
 
-        //更改IP限制状态
-        $scope.changeIpLimit = function(index, status){
-
-            var promise = UserApp.changStatus({uid: $routeParams.uid, aid: $scope.data[index].appId, status: status, type: 'ipLimit'}).$promise;
-            promise.then(function(response){
-                if(response['status'] == 0){
-                    //修改错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '用户可访问系统的IP限制状态更改失败!'
-                        , class_name: 'loser'
-                        , image: 'img/configuration2.png'
-                        , sticky: false
-                        , before_close: function(uid){
-                            return function(e, manual_close){
-                                $scope.$apply(Action.forward('userAppList', 'user' , {uid: uid, page:1, aid:0}));
-                            };
-                        }($routeParams.uid)
-                    });
-                }else{
-                    $scope.data[index].ipLimit = status;
-                }
-            });
-
-            return promise; //返回promse，供switch插件判断显示状态
-        };
-
-        //删除指定系统
+        //删除指定用户组
         $scope.delete = function(object, index){
             object.isDelete = 1; //标识该数据被删除
 
-            UserApp.remove({uid: $routeParams.uid, aid: object.appId}).$promise.then(function(reponse){
+            Group.remove({uid: $routeParams.uid, gid: object.groupId}).$promise.then(function(reponse){
                 if(reponse['status'] == 0){
 
                     object.isDelete = 0;    //取消该数据的删除状态
@@ -87,13 +60,13 @@ define([], function(){
                     //删除错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户可访问系统删除失败!'
+                        , text: '用户所属用户组删除失败!'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
                         , before_close: function(uid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('userAppList', 'user' , {uid: uid, page:1, aid:0}));
+                                $scope.$apply(Action.forward('userAppList', 'user' , {uid: uid, page:1, gid:0}));
                             };
                         }($routeParams.uid)
                     });
@@ -102,10 +75,10 @@ define([], function(){
                     //从列表中删除该条数据
                     $scope.data.splice(index, 1);
 
-                    //删除陈功提示
+                    //删除成功提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户可访问系统删除成功!'
+                        , text: '用户所属用户组删除成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false

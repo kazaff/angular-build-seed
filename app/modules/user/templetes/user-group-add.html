@@ -1,0 +1,176 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-plus"></i> </span>
+                    <h5>添加用户组</h5>
+                    <ul class="nav nav-tabs pull-right">
+                        <li data-ng-click="tab='tree'"><a data-toggle="tab" href="#tree"><i class="icon-align-left"></i> 层级</a></li>
+                        <li class="active" data-ng-click="tab='list'"><a data-toggle="tab" href="#list"><i class="icon-align-justify"></i> 列表</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content tab-content nopadding">
+                    <div id="tree" class="tab-pane" style="margin:5px">
+                        <kz-ztree data-setting="setting" />
+                    </div>
+
+                    <div id="list" class="tab-pane active">
+                        <div class="dataTables_wrapper">
+                            <div>
+                                <div class="dataTables_length form-horizontal">
+                                    <label>
+                                        <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                        <input
+                                                data-ng-change="resetFlag=true"
+                                                data-ng-model="searchText"
+                                                type="text"
+                                                placeholder="过滤条件 或 查询关键字"
+                                                />
+                                        <button class="btn btn-primary"
+                                                data-ng-click="searchData()"
+                                                data-bs-tooltip="'将从服务器端进行检索'"
+                                                data-trigger="hover"
+                                                data-ng-disabled="!searchText"
+                                                ><i class="icon-search"></i></button>
+                                        <button
+                                                data-ng-disabled="!resetFlag"
+                                                data-ng-click="resetFilter()"
+                                                class="btn btn-info"
+                                                >
+                                            <i class="icon-retweet" data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover"></i> <span class="text">重置规则</span>
+                                        </button>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered" data-kz-table-fixed-header>
+                                <thead>
+                                <tr>
+                                    <th ng-click="predicate='name'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='name'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        用户组名称
+                                    </th>
+                                    <th class="hidden-phone" ng-click="predicate='parentName'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='parentName'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        所属父组
+                                    </th>
+                                    <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='validity'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        有效性
+                                    </th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                    <td class="center">
+                                    <span
+                                            data-trigger="click"
+                                            data-unique="1"
+                                            data-placement="right"
+                                            data-title="详细"
+                                            data-bs-popover="'info.html'">
+                                        <a class="help-info">{{ item.name }} <i class="icon-tag"></i></a>
+                                    </span>
+                                    </td>
+                                    <td class="center hidden-phone">{{ item.parentName }}</td>
+                                    <td class="center">
+                                        <kz-switch
+                                                data-model="item.validity"
+                                                data-on-label="是"
+                                                data-off-label="否"
+                                                data-active="0" />
+                                    </td>
+                                    <td class="center">
+                                        <span
+                                            data-trigger="click"
+                                            data-placement="left"
+                                            data-title="提示"
+                                            data-bs-popover="'add.html'">
+                                            <a><i class="icon-plus"></i> <span class="text">添加</span></a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="ui-toolbar ui-widget-header">
+                                <div class="dataTables_paginate">
+                                    <button
+                                            class="btn"
+                                            data-ng-click="downloadData()"
+                                            data-ng-disabled="!hasManyData"
+                                            data-ng-hide="isLoading">
+                                    <span data-ng-switch on="hasManyData">
+                                        <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
+                                        <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
+                                    </span>
+                                    </button>
+                                    <img data-ng-show="isLoading" src="./img/loading.gif" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="info.html">
+    <ul class="activity-list">
+        <li>
+            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ item.name }}
+        </li>
+        <li>
+            <span class="text">所属 <i class="icon-caret-right"></i></span> {{ item.parentName }}
+        </li>
+        <li>
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
+        </li>
+    </ul>
+    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
+    <div class="clearfix"></div>
+</script>
+
+<script type="text/ng-template" id="add.html">
+    <ul class="activity-list">
+        <li><i class="icon-bullhorn"></i> 您确定添加么？</li>
+    </ul>
+    <div class="pull-right">
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.addNewGroup($parent.item, $parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
+        <span>&nbsp;</span>
+        <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
+    </div>
+    <div class="clearfix"></div>
+</script>
+
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <div class="controls">
+                    <span><i class="icon-bullhorn"></i> 您确定添加么？</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="addNewGroup();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

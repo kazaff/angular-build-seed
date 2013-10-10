@@ -8,11 +8,11 @@
                                 data-trigger="click"
                                 data-unique="1"
                                 data-placement="bottom"
-                                data-title="个人信息"
-                                data-bs-popover="'user-info.html'">
-                            <a class="help-info"><i class="icon-user"></i> {{ user.name }}</a>
+                                data-title="应用系统信息"
+                                data-bs-popover="'app-info.html'">
+                            <a class="help-info"><i class="icon-github"></i> {{ app.name }}</a>
                         </span>
-                         用户权限列表
+                        的可访问IP列表
                     </h5>
                 </div>
 
@@ -41,102 +41,77 @@
 
                         <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
-                                <tr>
-                                    <th ng-click="predicate='privName'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='privName'" ng-switch on="reverse">
+                            <tr>
+                                <th class="span4" ng-click="predicate='ip'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='ip'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                        权限
-                                    </th>
-                                    <th class="hidden-phone" ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='app'" ng-switch on="reverse">
-                                                <i class="icon-caret-up" ng-switch-when="false"></i>
-                                                <i class="icon-caret-down" ng-switch-when="true"></i>
-                                            </span>
-                                        所属
-                                    </th>
-                                    <th class="hidden-phone" ng-click="predicate='begin'; reverse=!reverse; resetFlag=true">
+                                    IP地址
+                                </th>
+                                <th class="hidden-phone" ng-click="predicate='begin'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='begin'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                        时间段
-                                    </th>
-                                    <th class="span2" ng-click="predicate='rule'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='rule'" ng-switch on="reverse">
-                                                <i class="icon-caret-up" ng-switch-when="false"></i>
-                                                <i class="icon-caret-down" ng-switch-when="true"></i>
-                                            </span>
-                                        规则
-                                    </th>
-                                    <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                    时间段
+                                </th>
+                                <th class="span3" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='validity'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                        有效性
-                                    </th>
-                                    <th class="span2">操作</th>
-                                </tr>
+                                    有效性
+                                </th>
+                                <th class="span3">操作</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                    <td class="center">
+                            <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">
                                         <span
                                                 data-trigger="click"
                                                 data-unique="1"
                                                 data-placement="right"
                                                 data-title="详细"
-                                                data-bs-popover="'info.html'"
-                                                data-ng-click="fetchInfo(item.privId)" >
-                                            <a class="help-info">{{ item.privName }} <i class="icon-tag"></i></a>
+                                                data-bs-popover="'info.html'" >
+                                            <a class="help-info">{{ item.ip }} <i class="icon-tag"></i></a>
                                         </span>
-                                    </td>
-                                    <td class="center hidden-phone">{{ item.app }} <i class="icon-arrow-right"></i> {{ item.group }}</td>
-                                    <td class="center hidden-phone">
-                                        {{ item.begin | date:"yyyy-MM-dd" }} <i class="icon-resize-horizontal"></i> {{ item.end | date:"yyyy-MM-dd" }}
-                                    </td>
-                                    <td class="center">
-                                        <kz-switch
-                                                data-id="{{ $parent.$index }}"
-                                                data-method="changeRule(id, status)"
-                                                data-model="item.rule"
-                                                data-on-label="允许"
-                                                data-off-label="禁止"
-                                                data-active="switchFlag && !item.isDelete" />
-                                    </td>
-                                    <td class="center">
-                                        <kz-switch
-                                                data-id="{{ $parent.$index }}"
-                                                data-method="changeValidity(id, status)"
-                                                data-model="item.validity"
-                                                data-on-label="是"
-                                                data-off-label="否"
-                                                data-active="switchFlag && !item.isDelete" />
-                                    </td>
-                                    <td class="center">
-                                        <div data-ng-hide="item.isDelete">
-                                            <span><kz-action data-name="privilegeUserEdit" data-group="privilege" data-ng-click="$parent.modalWin($parent.item)" /></span>
-                                            <span>&nbsp;</span>
+                                </td>
+                                <td class="center hidden-phone">
+                                    {{ item.begin | date:"yyyy-MM-dd" }} <i class="icon-resize-horizontal"></i> {{ item.end | date:"yyyy-MM-dd" }}
+                                </td>
+                                <td class="center">
+                                    <kz-switch
+                                            data-id="{{ $parent.$index }}"
+                                            data-method="changeValidity(id, status)"
+                                            data-model="item.validity"
+                                            data-on-label="是"
+                                            data-off-label="否"
+                                            data-active="switchFlag && !item.isDelete" />
+                                </td>
+                                <td class="center">
+                                    <div data-ng-hide="item.isDelete">
+                                        <span><kz-action data-name="appIpEdit" data-group="application" data-ng-click="$parent.modalWin($parent.item)" /></span>
+                                        <span>&nbsp;</span>
                                             <span data-trigger="click"
                                                   data-unique="1"
                                                   data-placement="left"
                                                   data-title="提示"
                                                   data-bs-popover="'delete.html'">
-                                                <kz-action data-name="privilegeUserDelete" data-group="privilege" />
+                                                <kz-action data-name="appIpDelete" data-group="application" />
                                             </span>
-                                        </div>
-                                        <i class="icon-lock" data-ng-show="item.isDelete"></i>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <i class="icon-lock" data-ng-show="item.isDelete"></i>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
                             <div class="dataTables_filter">
                                 <label>
-                                    <kz-action class="btn btn-success"  data-name="privilegeUserAdd" data-group="privilege" data-args="{uid: {{ $parent.uid }} }" />
+                                    <kz-action class="btn btn-success"  data-name="appIpAdd" data-group="application" data-args="{aid: {{ $parent.aid }} }" />
                                 </label>
                             </div>
 
@@ -162,56 +137,56 @@
 </div>
 
 <script type="text/ng-template" id="info.html">
-    <img data-ng-show="prvData.isLoading" src="./img/loading.gif" />
     <ul class="activity-list" data-ng-hide="prvData.isLoading">
-        <li>
-            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ prvInfo.privName }}
-        </li>
-        <li>
-            <span class="text">所属 <i class="icon-caret-right"></i></span> {{ item.app }} <i class="icon-arrow-right"></i> {{ item.group }}
-        </li>
         <li>
             <span class="text">开始时间 <i class="icon-caret-right"></i></span> {{ item.begin }}
         </li>
         <li>
             <span class="text">结束时间 <i class="icon-caret-right"></i></span> {{ item.end }}
         </li>
-        <li>
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ prvInfo.info }}
+        <li data-ng-show="item.info">
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
     <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
     <div class="clearfix"></div>
 </script>
 
-<script type="text/ng-template" id="user-info.html">
+<script type="text/ng-template" id="app-info.html">
     <ul class="activity-list">
         <li class="text-center">
-            <div style="float:none; margin:auto" class="label label-important" data-ng-show="user.type"><i class="icon-map-marker"></i>{{ user.type?"WebOS用户":"" }}</div>
             <div>
                 <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
             </div>
         </li>
         <li>
-            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ user.name }} ({{ user.sex?"男":"女" }})
+            <span class="text">英文标识 <i class="icon-caret-right"></i></span> {{ app.tag }}
         </li>
-        <li data-ng-show="user.qq">
-            <span class="text">QQ <i class="icon-caret-right"></i></span> {{ user.qq }}
+        <li>
+            <span class="text">域名 <i class="icon-caret-right"></i></span> <a data-ng-href="{{ app.domain }}" target="_blank">{{ app.domain }} <i class="icon-external-link"></i></a>
         </li>
-        <li data-ng-show="user.phone">
-            <span class="text">电话 <i class="icon-caret-right"></i></span> {{ user.phone }}
+        <li>
+            <span class="text">有效性 <i class="icon-caret-right"></i></span>
+            <span data-ng-switch on="app.validity">
+                <span data-ng-switch-when="1">是</span>
+                <span data-ng-switch-when="0">否</span>
+            </span>
         </li>
-        <li data-ng-show="user.mobile">
-            <span class="text">手机 <i class="icon-caret-right"></i></span> {{ user.mobile }}
+        <li>
+            <span class="text">限制访问IP <i class="icon-caret-right"></i></span>
+            <span data-ng-switch on="app.ipLimit">
+                <span data-ng-switch-when="1">是</span>
+                <span data-ng-switch-when="0">否</span>
+            </span>
         </li>
-        <li data-ng-show="user.email">
-            <span class="text">邮箱 <i class="icon-caret-right"></i></span> {{ user.email }}
-        </li>
-        <li data-ng-show="user.info">
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ user.info }}
+        <li data-ng-show="app.info">
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ app.info }}
         </li>
     </ul>
-    <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-mini btn-success pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
+    </div>
     <div class="clearfix"></div>
 </script>
 

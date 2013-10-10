@@ -3,7 +3,7 @@
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                    <h5>可访问系统列表</h5>
+                    <h5>用户所属用户组</h5>
                 </div>
 
                 <div class="widget-content nopadding">
@@ -32,47 +32,31 @@
                         <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
                             <tr>
-                                <th class="span4" ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='app'">
+                                <th class="span4" ng-click="predicate='name'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='name'">
                                             <i class="icon-group"></i>
                                         </span>
-                                    应用系统名称
+                                   用户组名称
                                 </th>
-                                <th class="span2" ng-click="predicate='status'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='status'" ng-switch on="reverse">
+                                <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='validity'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
-                                    开启状态
-                                </th>
-                                <th class="span2" ng-click="predicate='ipLimit'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='ipLimit'" ng-switch on="reverse">
-                                            <i class="icon-caret-up" ng-switch-when="false"></i>
-                                            <i class="icon-caret-down" ng-switch-when="true"></i>
-                                        </span>
-                                    限制访问IP
+                                    有效性
                                 </th>
                                 <th class="span2">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                <td class="center">{{ item.app }}</td>
+                                <td class="center">{{ item.name }}</td>
                                 <td class="center">
                                     <kz-switch
-                                            data-model="item.status"
-                                            data-on-label="开启"
-                                            data-off-label="关闭"
-                                            data-active="0" />
-                                </td>
-                                <td class="center">
-                                    <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeIpLimit(id, status)"
-                                            data-model="item.ipLimit"
+                                            data-model="item.validity"
                                             data-on-label="是"
                                             data-off-label="否"
-                                            data-active="switchFlag && !item.isDelete" />
+                                            data-active="0" />
                                 </td>
                                 <td class="center">
                                     <div data-ng-hide="item.isDelete">
@@ -95,7 +79,7 @@
                                 <label>
                                     <kz-action
                                             class="btn btn-success"
-                                            data-name="userAppAdd"
+                                            data-name="userGroupAdd"
                                             data-group="user"
                                             data-args="{uid: {{ $parent.uid }} }" />
                                 </label>

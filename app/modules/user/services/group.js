@@ -11,10 +11,10 @@ define([
 
     return ['$resource', function($resource){
 
-        return $resource(config.domain + 'usergroup/:gid/:page', {}, {
+        return $resource(config.domain + 'userGroup/:uid/:gid/:page', {}, {
              groupList: {
                 method: 'GET'
-                , params: {gid: 0}
+                , params: {gid: 0, uid: 0}
             }
             , changStatus: {
                 method: 'POST'
@@ -22,6 +22,10 @@ define([
             }
             , remove: {
                 method: 'DELETE'
+                , params: {uid: 0}
+            }
+            , create: {
+                method: 'PUT'
             }
         });
     }];

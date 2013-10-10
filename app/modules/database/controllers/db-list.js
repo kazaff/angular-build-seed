@@ -75,9 +75,9 @@ define(function(){
         };
 
         //恢复数据库
-        $scope.dbRecover = function(filename){
+        $scope.dbRecover = function(fileName){
             $scope.isSuccess=true;
-            Db.recover({file: filename, page: page}).$promise.then(function(response){
+            Db.recover({file: fileName, page: page}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({
@@ -104,8 +104,8 @@ define(function(){
 
         //下载
         //TODO
-        $scope.dbDownload = function(){
-            Db.query({file: 0, page: page, Download: 1}).$promise.then(function(data){
+        $scope.dbDownload = function(fileName){
+            Db.query({file: fileName, page: page, Download: 1}).$promise.then(function(data){
                 var blob = new Blob([data], {type: "application/octet-stream"});
                 saveAs(blob, 'hello.png');
             });
@@ -114,8 +114,8 @@ define(function(){
         //删除一条记录
         //id: 要删除的文件id
         //index 当前行的数据索引位置
-        $scope.dbDelete = function(id, index){
-            Db.delete({file: id, page: page}).$promise.then(function(response){
+        $scope.dbDelete = function(fileName, index){
+            Db.delete({file: fileName, page: page}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({

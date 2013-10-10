@@ -116,7 +116,7 @@
         <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.fileName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-            <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id, $parent.$index);hide()">确定</button>
+            <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.fileName, $parent.$index);hide()">确定</button>
         <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>
