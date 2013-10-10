@@ -10,7 +10,7 @@ define(function(){
             return response;
         });
 
-        $scope.ip = {validity: true};
+        $scope.ip = {validity: true, aid: $routeParams.aid};
         $scope.pristine = angular.copy($scope.ip);
 
         $scope.reset = function(){

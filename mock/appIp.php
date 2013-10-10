@@ -26,6 +26,7 @@
 			
 					$item = new stdClass();
 					$item->ipId = mt_rand(1, 1000);
+					$item->appId = mt_rand(1, 1000);
 					$item->ip = '192.168.1.1';
 					$item->validity = mt_rand(0, 1);
 					$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));

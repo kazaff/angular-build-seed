@@ -21,7 +21,7 @@
                         <div class="control-group" data-ng-class="{error: ipForm.name.$dirty && ipForm.name.$invalid}">
                             <label class="control-label">可访问IP</label>
                             <div class="controls">
-                                <input type="text" name="name" autocomplete="false" data-ng-model="ip.name" class="span10" placeholder="ip地址" required data-ng-pattern="/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/" />
+                                <input type="text" name="name" autocomplete="false" data-ng-model="ip.ip" class="span10" placeholder="ip地址" required data-ng-pattern="/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/" />
                                 <div data-ng-show="ipForm.name.$dirty && ipForm.name.$invalid">
                                     <span data-ng-show="ipForm.name.$error.required" class="help-inline"><i class="icon-warning-sign"></i> ip是必填项哟~</span>
                                     <span data-ng-show="ipForm.name.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> ip地址格式必须合法哟~</span>
