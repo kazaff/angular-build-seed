@@ -5,7 +5,7 @@
 	if($method == 'GET'){
 		
 		if($uri[4] == 0){
-			//指定用户的所有IP列表
+			//指定系统的所有IP列表
 			$page = intval($uri[5]); //请求页码
 			$preNum = 7;	//每页条数
 			$maxNum = 18;	//总条数
@@ -41,22 +41,19 @@
 			echo json_encode($result);
 		
 		}else{
-			//指定用户的信息
+			//指定系统的指定ip信息
 			mt_srand((double)microtime()*1000000);
 				
 			$item = new stdClass();
+			$item->ipId = mt_rand(1, 1000);
 			$item->appId = mt_rand(1, 1000);
-			$item->name = urlencode(mb_convert_encoding('系统'.mt_rand(1,999), 'utf-8', 'gbk'));
-			$item->logo = '';
-			$item->tag = 'demo';
-			$item->domain = 'http://www.codingcool.com';
-			$item->ipLimit = mt_rand(0, 1);
+			$item->ip = '192.168.1.1';
 			$item->validity = mt_rand(0, 1);
-			$item->authorization = mt_rand(0, 1);
 			$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
+			$item->begin = '2013-10-20';
+			$item->end = -1;
 			
-			echo json_encode($item);
-			
+			echo json_encode($item);			
 		}
 			
 	
@@ -81,7 +78,6 @@
 	}elseif($method == 'PUT'){
 	
 		//$data = json_decode(file_get_contents("php://input"));
-		//var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
 			
 		sleep(1);
 		echo '{"status":'.mt_rand(0, 1).'}';

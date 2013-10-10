@@ -148,7 +148,7 @@ define([
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
-                        , before_close:function(uid){
+                        , before_close: function(uid){
                             return function(e, manual_close){
                                 $scope.$apply(Action.forward('privilegeUserAdd', 'privilege' , {uid: uid}));
                             };

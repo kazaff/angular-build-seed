@@ -55,7 +55,6 @@ define(function(){
             $scope.isLoading = true;
 
             //去后端更新
-            //去后端更新
             var formData = {
                 appId: $scope.app.appId
                 , tag: $scope.app.tag

@@ -7,7 +7,7 @@
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$modal', '$q', '$filter', 'ip', 'application', function($scope, Auth, Action, $location, $routeParams, $modal, $q, $filter, Ip, Application){
+    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q', '$filter', 'ip', 'application', function($scope, Auth, Action, $location, $routeParams, $q, $filter, Ip, Application){
         var page = 0;
         $scope.aid = $routeParams.aid;
         $scope.resetFlag = false;
@@ -19,7 +19,7 @@ define([], function(){
             $scope.switchFlag = response.status;
         });
 
-        //获取用户信息
+        //获取应用系统信息
         $scope.app = Application.get({aid: $routeParams.aid}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
@@ -128,77 +128,6 @@ define([], function(){
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false
-                    });
-                }
-            });
-        };
-
-
-        var modalPromise = $modal({
-            template: 'form.html'
-            , persist: true
-            , show: false
-            , backdrop: 'static'
-            , scope: $scope
-        });
-
-        var modal = $q.when(modalPromise);
-
-        $scope.form = {aid: $scope.aid};
-
-        //触发编辑的模态窗口
-        $scope.modalWin = function(rule){
-            $scope.updateRule = rule;   //用于指向当前编辑的规则数据对象，用于更新显示列表
-
-            if(rule.begin == '不限制'){
-                $scope.form.begin = null;
-            }else{
-                $scope.form.begin = $filter('date')(rule.begin, 'yyyy-MM-dd');
-            }
-
-            if(rule.end == '不限制'){
-                $scope.form.end = null;
-            }else{
-                $scope.form.end = $filter('date')(rule.end, 'yyyy-MM-dd');
-            }
-
-            $scope.form.pid = rule.ipId;
-
-            modal.then(function(modalEl){
-                modalEl.modal('show');
-            });
-        };
-
-        //更新指定规则的有效时间
-        $scope.updateDate = function(){
-            Ip.updateDate($scope.form).$promise.then(function(response){
-                if(response['status'] == 1){
-
-                    $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
-                    $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
-
-                    //成功提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: 'IP规则更改成功!'
-                        , class_name: 'winner'
-                        , image: 'img/save.png'
-                        , sticky: false
-                    });
-
-                }else{
-                    //错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: 'IP规则更改失败!'
-                        , class_name: 'loser'
-                        , image: 'img/save.png'
-                        , sticky: false
-                        , before_close: function(aid){
-                            return function(e, manual_close){
-                                $scope.$apply(Action.forward('appIpList', 'application' , {aid: aid}));
-                            };
-                        }($routeParams.aid)
                     });
                 }
             });

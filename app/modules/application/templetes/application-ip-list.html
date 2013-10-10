@@ -92,7 +92,7 @@
                                 </td>
                                 <td class="center">
                                     <div data-ng-hide="item.isDelete">
-                                        <span><kz-action data-name="appIpEdit" data-group="application" data-ng-click="$parent.modalWin($parent.item)" /></span>
+                                        <span><kz-action data-name="appIpEdit" data-group="application" data-args="{aid:{{ $parent.aid }},pid:{{ $parent.item.ipId }} }" /></span>
                                         <span>&nbsp;</span>
                                             <span data-trigger="click"
                                                   data-unique="1"
@@ -139,10 +139,10 @@
 <script type="text/ng-template" id="info.html">
     <ul class="activity-list" data-ng-hide="prvData.isLoading">
         <li>
-            <span class="text">开始时间 <i class="icon-caret-right"></i></span> {{ item.begin }}
+            <span class="text">开始时间 <i class="icon-caret-right"></i></span> {{ item.begin | date:"yyyy-MM-dd" }}
         </li>
         <li>
-            <span class="text">结束时间 <i class="icon-caret-right"></i></span> {{ item.end }}
+            <span class="text">结束时间 <i class="icon-caret-right"></i></span> {{ item.end | date:"yyyy-MM-dd" }}
         </li>
         <li data-ng-show="item.info">
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}

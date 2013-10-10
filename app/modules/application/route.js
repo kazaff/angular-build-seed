@@ -76,7 +76,7 @@ define(function(){
             , api: 'restV1/appIp/delete'
         }
         ,{
-            uri: '/app/:aid/:pid/info'
+            uri: '/app/:aid/ip/add'
             , controller: 'appIpAddCtrl'
             , templateUrl: 'modules/application/templetes/application-ip-add.html'
             , ifMenu: false
