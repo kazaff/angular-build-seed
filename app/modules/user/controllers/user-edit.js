@@ -7,7 +7,8 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'user', '$routeParams', '$q', '$modal', function($scope, auth, Action, User, $routeParams, $q, $modal){
+    return ['$scope', 'auth', 'action', 'user', '$routeParams', '$q', '$modal', function($scope, Auth, Action, User, $routeParams, $q, $modal){
+        Auth.isLogined();
 
         //获取指定用户的信息
         $scope.user = {};

@@ -8,19 +8,15 @@ define(function(){
     'use strict';
 
     var initialize = function(module){
-        module.factory('auth', ['$location', function($location){
+        module.factory('auth', ['$window', function($window){
             return {
-                isLogined: function(data){
+                isLogined: function(){
                     //TODO 为了兼容旧浏览器，需要增加其他浏览器端持久化token的方法
                     if(!window.localStorage.token){
                         //TODO 避免硬编码
-                        $location.path('/login').replace();
-                    }
+                        //跳转到登录页
+                        $window.location.href = config.host + 'login.html';
 
-                    //如果请求返回的结果中包含授权失败信息，则根据情况跳转
-                    if(typeof(data) == "object" && data.status == 0){
-                        //TODO 避免硬编码
-                        $location.paht('/login').replace();
                     }
                 }
                 , userInfo: function(user){

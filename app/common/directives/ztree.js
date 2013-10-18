@@ -13,8 +13,13 @@ define(function(){
                 restrict: 'E'
                 , replace: true
                 , template: '<ul class="ztree"></ul>'
-                , scope: {setting: '='}
+                , scope: {
+                    setting: '='
+                    , tid: '@'
+                }
                 , link: function(scope, element, attrs){
+                    element.attr('id', scope.tid);
+
                     jQuery.fn.zTree.init(element, scope.setting);
                 }
             };

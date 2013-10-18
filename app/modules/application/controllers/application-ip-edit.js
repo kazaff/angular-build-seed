@@ -7,7 +7,8 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$q', '$routeParams', 'ip', '$filter', function($scope, auth, Action, $q, $routeParams, Ip, $filter){
+    return ['$scope', 'auth', 'action', '$q', '$routeParams', 'ip', '$filter', function($scope, Auth, Action, $q, $routeParams, Ip, $filter){
+        Auth.isLogined();
 
         //获取指定的可访问IP信息
         $scope.ip = {};

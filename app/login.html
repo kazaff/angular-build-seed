@@ -108,6 +108,9 @@
     function loginCtrl($scope, $http, $window){
         //$scope.failed = 0;  //记录失败次数, 失败一次以上就要求输入验证码, 为了刷新丢失问题, 需要把该值持久化到本地，并记录时间戳
         $scope.isLoading = false;
+        $scope.user = {};
+        $scope.user.account = window.localStorage.userAccount || '';
+
         $scope.login = function(){
             $scope.isLoading = true;
 
@@ -122,7 +125,7 @@
                     //持久化token
                     window.localStorage.userId = response.id;
                     window.localStorage.userAccount = response.account;
-                    window.localStorage.userName = response.name;
+                    window.localStorage.userName = decodeURI(response.name);
                     window.localStorage.userIdCard = response.idCard || '';
                     window.localStorage.userSex = response.sex;
                     window.localStorage.userType = response.type;
@@ -130,7 +133,7 @@
                     window.localStorage.userQq = response.qq || '';
                     window.localStorage.userPhone = response.phone || '';
                     window.localStorage.userMobile = response.mobile || '';
-                    window.localStorage.userInfo = response.info || '';
+                    window.localStorage.userInfo = decodeURI(response.info) || '';
                     window.localStorage.userPhoto = response.photo || '';
                     window.localStorage.token = response.token;
 

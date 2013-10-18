@@ -7,7 +7,9 @@
 define(function(){
     'use strict';
 
-    return ['$scope', '$routeParams', '$location', 'auth', 'action', 'group', '$modal', '$q', '$filter', function($scope, $routeParams, $location, auth, Action, Group,$modal, $q, $filter){
+    return ['$scope', '$routeParams', '$location', 'auth', 'action', 'group', '$modal', '$q', '$filter', function($scope, $routeParams, $location, Auth, Action, Group,$modal, $q, $filter){
+        Auth.isLogined();
+
         var page = $routeParams.page - 1;
         $scope.uid = $routeParams.uid;
         $scope.resetFlag = false;
@@ -16,6 +18,9 @@ define(function(){
         $scope.data = [];
 
         Action.link('userEdit', 'user').success(function(response){
+            $scope.switchFlag = response.status;
+        });
+        Action.link('userGroupBind', 'user').success(function(response){
             $scope.switchFlag = response.status;
         });
 
@@ -52,6 +57,14 @@ define(function(){
         };
 
         $scope.form = {group: 1, gid: $routeParams.gid};
+        $scope.bindForm = {group: 1, gid: $routeParams.gid};
+        var bindModalPromise = $modal({
+            template: 'bindform.html'
+            , persist: true
+            , show: false
+            , backdrop: 'static'
+            , scope: $scope
+        });
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -61,7 +74,7 @@ define(function(){
             , scope: $scope
         });
         var modal = $q.when(modalPromise);
-
+        var bindModal = $q.when(bindModalPromise);
         //树的配置参数
         $scope.setting = {
             data: {
@@ -94,6 +107,36 @@ define(function(){
             }
         };
 
+        $scope.checkedSetting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onMouseDown: onMouseDown
+            }
+            , async: {
+                enable: true
+                , type: 'get'
+                , url: config.domain + 'userGroup'
+                , autoParam:['id']
+                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
+            }
+            , view: {
+                addDiyDom: function(treeId, treeNode){
+
+                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"></span>');
+
+                    jQuery("#diyBtn_"+treeNode.id).on("click", function(){
+
+                        //用于启动添加权限的模态窗口
+                        $scope.bindModalWin(treeNode.id);
+                        $scope.$root.$$phase || $scope.$apply();
+                    });
+                }
+            }
+        };
 
         //更改有效性
         $scope.changeValidity = function(index, status){
@@ -170,16 +213,7 @@ define(function(){
             });
         };
 
-        var modalPromise = $modal({
-            template: 'form.html'
-            , persist: true
-            , show: false
-            , backdrop: 'static'
-            , scope: $scope
-        });
-        var modal = $q.when(modalPromise);
 
-        $scope.form = {uid: $scope.uid};
 
         //触发编辑的模态窗口
         $scope.modalWin = function(row){
@@ -190,6 +224,18 @@ define(function(){
             $scope.form.validity = row.validity;
             $scope.form.pid = row.id;
             modal.then(function(modalEl){
+                modalEl.modal('show');
+            });
+        };
+        //触发编辑的模态窗口
+        $scope.bindModalWin = function(row){
+
+            $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
+            $scope.bindForm.name = row.name;
+            $scope.bindForm.parentName = row.parentName;
+            $scope.bindForm.validity = row.validity;
+            $scope.bindForm.pid = row.id;
+            bindModal.then(function(modalEl){
                 modalEl.modal('show');
             });
         };

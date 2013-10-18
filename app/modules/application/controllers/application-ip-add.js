@@ -1,7 +1,8 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', 'ip', '$filter', function($scope, auth, Action, Application, $q, $routeParams, Ip, $filter){
+    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', 'ip', '$filter', function($scope, Auth, Action, Application, $q, $routeParams, Ip, $filter){
+        Auth.isLogined();
 
         //获取应用系统信息
         $scope.app = Application.get({aid: $routeParams.aid}).$promise.then(function(response){

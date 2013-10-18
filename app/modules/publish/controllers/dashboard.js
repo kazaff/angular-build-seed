@@ -9,9 +9,8 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$http', function($scope, auth, action, $http){
-        //auth();
-
+    return ['$scope', 'auth', '$http', function($scope, Auth, $http){
+        Auth.isLogined();
 
         $scope.test = function(element){
 

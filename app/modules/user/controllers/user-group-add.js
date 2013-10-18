@@ -9,7 +9,9 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', '$location', 'group', function($scope, Action, $routeParams, $modal, $q, $location, Group){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', '$location', 'group', 'auth', function($scope, Action, $routeParams, $modal, $q, $location, Group, Auth){
+        Auth.isLogined();
+
         var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;

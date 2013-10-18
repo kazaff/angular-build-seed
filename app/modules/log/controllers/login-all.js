@@ -7,7 +7,9 @@
 define(function(){
     'use strict';
 
-    return ['$scope', '$routeParams', 'auth', 'action', 'log', function($scope, $routeParams, auth, action, Log){
+    return ['$scope', '$routeParams', 'auth', 'log', function($scope, $routeParams, Auth, Log){
+        Auth.isLogined();
+
         var page = $routeParams.page - 1;
         $scope.resetFlag = false;
         $scope.hasManyData = true;

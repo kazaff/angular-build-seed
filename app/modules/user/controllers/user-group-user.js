@@ -5,9 +5,11 @@
  * Time: 下午3:52
  */
 define(function(){
-    'use strict';
+    'use strict';  
 
-    return ['$scope', '$routeParams', 'auth', 'action', 'db', function($scope, $routeParams, auth, Action, Db){
+    return ['$scope', '$routeParams', 'auth', 'action', 'usergroupuser', function($scope, $routeParams, Auth, Action, usergroupuser){
+		Auth.isLogined();
+		
         var page = 0;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
@@ -18,12 +20,10 @@ define(function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Db.query({page: ++page, file: 0}).$promise.then(function(response){
+            usergroupuser.groupUserList({page: ++page}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
-                    item.fileName = decodeURI(item.fileName);
-                    //文件名做唯一标识ID，但HTML标记的ID属性不允许出现 “.”，把扩展名.SQL去掉。
-                    item.id=item.fileName.substring(0,item.fileName.length-4);
+                    item.userName = decodeURI(item.userName);
                     $scope.data.push(item);
                 });
 
@@ -35,91 +35,12 @@ define(function(){
             });
         };
 
-        //恢复数据库
-        //ID：备份文件ID
-        $scope.dbBackup = function(){
-
-            //若正在执行，则不重复执行
-            if($scope.isLoading){
-                return;
-            }
-
-            $scope.isLoading = true;
-            Db.backup({file: 0, page: page}).$promise.then(function(response){
-                if(response['status'] == 0){
-                    //修改错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '备份失败!'
-                        , class_name: 'loser'
-                        , image: 'img/configuration2.png'
-                        , sticky: false
-                        , before_close: function(e, manual_close){
-                            $scope.$apply(Action.forward('dbBackupList', 'database'));
-                        }
-                    });
-                }else{
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '备份成功!'
-                        , class_name: 'winner'
-                        , image: 'img/save.png'
-                        , sticky: false
-                    }),
-                        function add() {
-                            var item = response.data;
-                            item.fileName = decodeURI(item.fileName);
-                            //文件名做唯一标识ID，但HTML标记的ID属性不允许出现 “.”，把扩展名.SQL去掉。
-                            item.id=item.fileName.substring(0,item.fileName.length-4);
-                            $scope.data.push(item);
-                        }();
-                };
-                $scope.isLoading = false;
-            });
-        };
-
-        //恢复数据库
-        $scope.dbRecover = function(fileName){
-            $scope.isSuccess=true;
-            Db.recover({file: fileName, page: page}).$promise.then(function(response){
-                if(response['status'] == 0){
-                    //修改错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '恢复失败!'
-                        , class_name: 'loser'
-                        , image: 'img/configuration2.png'
-                        , sticky: false
-                        , before_close: function(e, manual_close){
-                            $scope.$apply(Action.forward('dbBackupList', 'database'));
-                        }
-                    });
-                }else{
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '恢复成功!'
-                        , class_name: 'winner'
-                        , image: 'img/save.png'
-                        , sticky: false
-                    });
-                }
-            });
-        };
-
-        //下载
-        //TODO
-        $scope.dbDownload = function(fileName){
-            Db.query({file: fileName, page: page, Download: 1}).$promise.then(function(data){
-                var blob = new Blob([data], {type: "application/octet-stream"});
-                saveAs(blob, 'hello.png');
-            });
-        };
 
         //删除一条记录
         //id: 要删除的文件id
         //index 当前行的数据索引位置
-        $scope.dbDelete = function(id,fileName, index){
-            Db.delete({file: fileName, page: page}).$promise.then(function(response){
+        $scope.userDelete = function(id,userName, index){
+            usergroupuser.delete({uid: id, page: page}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({
@@ -129,7 +50,7 @@ define(function(){
                         , image: 'img/configuration2.png'
                         , sticky: false
                         , before_close: function(e, manual_close){
-                            $scope.$apply(Action.forward('dbBackupList', 'database'));
+                            $scope.$apply(Action.forward('userGroupUserList', 'user'));
                         }
                     });
                 }

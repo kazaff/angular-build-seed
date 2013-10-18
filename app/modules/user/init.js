@@ -14,15 +14,18 @@ define([
     , 'modules/user/controllers/user-list'
     , 'modules/user/controllers/user-edit'
     , 'modules/user/controllers/user-group'
+    , 'modules/user/controllers/user-group-user'
     , 'modules/user/controllers/user-app-list'
     , 'modules/user/controllers/user-app-add'
     , 'modules/user/controllers/user-add'
     , 'modules/user/controllers/usergroup-add'
     , 'modules/user/controllers/someone-group'
 
+
     //·þÎñ
     , 'modules/user/services/user'
     , 'modules/user/services/group'
+    , 'modules/user/services/usergroupuser'
     , 'modules/user/services/userApp'
     //Ö¸Áî
     , 'modules/user/directives/password-strength'
@@ -37,6 +40,7 @@ define([
         , userListCtrl
         , userEditCtrl
         , userGroupCtrl
+        , userGroupUserCtrl
         , userAppListCtrl
         , userAppAddCtrl
         , userAddCtrl
@@ -44,6 +48,7 @@ define([
         , someoneGroupCtrl
         , user
         , group
+        , usergroupuser
         , userApp
         , pswStrength){
    'use strict';
@@ -54,6 +59,7 @@ define([
 
     userModule.factory('user', user);
     userModule.factory('group', group);
+    userModule.factory('usergroupuser', usergroupuser);
     userModule.factory('userApp', userApp);
 
     userModule.controller('userSelfCtrl', userSelfCtrl);
@@ -61,6 +67,7 @@ define([
     userModule.controller('userListCtrl', userListCtrl);
     userModule.controller('userEditCtrl', userEditCtrl);
     userModule.controller('userGroupCtrl', userGroupCtrl);
+    userModule.controller('userGroupUserCtrl', userGroupUserCtrl);
     userModule.controller('userAppListCtrl', userAppListCtrl);
     userModule.controller('userAppAddCtrl', userAppAddCtrl);
     userModule.controller('userAddCtrl', userAddCtrl);

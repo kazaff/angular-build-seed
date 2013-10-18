@@ -65,11 +65,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr id="{{item.id}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                <td class="center">{{ item.fileName }}</td>
-                                <td class="center hidden-phone">{{ item.fileSize }}</td>
-                                <td class="center hidden-phone">{{ item.dateTime }}</td>
-                                <td class="center hidden-phone">{{ item.dateTime }}</td>
+                            <tr id="{{item.userID}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">{{ item.userName }}</td>
+                                <td class="center hidden-phone">{{ item.name }}</td>
+                                <td class="center hidden-phone">{{ item.userCount }}</td>
+                                <td class="center">
+                                    <kz-switch
+                                            data-model="item.validity"
+                                            data-on-label="是"
+                                            data-off-label="否"
+                                            data-active="0" />
+                                </td>
                                 <td class="center">
                                         <span>
                                             <span data-trigger="click"
@@ -106,21 +112,12 @@
 </div>
 <script type="text/ng-template" id="delete.html">
     <ul class="activity-list">
-        <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.fileName }}</span>么？</li>
+        <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.userName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-        <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id,$parent.item.fileName, $parent.$index);hide()">确定</button>
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.userDelete($parent.item.userID,$parent.item.userName, $parent.$index);hide()">确定</button>
         <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>
 </script>
-<script type="text/ng-template" id="recover.html">
-    <ul class="activity-list">
-        <li><i class="icon-bullhorn"></i> 恢复操作会覆盖当前数据，您确定恢复<span class="text">{{ item.fileName }}</span>么？</li>
-    </ul>
-    <div class="pull-right">
-        <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbRecover($parent.item.id);hide()">确定</button>
-        <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
-    </div>
-    <div class="clearfix"></div>
-</script>
+

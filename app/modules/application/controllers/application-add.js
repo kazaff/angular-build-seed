@@ -7,7 +7,8 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'application', '$q', function($scope, auth, Action, Application, $q){
+    return ['$scope', 'auth', 'action', 'application', '$q', function($scope, Auth, Action, Application, $q){
+        Auth.isLogined();
 
         $scope.app = {ipLimit: 1, validity: 1};
         $scope.pristine = angular.copy($scope.app);

@@ -8,6 +8,8 @@ define([], function(){
     'use strict';
 
     return ['$scope', 'auth', 'action', '$location', '$routeParams', 'userApp', function($scope, Auth, Action, $location, $routeParams, UserApp){
+        Auth.isLogined();
+
         var page = $routeParams.page - 1;
         $scope.uid = $routeParams.uid;
         $scope.resetFlag = false;

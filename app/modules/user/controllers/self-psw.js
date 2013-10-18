@@ -7,7 +7,8 @@
  define(function(){
      'use strict';
 
-     return ['$scope', 'user', 'action', function($scope, User, Action){
+     return ['$scope', 'user', 'action', 'auth', function($scope, User, Action, Auth){
+         Auth.isLogined();
 
          //检查是否通过原始密码的认证
          $scope.auth = function(){

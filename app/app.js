@@ -32,7 +32,7 @@ define([
         console.groupEnd();
         console.info('定义该应用的主模块：', mainModule.name);
 
-        mainModule.config(['$httpProvider', '$locationProvider', '$routeProvider', function($httpProvider, $locationProvider, $routeProvider){
+        mainModule.config(['$httpProvider', '$locationProvider', '$routeProvider', '$windowProvider', function($httpProvider, $locationProvider, $routeProvider, $windowProvider){
 
             $locationProvider.html5Mode(false).hashPrefix('!');
 
@@ -61,8 +61,27 @@ define([
 
             //TODO 为了兼容旧浏览器，需要增加其他浏览器端持久化token的方法
             if(window.localStorage.token){
-                $httpProvider.defaults.headers.common['Authorization'] = 'MD ' + window.localStorage.token;
+                $httpProvider.defaults.headers.common['AUTH'] = 'MD ' + window.localStorage.token;
             }
+
+            //响应拦截器，用于检查登录状态
+            $httpProvider.responseInterceptors.push(function($q){
+                return function(promise){
+                    return promise.then(function(response){
+
+                        //若返回的数据中指示该用户未登录，则触发跳转到登录页面
+                        if(!angular.isUndefined(response.data.loginStatus) && response.data.loginStatus == 0){
+                            delete window.localStorage.token;   //删除会话id
+                            $windowProvider.$get().location.href = config.host + 'login.html';
+                        }
+
+                        return response;
+
+                    }, function(response) {
+                        return $q.reject(response);
+                    });
+                };
+            });
         }]);
 
         //加载通用模块

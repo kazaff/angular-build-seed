@@ -107,8 +107,7 @@
                                         <span>&nbsp;</span>
                                         <span><kz-action data-name="userGroupUserList" data-group="user" /></span>
                                         <span>&nbsp;</span>
-                                        <span><kz-action data-name="userGroupBind" data-group="user" /></span>
-
+                                        <span><kz-action data-name="userGroupBind" data-group="user" data-ng-click="$parent.bindModalWin($parent.item)" /></span>
                                     </div>
                                     <i class="icon-lock" data-ng-show="item.isDelete"></i>
                                 </td>
@@ -205,7 +204,7 @@
                         <td> <label class="control-label" for="selecttree">选择父组</label></td>
                         <td>
                             <div id="selecttree" class="tab-pane" style="margin:5px">
-                                <kz-ztree data-setting="setting" />
+                                <kz-ztree data-setting="setting" data-tid="kazaff" />
                             </div>
                         </td>
                     </tr>
@@ -227,6 +226,45 @@
                 </div>
             </div>
 
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="bindform.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="groupName">用户组名称</label>
+                <div class="controls">
+                    <input type="text" id="groupName" readonly placeholder="输入用户组名称" data-ng-model="bindForm.name"  />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="parentGroupName">已绑定用户组</label>
+                <div class="controls">
+                    <input type="text" id="parentGroupName" readonly data-ng-model="bindForm.parentName"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <table>
+                    <tr>
+                        <td> <label class="control-label" for="moreSelecttree">选择父组</label></td>
+                        <td>
+                            <div id="moreSelecttree" class="tab-pane" style="margin:5px">
+                                <kz-ztree data-setting="checkedSetting" data-tid="sww"  />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="control-group">
                 <div class="controls">
                     <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>

@@ -7,7 +7,8 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'user', '$q', function($scope, auth, Action, User, $q){
+    return ['$scope', 'auth', 'action', 'user', '$q', function($scope, Auth, Action, User, $q){
+        Auth.isLogined();
 
         $scope.user = {sex:'-1', type:1};
         $scope.pristine = angular.copy($scope.user);

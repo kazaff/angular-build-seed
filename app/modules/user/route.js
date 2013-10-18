@@ -117,7 +117,7 @@ define(function(){
         }
         , {
             uri: '/group/:gid/user/list/:page'
-            , controller: 'userGroupCtrl'
+            , controller: 'userGroupUserCtrl'
             , templateUrl: 'modules/user/templetes/user-group-user.html'
             , ifMenu: false
             , name: 'userGroupUserList'
@@ -126,10 +126,7 @@ define(function(){
             , api: 'restV1/userGroup/get'
         }
         , {
-            uri: '/group/:gid/bind/list/:page'
-            , controller: 'userGroupCtrl'
-            , templateUrl: 'modules/user/templetes/user-group-bind.html'
-            , ifMenu: false
+            ifMenu: false
             , name: 'userGroupBind'
             , title: '绑定用户组'
             , icon: 'icon-group'
