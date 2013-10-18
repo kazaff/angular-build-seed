@@ -32,6 +32,16 @@ define(function(){
             , api: 'restV1/userPrivilege/get'
         }
         , {
+            uri: '/privilege/gid/:gid/list/:page'
+            , controller: 'prvUserGroupListCtrl'
+            , templateUrl: 'modules/privilege/templetes/user-group-privilege-list.html'
+            , ifMenu: false
+            , name: 'privilegeUserGroupList'
+            , title: '用户组权限'
+            , icon: 'icon-screenshot'
+            , api: 'restV1/userGroupPrivilege/get'
+        }
+        , {
             ifMenu: false
             , name: 'privilegeUserDelete'
             , title: '删除'
@@ -44,6 +54,23 @@ define(function(){
             , title: '编辑'
             , icon: 'icon-edit'
             , api: 'restV1/userPrivilege/put'
+        }
+        ,{
+            ifMenu: false
+            , name: 'privilegeUserGroupEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/userGroupPrivilege/put'
+        }
+        ,{
+            uri: '/privilege/gid/:gid/add'
+            , controller: 'userGroupPrvAddCtrl'
+            , templateUrl: 'modules/privilege/templetes/user-group-privilege-add.html'
+            , ifMenu: false
+            , name: 'privilegeUserGroupAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/userGroupPrivilege/post'
         }
         ,{
             uri: '/privilege/uid/:uid/add'

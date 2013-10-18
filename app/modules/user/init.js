@@ -17,8 +17,9 @@ define([
     , 'modules/user/controllers/user-app-list'
     , 'modules/user/controllers/user-app-add'
     , 'modules/user/controllers/user-add'
+    , 'modules/user/controllers/usergroup-add'
     , 'modules/user/controllers/someone-group'
-    , 'modules/user/controllers/user-group-add'
+
     //·þÎñ
     , 'modules/user/services/user'
     , 'modules/user/services/group'
@@ -28,7 +29,6 @@ define([
     //¿â
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-
 ], function(
         console
         , angular
@@ -40,8 +40,8 @@ define([
         , userAppListCtrl
         , userAppAddCtrl
         , userAddCtrl
+		, userGroupAddCtrl
         , someoneGroupCtrl
-        , userGroupAddCtrl
         , user
         , group
         , userApp
@@ -64,9 +64,9 @@ define([
     userModule.controller('userAppListCtrl', userAppListCtrl);
     userModule.controller('userAppAddCtrl', userAppAddCtrl);
     userModule.controller('userAddCtrl', userAddCtrl);
-    userModule.controller('someoneGroupCtrl', someoneGroupCtrl);
     userModule.controller('userGroupAddCtrl', userGroupAddCtrl);
-
+    userModule.controller('someoneGroupCtrl', someoneGroupCtrl);
+	
     userModule.directive('kzPasswordStrength', pswStrength);
 
     console.groupEnd();

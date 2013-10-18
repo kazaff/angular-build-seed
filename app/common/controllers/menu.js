@@ -10,7 +10,7 @@ define(function(){
     var initialize = function(module){
 
         //主菜单
-        module.controller('menuCtrl', ['$scope', 'action', function($scope, Action){
+        module.controller('menuCtrl', ['$scope', 'action', 'auth', '$window', '$modal', '$q', function($scope, Action, Auth, $window, $modal, $q){
             $scope.menu = [];
             Action.menu().success(function(data){
 
@@ -24,6 +24,30 @@ define(function(){
 
                 $scope.menu = data;
             });
+
+            var modalPromise = $modal({
+                template: 'logout.html'
+                , persist: true
+                , show: false
+                , backdrop: 'static'
+                , scope: $scope
+            });
+            var modal = $q.when(modalPromise);
+
+            //用于触发 退出系统的模态窗口
+            $scope.modalWin = function(){
+                modal.then(function(modalEl){
+                    modalEl.modal('show');
+                });
+            };
+
+            $scope.logout = function(){
+                //清除用户信息
+                window.localStorage.clear();
+
+                //跳转到登录页
+                $window.location.href = config.host + 'login.html';
+            };
         }]);
 
         return module;

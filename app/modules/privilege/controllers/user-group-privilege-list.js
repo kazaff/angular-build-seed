@@ -1,28 +1,30 @@
 /**
  * Created with JetBrains WebStorm.
- * User: sww
- * Date: 13-10-10
+ * User: fengtao
+ * Date: 13-10-2
  * Time: 上午11:40
  */
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'user', 'userPrivilege', '$modal', '$q', '$filter', function($scope, Auth, Action, Privilege, $location, $routeParams, User, UserPrivilege, $modal, $q, $filter){
+    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'group', 'userGroupPrivilege', '$modal', '$q', '$filter', function($scope, Auth, Action, Privilege, $location, $routeParams, Group, UserGroupPrivilege, $modal, $q, $filter){
         var page = $routeParams.page - 1;
-        $scope.uid = $routeParams.uid;
+        $scope.gid = $routeParams.gid;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
         $scope.data = [];
 
-        Action.link('privilegeUserEdit', 'privilege').success(function(response){
+        Action.link('privilegeUserGroupEdit', 'privilege').success(function(response){
             $scope.switchFlag = response.status;
         });
 
         //获取用户信息
-        $scope.user = User.get({uid: $routeParams.uid}).$promise.then(function(response){
+        $scope.group = Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
+            response.parentName = decodeURI(response.parentName);
+            response.bindGroup = decodeURI(response.bindGroup);
             return response;
         });
 
@@ -52,7 +54,7 @@ define([], function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            UserPrivilege.query({page: ++page, uid: $routeParams.uid}).$promise.then(function(response){
+            UserGroupPrivilege.query({page: ++page, gid: $routeParams.gid}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.privName = decodeURI(item.privName);
@@ -94,7 +96,7 @@ define([], function(){
         //更改有效性
         $scope.changeValidity = function(index, status){
 
-            var promise = UserPrivilege.changStatus({id: $scope.data[index].privId, status: status, uid: $routeParams.uid, type: 'validity'}).$promise;
+            var promise = UserGroupPrivilege.changStatus({id: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -105,11 +107,11 @@ define([], function(){
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
-                        , before_close: function(uid){
+                        , before_close: function(gid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserList', 'privilege' , {page: 1, uid: uid}));
+                                $scope.$apply(Action.forward('privilegeUserGroupList', 'privilege' , {page: 1, gid: gid}));
                             };
-                        }($routeParams.uid)
+                        }($routeParams.gid)
                     });
                 }else{
                     $scope.data[index].validity = status;
@@ -122,7 +124,7 @@ define([], function(){
         //更改规则为
         $scope.changeRule = function(index, status){
 
-            var promise = UserPrivilege.changStatus({id: $scope.data[index].privId, status: status, uid: $routeParams.uid, type: 'rule'}).$promise;
+            var promise = UserGroupPrivilege.changStatus({id: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'rule'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
@@ -132,11 +134,11 @@ define([], function(){
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
-                        , before_close: function(uid){
+                        , before_close: function(gid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserList', 'privilege' , {page: 1, uid: uid}));
+                                $scope.$apply(Action.forward('privilegeUserGroupList', 'privilege' , {page: 1, gid: gid}));
                             };
-                        }($routeParams.uid)
+                        }($routeParams.gid)
                     });
                 }else{
                     $scope.data[index].rule = status;
@@ -146,11 +148,11 @@ define([], function(){
             return promise; //返回promse，供switch插件判断显示状态
         };
 
-        //删除指定用户
+        //删除指定用户组
         $scope.delete = function(object, index){
             object.isDelete = 1; //标识该数据被删除
 
-            UserPrivilege.remove({pid: object.privId, uid: $routeParams.uid}).$promise.then(function(reponse){
+            UserGroupPrivilege.remove({pid: object.privId, gid: $routeParams.gid}).$promise.then(function(reponse){
                 if(reponse['status'] == 0){
 
                     object.isDelete = 0;    //取消该数据的删除状态
@@ -158,15 +160,15 @@ define([], function(){
                     //删除错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户的指定权限删除失败!'
+                        , text: '用户组的指定权限删除失败!'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
-                        , before_close: function(uid){
+                        , before_close: function(gid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserList', 'privilege' , {page: 1, uid: uid}));
+                                $scope.$apply(Action.forward('privilegeUserGroupList', 'privilege' , {page: 1, gid: gid}));
                             };
-                        }($routeParams.uid)
+                        }($routeParams.gid)
                     });
 
                 }else{
@@ -176,7 +178,7 @@ define([], function(){
                     //删除陈功提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户的指定权限删除成功!'
+                        , text: '用户组的指定权限删除成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false
@@ -196,11 +198,11 @@ define([], function(){
 
         var modal = $q.when(modalPromise);
 
-        $scope.form = {uid: $scope.uid};
+        $scope.form = {gid: $scope.gid};
 
         //触发编辑的模态窗口
         $scope.modalWin = function(rule){
-
+            console.log(rule);
             $scope.updateRule = rule;   //用于指向当前编辑的规则数据对象，用于更新显示列表
 
             if(rule.begin == '不限制'){
@@ -224,7 +226,7 @@ define([], function(){
 
         //更新指定规则的有效时间
         $scope.updateDate = function(){
-            UserPrivilege.updateDate($scope.form).$promise.then(function(response){
+            UserGroupPrivilege.updateDate($scope.form).$promise.then(function(response){
                 if(response['status'] == 1){
 
                     $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
@@ -247,11 +249,11 @@ define([], function(){
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
-                        , before_close:function(uid){
+                        , before_close:function(gid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserList', 'privilege' , {uid: uid, page: 1}));
+                                $scope.$apply(Action.forward('privilegeUserGroupList', 'privilege' , {gid: gid, page: 1}));
                             };
-                        }($routeParams.uid)
+                        }($routeParams.gid)
                     });
                 }
             });

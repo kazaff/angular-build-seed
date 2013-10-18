@@ -42,6 +42,16 @@ define(function(){
             , api: 'restV1/user/post'
         }
         , {
+            uri: '/userGroup/add'
+            , controller: 'userGroupAddCtrl'
+            , templateUrl: 'modules/user/templetes/userGroup-add.html'
+            , ifMenu: false
+            , name: 'userGroupAdd'
+            , title: '新增用户组'
+            , icon: 'icon-plus'
+            , api: 'restV1/user/post'
+        }
+        , {
             uri: '/user/:uid/info'
             , controller: 'userEditCtrl'
             , templateUrl: 'modules/user/templetes/user-edit.html'

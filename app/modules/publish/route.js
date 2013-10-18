@@ -22,10 +22,7 @@ define(function(){
             , api: 'restV1/dashboard/get'
         }
         ,{
-            uri: '/logout'
-            , controller: 'logoutCtrl'
-            , templateUrl: 'modules/publish/templetes/logout.html'
-            , ifMenu: false
+            ifMenu: false
             , name: 'logout'
             , title: 'ÍË³ö'
             , icon: 'icon-off'

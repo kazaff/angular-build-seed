@@ -44,11 +44,6 @@
     <!--
     <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
     -->
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-    </style>
     <!--[if lt IE 9]>
     <script src="./lib/html5shiv.js"></script>
     <![endif]-->
@@ -84,7 +79,7 @@
                     <li><kz-action data-name="loginList" data-group="log" data-args="{'uid': 'myself', 'page': 1}" /></li>
                 </ul>
             </li>
-            <li><kz-action data-name="logout" data-group="publish" /></li>
+            <li><kz-action data-name="logout" data-group="publish" data-ng-click="$parent.modalWin()" /></li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
@@ -114,6 +109,25 @@
     </div>
     <!--end-Footer-part-->
 </div>
+
+<script type="text/ng-template" id="logout.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <div class="controls">
+                    <span><i class="icon-bullhorn"></i> 您确定退出系统么？</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-danger" data-ng-click="logout();hide()"><i class="icon-off"></i> <span class="text">确定</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">取消</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
 
 <script src="./lib/requireJS/require.js" data-main="./bootstrap.js"></script>
 <!--[if lt IE 7 ]>

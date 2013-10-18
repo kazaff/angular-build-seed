@@ -12,6 +12,7 @@ define([
     , 'angular/angular-resource'
     , 'angular/angular-route'
     , 'angular/angular-animate'
+    , 'angular/angular-strap'
 ], function(console, angular, common){
     'use strict';
 
@@ -19,7 +20,7 @@ define([
 
         console.group('初始化主模块配置');
 
-        var deps = ['ngResource', 'ngRoute', 'ngAnimate'];
+        var deps = ['ngResource', 'ngRoute', 'ngAnimate', '$strap.directives'];
         for(var index in needModules){
             deps.push(needModules[index].name);
         }

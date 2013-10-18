@@ -102,7 +102,8 @@
                                                 <kz-action data-name="userDelete" data-group="user" />
                                             </span>
                                         <span>&nbsp;</span>
-                                        <span><kz-action data-name="userGroupPrivilege" data-group="user" /></span>
+                                        <span><kz-action data-name="privilegeUserGroupList" data-group="privilege" data-args="{gid: {{ $parent.item.groupId }}, page: 1}" /></span>
+                                        <span>&nbsp;</span>
                                         <span>&nbsp;</span>
                                         <span><kz-action data-name="userGroupUserList" data-group="user" /></span>
                                         <span>&nbsp;</span>
@@ -116,6 +117,14 @@
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
+                            <div class="dataTables_filter">
+                                <label>
+                                    <kz-action
+                                            class="btn btn-success"
+                                            data-name="userGroupAdd"
+                                            data-group="user" />
+                                </label>
+                            </div>
                             <div class="dataTables_paginate">
                                 <button
                                         class="btn"
@@ -138,12 +147,6 @@
 </div>
 <script type="text/ng-template" id="info.html">
     <ul class="activity-list">
-        <li class="text-center">
-            <div class="label label-important" data-ng-show="item.type"><i class="icon-map-marker"></i>{{ item.type?"WebOS用户组":"" }}</div>
-            <div>
-                <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
-            </div>
-        </li>
         <li>
             <span class="text">用户组名称 <i class="icon-caret-right"></i></span> {{ item.name }}
         </li>
@@ -179,4 +182,58 @@
         <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
+</script>
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="name">组名称</label>
+                <div class="controls">
+                    <input type="text" id="name" placeholder="输入用户组名称" data-ng-model="form.name"  />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="parentName">父组名称</label>
+                <div class="controls">
+                    <input type="text" id="parentName" readonly data-ng-model="form.parentName"  />
+                </div>
+            </div>
+            <div class="control-group">
+                <table>
+                    <tr>
+                        <td> <label class="control-label" for="selecttree">选择父组</label></td>
+                        <td>
+                            <div id="selecttree" class="tab-pane" style="margin:5px">
+                                <kz-ztree data-setting="setting" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">有效性</label>
+                <div class="controls">
+                    <kz-switch
+                            data-id="{{ $parent.$index }}"
+                            data-model="item.validity"
+                            data-on-label="是"
+                            data-off-label="否"
+                            data-active="true" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </script>

@@ -54,7 +54,7 @@
 				
 				echo json_encode($result);
 				
-			}else{
+			}elseif($uri[3] == 0 && $uri[4] == 0 ){
 				//显示系统中所有用户组列表
 				
 				$page = intval($uri[5]); //请求页码
@@ -95,6 +95,24 @@
 				}
 				
 				echo json_encode($result);
+			
+			}else{
+				//获取指定的用户组信息
+				mt_srand((double)microtime()*1000000);
+						
+				$item = new stdClass();
+				$item->groupId = mt_rand(1, 1000);
+				$item->name = urlencode(mb_convert_encoding('用户组'.mt_rand(1,999), 'utf-8', 'gbk'));
+				$item->parentName = urlencode(mb_convert_encoding('父用户组'.mt_rand(1, 999), 'utf-8', 'gbk'));
+				$item->type = mt_rand(0, 1);
+				$item->bindGroup = urlencode(mb_convert_encoding('没有绑定用户组', 'utf-8', 'gbk'));
+				$item->userCount = mt_rand(1, 9);	
+				$item->mobile = '13729837023';
+				//$item->photo = '';	//后端用户头像如何暴露uri？
+				$item->info = urlencode(mb_convert_encoding(str_repeat('不在不在不在不在不',mt_rand(1, 10)), 'utf-8', 'gbk'));
+				$item->validity = (bool)mt_rand(0, 1);
+				
+				echo json_encode($item);
 			}
 		
 	}elseif($method == 'POST'){

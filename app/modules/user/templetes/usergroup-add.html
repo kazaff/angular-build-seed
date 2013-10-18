@@ -1,0 +1,198 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"> <i class="icon-plus"></i> </span>
+                    <h5>添加用户组</h5>
+                    <ul class="nav nav-tabs pull-right">
+                        <li data-ng-click="tab='tree'"><a data-toggle="tab" href="#tree"><i class="icon-align-left"></i> 层级</a></li>
+                        <li class="active" data-ng-click="tab='list'"><a data-toggle="tab" href="#list"><i class="icon-align-justify"></i> 列表</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content tab-content nopadding">
+                    <div id="tree" class="tab-pane" style="margin:5px">
+                        <kz-ztree data-setting="setting" />
+                    </div>
+
+                    <div id="list" class="tab-pane active">
+                        <div class="dataTables_wrapper">
+                            <div>
+                                <div class="dataTables_length form-horizontal">
+                                    <label>
+                                        <i class="icon-filter" data-bs-tooltip="'将会以您填写的条件对列表数据进行筛选'" data-trigger="hover"></i>
+                                        <input
+                                                data-ng-change="resetFlag=true"
+                                                data-ng-model="searchText"
+                                                type="text"
+                                                placeholder="过滤条件 或 查询关键字"
+                                                />
+                                        <button class="btn btn-primary"
+                                                data-ng-click="searchData()"
+                                                data-bs-tooltip="'将从服务器端进行检索'"
+                                                data-trigger="hover"
+                                                data-ng-disabled="!searchText"
+                                                ><i class="icon-search"></i></button>
+                                        <button
+                                                data-ng-disabled="!resetFlag"
+                                                data-ng-click="resetFilter()"
+                                                class="btn btn-info"
+                                                >
+                                            <i class="icon-retweet" data-bs-tooltip="'清空您添加的所有筛选条件，包括：过滤条件，排序'" data-trigger="hover"></i> <span class="text">重置规则</span>
+                                        </button>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered" data-kz-table-fixed-header>
+                                <thead>
+                                <tr>
+                                    <th ng-click="predicate='name'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='name'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        组名称
+                                    </th>
+                                    <th class="hidden-phone" ng-click="predicate='parentName'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='parentName'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        父组名称
+                                    </th>
+                                    <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='validity'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                        有效性
+                                    </th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                    <td class="center">
+                                    <span
+                                            data-trigger="click"
+                                            data-unique="1"
+                                            data-placement="right"
+                                            data-title="详细"
+                                            data-bs-popover="'info.html'">
+                                        <a class="help-info">{{ item.name }} <i class="icon-tag"></i></a>
+                                    </span>
+                                    </td>
+                                    <td class="center hidden-phone">{{ item.parentName }}</td>
+                                    <td class="center">
+                                        <kz-switch
+                                                data-id="{{ $parent.$index }}"
+                                                data-method="changeValidity(id, status)"
+                                                data-model="item.validity"
+                                                data-on-label="是"
+                                                data-off-label="否"
+                                                data-active="false" />
+                                    </td>
+                                    <td class="center">
+                                        <a data-ng-click="modalWin(item)"><i class="icon-plus"></i> <span class="text">添加</span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="ui-toolbar ui-widget-header">
+                                <div class="dataTables_paginate">
+                                    <button
+                                            class="btn"
+                                            data-ng-click="downloadData()"
+                                            data-ng-disabled="!hasManyData"
+                                            data-ng-hide="isLoading">
+                                    <span data-ng-switch on="hasManyData">
+                                        <span data-ng-switch-when="true"><i class="icon-download-alt"></i> 更多</span>
+                                        <span data-ng-switch-when="false"><i class="icon-twitter"></i> 暂无</span>
+                                    </span>
+                                    </button>
+                                    <img data-ng-show="isLoading" src="./img/loading.gif" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="name">组名称</label>
+                <div class="controls">
+                    <input type="text" id="name" placeholder="输入用户组名称" data-ng-model="form.name"  />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="parentName">父组名称</label>
+                <div class="controls">
+                    <input type="text" id="parentName" readonly data-ng-model="form.parentName"  />
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <label class="control-label">有效性</label>
+                <div class="controls">
+                    <kz-switch
+                            data-id="{{ $parent.$index }}"
+                            data-model="item.validity"
+                            data-on-label="是"
+                            data-off-label="否"
+                            data-active="true" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="addNewUserGroup();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="info.html">
+    <ul class="activity-list">
+        <li class="text-center">
+            <div class="label label-important" data-ng-show="item.type"><i class="icon-map-marker"></i>{{ item.type?"WebOS用户组":"" }}</div>
+            <div>
+                <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
+            </div>
+        </li>
+        <li>
+            <span class="text">用户组名称 <i class="icon-caret-right"></i></span> {{ item.name }}
+        </li>
+        <li data-ng-show="item.parentName">
+            <span class="text">父用户组 <i class="icon-caret-right"></i></span> {{ item.parentName }}
+        </li>
+        <li data-ng-show="item.userCount">
+            <span class="text">用户数量 <i class="icon-caret-right"></i></span> {{ item.userCount }}
+        </li>
+        <li data-ng-show="item.validity">
+            <span class="text">是否有效 <i class="icon-caret-right"></i></span> {{ item.validity?"是":"否" }}
+        </li>
+        <li data-ng-show="item.bindGroup">
+            <span class="text">绑定用户组 <i class="icon-caret-right"></i></span> {{ item.bindGroup }}
+        </li>
+        <li data-ng-show="item.info">
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
+        </li>
+    </ul>
+    <div style="margin-top:15px">
+        <button class="btn btn-mini btn-success pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
+    </div>
+    <div class="clearfix"></div>
+</script>

@@ -3,7 +3,7 @@
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                    <h5>数据库备份</h5>
+                    <h5>用户组成员</h5>
                 </div>
 
                 <div class="widget-content nopadding">
@@ -31,66 +31,59 @@
 
                         <table class="table table-bordered" data-kz-table-fixed-header>
                             <thead>
-                                <tr>
-                                    <th ng-click="predicate='fileName'; reverse=!reverse; resetFlag=true">
+                            <tr>
+                                <th ng-click="predicate='fileName'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='fileName'" ng-switch on="reverse">
                                                 <i class="icon-arrow-up" ng-switch-when="false"></i>
                                                 <i class="icon-arrow-down" ng-switch-when="true"></i>
                                             </span>
-                                        备份文件名
-                                    </th>
-                                    <th class="hidden-phone span2" ng-click="predicate='fileSize'; reverse=!reverse; resetFlag=true">
+                                    账户名
+                                </th>
+                                <th class="hidden-phone span2" ng-click="predicate='fileSize'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='fileSize'" ng-switch on="reverse">
                                                 <i class="icon-arrow-up" ng-switch-when="false"></i>
                                                 <i class="icon-arrow-down" ng-switch-when="true"></i>
                                             </span>
-                                        文件尺寸
-                                    </th>
-                                    <th class="hidden-phone span3" ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true">
+                                    姓名
+                                </th>
+                                <th class="hidden-phone span3" ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='dateTime'" ng-switch on="reverse">
                                                 <i class="icon-arrow-up" ng-switch-when="false"></i>
                                                 <i class="icon-arrow-down" ng-switch-when="true"></i>
                                             </span>
-                                        备份时间
-                                    </th>
-                                    <th>操作</th>
-                                </tr>
+                                    性别
+                                </th>
+                                </th>
+                                <th class="hidden-phone span3" ng-click="predicate='dateTime'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='dateTime'" ng-switch on="reverse">
+                                                <i class="icon-arrow-up" ng-switch-when="false"></i>
+                                                <i class="icon-arrow-down" ng-switch-when="true"></i>
+                                            </span>
+                                    有效性
+                                </th>
+                                <th>操作</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr id="{{item.id}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
-                                    <td class="center">{{ item.fileName }}</td>
-                                    <td class="center hidden-phone">{{ item.fileSize }}</td>
-                                    <td class="center hidden-phone">{{ item.dateTime }}</td>
-                                    <td class="center">
+                            <tr id="{{item.id}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
+                                <td class="center">{{ item.fileName }}</td>
+                                <td class="center hidden-phone">{{ item.fileSize }}</td>
+                                <td class="center hidden-phone">{{ item.dateTime }}</td>
+                                <td class="center hidden-phone">{{ item.dateTime }}</td>
+                                <td class="center">
                                         <span>
                                             <span data-trigger="click"
                                                   data-unique="1"
                                                   data-placement="left"
                                                   data-title="提示"
                                                   data-bs-popover="'delete.html'"><kz-action  data-name="dbDelete" data-group="database"  /></span>
-                                            <span>&nbsp;</span>
-                                            <span data-trigger="click"
-                                                  data-unique="1"
-                                                  data-placement="left"
-                                                  data-title="提示"
-                                                  data-bs-popover="'recover.html'">
-                                                <kz-action  data-name="dbRecover" data-group="database" data-ng-click="$parent.dbRecover($parent.item.fileName) " />
-                                            </span>
-                                            <span>&nbsp;</span>
-                                            <span ><kz-action data-name="dbDownload" data-group="database" data-ng-click="$parent.dbDownload($parent.item.fileName)" /></span>
                                         </span>
-                                      </td>
-                                </tr>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
                         <div class="ui-toolbar ui-widget-header">
-                            <div class="dataTables_filter">
-                                <label>
-                                    <kz-action class="btn btn-primary" data-ng-class="{disabled: $parent.isLoading}" data-name="dbBackup" data-group="database" data-ng-click="$parent.dbBackup()" />
-                                </label>
-                            </div>
-
                             <div class="dataTables_paginate">
                                 <button
                                         class="btn"
@@ -116,7 +109,7 @@
         <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.fileName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-            <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id,$parent.item.fileName, $parent.$index);hide()">确定</button>
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id,$parent.item.fileName, $parent.$index);hide()">确定</button>
         <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>

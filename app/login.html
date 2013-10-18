@@ -1,0 +1,160 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html
+        class="no-js ie6 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if IE 7]>
+<html
+        class="no-js ie7 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if IE 8]>
+<html
+        class="no-js ie8 oldie"
+        lang="zh-CN"
+        xmlns:ng="http://angularjs.org/">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"
+      lang="zh-CN"
+      xmlns:ng="http://angularjs.org/">
+<!--<![endif]-->
+<head>
+    <meta charset="GBK" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>web OS</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/bootstrap-responsive.css" />
+    <link rel="stylesheet" href="./css/matrix-login.css" />
+    <link rel="stylesheet" href="./css/jquery.gritter.css" />
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
+
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <!--
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
+    -->
+    <!--[if lt IE 9]>
+    <script src="./lib/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body data-ng-app data-ng-controller="loginCtrl">
+<noscript>
+    <div class="container">
+        <div class="hero-unit" style="margin-top: 15px;">
+            <h1>Hello, My Hero!</h1>
+            <p>Your web browser must have JavaScript enabled in order for this application to display correctly.</p>
+            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">安装 Chrome &raquo;</a></p>
+        </div>
+    </div>
+</noscript>
+
+<div data-ng-cloak id="loginbox">
+    <form name="loginForm" novalidate class="form-vertical" data-ng-submit="login()">
+        <div class="control-group normal_text"> <h3><img src="./img/logo-big.png" alt="Logo" /></h3></div>
+        <div class="control-group" data-ng-class="{error: loginForm.account.$dirty && loginForm.account.$invalid}">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lg">
+                        <i class="icon-user"></i>
+                    </span><input name="account" data-ng-model="user.account" type="text" placeholder="登录帐号" required />
+                    <div data-ng-show="loginForm.account.$dirty && loginForm.account.$invalid">
+                        <span data-ng-show="loginForm.account.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 帐号不能为空哟~</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group" data-ng-class="{error: loginForm.psw.$dirty && loginForm.psw.$invalid}">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_ly">
+                        <i class="icon-lock"></i>
+                    </span><input name="psw" data-ng-model="user.psw" type="password" placeholder="密码" required data-ng-minlength="6" />
+                    <div data-ng-show="loginForm.psw.$dirty && loginForm.psw.$invalid">
+                        <span data-ng-show="loginForm.psw.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 密码不能为空哟~</span>
+                        <span data-ng-show="loginForm.psw.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 密码不能少于六位哟~</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <span class="pull-right">
+                <button type="submit" class="btn btn-primary" data-ng-disabled="loginForm.$invalid || isLoading" />
+                    <span data-ng-show="isLoading"><img src="./img/loading-login.gif" alt="loading"/></span>
+                    <span data-ng-hide="isLoading"><i class="icon-key"></i> 登录</span>
+                </button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<script src="./lib/jquery/jquery.js" charset="utf-8"></script>
+<script src="./lib/jquery/jquery.gritter.min.js" charset="utf-8"></script>
+<script src="./lib/angularJS/angular.js" charset="utf-8"></script>
+<script type="text/javascript">
+    function define(fn){
+        fn();
+    }
+</script>
+<script src="config.js"></script>
+<script type="text/javascript">
+    function loginCtrl($scope, $http, $window){
+        //$scope.failed = 0;  //记录失败次数, 失败一次以上就要求输入验证码, 为了刷新丢失问题, 需要把该值持久化到本地，并记录时间戳
+        $scope.isLoading = false;
+        $scope.login = function(){
+            $scope.isLoading = true;
+
+            $http({
+                method: 'POST'
+                , url: config.domain + 'acl/'
+                , data: $scope.user
+            }).success(function(response){
+                $scope.isLoading = false;
+
+                if(response.status){
+                    //持久化token
+                    window.localStorage.userId = response.id;
+                    window.localStorage.userAccount = response.account;
+                    window.localStorage.userName = response.name;
+                    window.localStorage.userIdCard = response.idCard || '';
+                    window.localStorage.userSex = response.sex;
+                    window.localStorage.userType = response.type;
+                    window.localStorage.userEmail = response.email || '';
+                    window.localStorage.userQq = response.qq || '';
+                    window.localStorage.userPhone = response.phone || '';
+                    window.localStorage.userMobile = response.mobile || '';
+                    window.localStorage.userInfo = response.info || '';
+                    window.localStorage.userPhoto = response.photo || '';
+                    window.localStorage.token = response.token;
+
+                    //跳转到仪表盘
+                    $window.location.href = config.host;
+                }else{
+                    $scope.user.psw = null;
+
+                    //失败提醒
+                    jQuery.gritter.add({
+                        title: '提示'
+                        , text: '用户名或密码有误，登录失败'
+                        , class_name: 'loser'
+                        , image: 'img/configuration2.png'
+                        , sticky: false
+                    });
+                }
+            });
+        };
+    }
+</script>
+<!--[if lt IE 7 ]>
+<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
+</body>
+</html>

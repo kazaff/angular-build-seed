@@ -1,8 +1,8 @@
 /**
  * Created with JetBrains WebStorm.
- * User: @kazaff
- * Date: 13-9-14
- * Time: ионГ8:52
+ * User: fengtao
+ * Date: 13-10-2
+ * Time: обнГ2:45
  */
 define([
     'config'
@@ -10,21 +10,19 @@ define([
     'use strict';
 
     return ['$resource', function($resource){
-
-        return $resource(config.domain + 'userGroup/:uid/:gid/:page', {}, {
-            groupList: {
+        return $resource(config.domain + 'userGroupPrivilege/:gid/:page', {}, {
+            query: {
                 method: 'GET'
-                , params: {gid: 0, uid: 0}
+                , isArray: false
             }
             , changStatus: {
                 method: 'POST'
-                , params: {gid: 'onlyStatus'}
-            }
-            , remove: {
-                method: 'DELETE'
-                , params: {uid: 0}
+                , params: {opt: 'onlyStatus'}
             }
             , create: {
+                method: 'POST'
+            }
+            , updateDate: {
                 method: 'PUT'
             }
         });
