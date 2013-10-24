@@ -70,10 +70,11 @@ define(function(){
 
                                 angular.element(angular.element(element.children()[0]).children()[0]).attr('src', data.file);
 
+                                scope.reset();
+                                scope.loading = false;
                                 modal.then(function(modalEl){
                                     modalEl.modal('hide');
                                 });
-                                scope.loading = false;
                             })
                             .error(function(data, status, headers, config){
                                 console.log(data);
