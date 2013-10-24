@@ -132,12 +132,18 @@
 <script type="text/ng-template" id="face.html">
     <form class="form-horizontal" style="margin-top:5px;">
         <div class="control-group">
+            <div class="face_upload_loading" data-ng-show="loading">
+                <div>
+                    <img src="./img/loading.gif" alt=""/>
+                    <p>上传中...</p>
+                </div>
+            </div>
             <kz-facearea data-flag="upload" data-formdata="formData" />
         </div>
 
         <div class="control-group">
             <div class="controls">
-                <button data-ng-disabled="!upload" type="button" class="btn btn-success" data-ng-click="uploadFile();reset();hide()"><i class="icon-save"></i> <span class="text">上传</span></button>
+                <button data-ng-disabled="!upload" type="button" class="btn btn-success" data-ng-click="uploadFile()"><i class="icon-save"></i> <span class="text">上传</span></button>
                 <span>&nbsp;</span>
                 <button type="button" class="btn" data-ng-click="reset();hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
             </div>

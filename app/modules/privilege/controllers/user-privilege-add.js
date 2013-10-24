@@ -9,7 +9,7 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserPrivilege, Privilege, $location, Auth){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userGroupPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserGroupPrivilege, Privilege, $location, Auth){
         Auth.isLogined();
 
         var page = 0;
@@ -86,7 +86,7 @@ define([
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userPrivilege'
+                , url: config.domain + 'userGroupPrivilege'
                 , autoParam:['id']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
             }
@@ -106,18 +106,6 @@ define([
             }
         };
 
-        //修改规则
-        $scope.changeRule = function(index, status){
-
-            $scope.form.rule = status;
-
-            //必须返回promise，供switch指令使用
-            var deferred = $q.defer();
-            deferred.resolve();
-            return deferred.promise;
-        };
-
-
         //用于触发 权限信息 的模态窗口
         $scope.modalWin = function(pid){
 
@@ -131,7 +119,7 @@ define([
         //用于保存新添加的权限信息
         $scope.addNewPrivilege = function(){
 
-            UserPrivilege.create($scope.form).$promise.then(function(response){
+            UserGroupPrivilege.create($scope.form).$promise.then(function(response){
                 if(response['status'] == 1){
                     //成功提示
                     angular.element.gritter.add({
@@ -152,7 +140,7 @@ define([
                         , sticky: false
                         , before_close: function(uid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserAdd', 'privilege' , {uid: uid}));
+                                $scope.$apply(Action.forward('privilegeUserGroupAdd', 'privilege' , {uid: uid}));
                             };
                         }($routeParams.uid)
                     });

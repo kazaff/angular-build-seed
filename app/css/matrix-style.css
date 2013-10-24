@@ -1716,3 +1716,25 @@ div.dataTables_wrapper .ui-widget-header {
     height: 140px;
     margin: 20px auto;
 }
+.face_upload_loading{
+    text-align: center;
+    position: absolute;
+    width: 100%;
+}
+.face_upload_loading > div {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    left: 50%;
+    margin-left: -65px;
+    top: 25px;
+    background-color: rgba(134, 238, 163, 0.5);
+}
+.face_upload_loading > div > img {
+    margin-top: 45px;
+}
+.face_upload_loading > div > p {
+    color: white;
+    font-size: 24px;
+    font-weight: bolder;
+}

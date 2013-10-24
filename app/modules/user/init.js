@@ -14,6 +14,7 @@ define([
     , 'modules/user/controllers/user-list'
     , 'modules/user/controllers/user-edit'
     , 'modules/user/controllers/user-group'
+    , 'modules/user/controllers/user-group-bind'
     , 'modules/user/controllers/user-group-user'
     , 'modules/user/controllers/user-app-list'
     , 'modules/user/controllers/user-app-add'
@@ -43,6 +44,7 @@ define([
         , userListCtrl
         , userEditCtrl
         , userGroupCtrl
+        ,userGroupBindCtrl
         , userGroupUserCtrl
         , userAppListCtrl
         , userAppAddCtrl
@@ -73,6 +75,7 @@ define([
     userModule.controller('userListCtrl', userListCtrl);
     userModule.controller('userEditCtrl', userEditCtrl);
     userModule.controller('userGroupCtrl', userGroupCtrl);
+    userModule.controller('userGroupBindCtrl', userGroupBindCtrl);
     userModule.controller('userGroupUserCtrl', userGroupUserCtrl);
     userModule.controller('userAppListCtrl', userAppListCtrl);
     userModule.controller('userAppAddCtrl', userAppAddCtrl);

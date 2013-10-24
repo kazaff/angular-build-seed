@@ -126,11 +126,14 @@ define(function(){
             , api: 'restV1/userGroup/get'
         }
         , {
-            ifMenu: false
+           uri: '/group/:gid/bind'
+            , controller: 'userGroupBindCtrl'
+            , templateUrl: 'modules/user/templetes/user-group-bind.html'
+            ,ifMenu: false
             , name: 'userGroupBind'
             , title: '绑定用户组'
             , icon: 'icon-group'
-            , api: 'restV1/userGroup/get'
+            , api: 'restV1/userGroup/post'
         }
         , {
             ifMenu: false

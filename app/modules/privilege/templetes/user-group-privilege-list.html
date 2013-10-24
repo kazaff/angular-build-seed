@@ -136,7 +136,7 @@
                         <div class="ui-toolbar ui-widget-header">
                             <div class="dataTables_filter">
                                 <label>
-                                    <kz-action class="btn btn-success"  data-name="privilegeUserAdd" data-group="privilege" data-args="{gid: {{ $parent.gid }} }" />
+                                    <kz-action class="btn btn-success"  data-name="privilegeUserGroupAdd" data-group="privilege" data-args="{gid: {{ $parent.gid }} }" />
                                 </label>
                             </div>
 
@@ -197,9 +197,6 @@
             </li>
             <li data-ng-show="group.validity">
                 <span class="text">是否有效 <i class="icon-caret-right"></i></span> {{ group.validity?"是":"否" }}
-            </li>
-            <li data-ng-show="group.bindGroup">
-                <span class="text">绑定用户组 <i class="icon-caret-right"></i></span> {{ group.bindGroup }}
             </li>
             <li data-ng-show="group.info">
                 <span class="text">备注 <i class="icon-caret-right"></i></span> {{ group.info }}

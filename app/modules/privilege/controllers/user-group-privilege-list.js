@@ -98,7 +98,7 @@ define([], function(){
         //更改有效性
         $scope.changeValidity = function(index, status){
 
-            var promise = UserGroupPrivilege.changStatus({id: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'validity'}).$promise;
+            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -126,7 +126,7 @@ define([], function(){
         //更改规则为
         $scope.changeRule = function(index, status){
 
-            var promise = UserGroupPrivilege.changStatus({id: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'rule'}).$promise;
+            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'rule'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示

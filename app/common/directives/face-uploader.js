@@ -12,7 +12,10 @@ define(function(){
             return {
                 restrict: 'A'
                 , transclude: true
-                , template: '<div data-ng-transclude></div><div class="fileuploader-tip" data-ng-show="hover"><i class="icon-edit"></i> {{ tip }}</div>'
+                , template: '<div data-ng-transclude></div>' +
+                            '<div class="fileuploader-tip" data-ng-show="hover">' +
+                                '<i class="icon-edit"></i> {{ tip }}' +
+                            '</div>'
                 , scope: {
                     tip: '@'
                     , save: '&'
@@ -21,6 +24,7 @@ define(function(){
                     scope.hover = false;
                     scope.upload = false;
                     scope.formData = new FormData();
+                    scope.loading = false;
 
                     element.hover(function(eventObject){
                         scope.hover = true;
@@ -58,7 +62,22 @@ define(function(){
 
                     //文件上传方法
                     scope.uploadFile = function(){
-                         scope.save({data: scope.formData});
+                        scope.loading = true;
+
+                        scope
+                            .save({data: scope.formData})
+                            .success(function(data, status, headers, config){
+
+                                angular.element(angular.element(element.children()[0]).children()[0]).attr('src', data.file);
+
+                                modal.then(function(modalEl){
+                                    modalEl.modal('hide');
+                                });
+                                scope.loading = false;
+                            })
+                            .error(function(data, status, headers, config){
+                                console.log(data);
+                            });
                     };
                 }
             };

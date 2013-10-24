@@ -62,15 +62,7 @@ define(function(){
             $scope.resetFlag = 0;
         };
 
-        $scope.bindForm = {group: 1, gid: $routeParams.gid};
         $scope.form = {group: 1, gid: $routeParams.gid};
-        var bindModalPromise = $modal({
-            template: 'bindform.html'
-            , persist: true
-            , show: false
-            , backdrop: 'static'
-            , scope: $scope
-        });
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -80,7 +72,6 @@ define(function(){
             , scope: $scope
         });
 
-        var bindModal = $q.when(bindModalPromise);
         var modal = $q.when(modalPromise);
 
         //树的配置参数
@@ -92,13 +83,13 @@ define(function(){
             },
             callback: {
                 onMouseDown: onMouseDown
-             }
+            }
             , async: {
                 enable: true
                 , type: 'get'
                 , url: config.domain + 'group'
                 , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
+                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
@@ -115,6 +106,8 @@ define(function(){
             }
         };
 
+
+
         function onMouseDown(event, treeId, treeNode) {
             if(treeNode!=null)
             {
@@ -123,69 +116,6 @@ define(function(){
                 $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
             }
         }
-
-        function onCheck (event, treeId, treeNode) {
-            if(treeNode!=null)
-            {
-                if(treeNode.checked)
-                {
-                    $scope.bindForm.bindGroupName+=treeNode.name+",";
-                    $scope.data.bindGroups.push({id:treeNode.id,name:treeNode.name});
-                }
-                else
-                {
-                    $scope.data.bindGroups.push({id:treeNode.id,name:treeNode.name});
-                    //回调函数有两个参数,第一个是元素索引,第二个为当前值
-                    $.each($scope.data.bindGroups,function(key,val){
-                        if(val&&val.id==treeNode.id){
-                            $scope.data.bindGroups.splice(key,1);
-                          //  break;
-                        }
-                    });
-                    $scope.bindForm.bindGroupName="";
-                    angular.forEach( $scope.data.bindGroups, function(bind){
-                        $scope.bindForm.bindGroupName+=bind.name+",";
-                    });
-                }
-                $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
-            }
-        }
-
-        $scope.checkedSetting = {
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            },
-            check:{
-                enable:true,
-                chkStyle:"checkbox"
-            }
-            ,
-            callback: {
-                onCheck: onCheck
-            }
-            , async: {
-                enable: true
-                , type: 'get'
-                , url: config.domain + 'group'
-                , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
-            }
-            , view: {
-                addDiyDom: function(treeId, treeNode){
-
-                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"></span>');
-
-                    jQuery("#diyBtn_"+treeNode.id).on("click", function(){
-
-                        //用于启动添加权限的模态窗口
-                        $scope.bindModalWin(treeNode.id);
-                        $scope.$root.$$phase || $scope.$apply();
-                    });
-                }
-            }
-        };
 
         //更改有效性
         $scope.changeValidity = function(index, status){
@@ -262,19 +192,6 @@ define(function(){
         };
 
         //触发编辑的模态窗口
-        $scope.bindModalWin = function(row){
-
-            $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
-            $scope.bindForm.name = row.name;
-            $scope.bindForm.bindGroupName = row.bindGroupName;
-            $scope.bindForm.validity = row.validity;
-            $scope.bindForm.pid = row.id;
-            bindModal.then(function(modalEl){
-                modalEl.modal('show');
-            });
-        };
-
-        //触发编辑的模态窗口
         $scope.modalWin = function(row){
 
             $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
@@ -329,11 +246,5 @@ define(function(){
         //获取第一屏数据
         $scope.downloadData();
 
-        //关闭绑定用户组弹出层
-        $scope.hideBindWin = function(){
-            bindModal.then(function(modalEl){
-                modalEl.modal('hide');
-            });
-        };
     }];
 });
