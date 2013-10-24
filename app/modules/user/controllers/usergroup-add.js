@@ -90,7 +90,7 @@ define([
                 , type: 'get'
                 , url: config.domain + 'userPrivilege'
                 , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
+                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){

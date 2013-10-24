@@ -20,11 +20,14 @@ define([
     , 'modules/user/controllers/user-add'
     , 'modules/user/controllers/usergroup-add'
     , 'modules/user/controllers/someone-group'
-
-
+    , 'modules/user/controllers/user-group-add'
     //服务
     , 'modules/user/services/user'
+      //用户所示用户组
     , 'modules/user/services/group'
+    //用户组
+    , 'modules/user/services/usergroup'
+    //用户组包含用户
     , 'modules/user/services/usergroupuser'
     , 'modules/user/services/userApp'
     //指令
@@ -46,8 +49,10 @@ define([
         , userAddCtrl
 		, userGroupAddCtrl
         , someoneGroupCtrl
+        , userForGroupAddCtrl
         , user
         , group
+        , userGroup
         , usergroupuser
         , userApp
         , pswStrength){
@@ -59,6 +64,7 @@ define([
 
     userModule.factory('user', user);
     userModule.factory('group', group);
+    userModule.factory('userGroup', userGroup);
     userModule.factory('usergroupuser', usergroupuser);
     userModule.factory('userApp', userApp);
 
@@ -73,7 +79,8 @@ define([
     userModule.controller('userAddCtrl', userAddCtrl);
     userModule.controller('userGroupAddCtrl', userGroupAddCtrl);
     userModule.controller('someoneGroupCtrl', someoneGroupCtrl);
-	
+    userModule.controller('userForGroupAddCtrl', userForGroupAddCtrl);
+
     userModule.directive('kzPasswordStrength', pswStrength);
 
     console.groupEnd();

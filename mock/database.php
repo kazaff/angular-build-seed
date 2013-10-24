@@ -4,8 +4,11 @@
 		
 		if(isset($_GET['download']) && $_GET['download'] == 1){
 			
-			header('Content-Type: image/png');
-			header('Content-Disposition: attachment; filename="downloaded.png"');
+			//获取的文件名称
+			//var_export(mb_convert_encoding(urldecode($_GET['file']), 'gbk', 'utf-8'));
+			
+			//header('Content-Type: image/png');
+			header('Content-Disposition: attachment; filename="downloaded.png"');  //设置下载后保存的名字
 			echo file_get_contents('demo.png');
 			exit;
 		}

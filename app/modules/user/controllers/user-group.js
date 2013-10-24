@@ -7,7 +7,7 @@
 define(function(){
     'use strict';
 
-    return ['$scope', '$routeParams', '$location', 'auth', 'action', 'group', '$modal', '$q', '$filter', function($scope, $routeParams, $location, Auth, Action, Group,$modal, $q, $filter){
+    return ['$scope', '$routeParams', '$location', 'auth', 'action', 'userGroup', '$modal', '$q', '$filter', function($scope, $routeParams, $location, Auth, Action, userGroup,$modal, $q, $filter){
         Auth.isLogined();
 
         var page = $routeParams.page - 1;
@@ -16,6 +16,7 @@ define(function(){
         $scope.hasManyData = true;
         $scope.isLoading = true;
         $scope.data = [];
+        $scope.data.bindGroups = [];
 
         Action.link('userEdit', 'user').success(function(response){
             $scope.switchFlag = response.status;
@@ -28,12 +29,17 @@ define(function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Group.groupList({page: ++page, group: $location.hash()}).$promise.then(function(response){
+            userGroup.groupList({page: ++page}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.name = decodeURI(item.name);
                     item.parentName = decodeURI(item.parentName);
-                    item.bindGroup = decodeURI(item.bindGroup);
+                    item.app = decodeURI(item.app);
+                    item.bindGroupName="";
+                    angular.forEach( item.bindGroups, function(bind){
+                        bind.name = decodeURI(bind.name);
+                        item.bindGroupName+=bind.name+",";
+                    });
                     item.info = decodeURI(item.info);
                     $scope.data.push(item);
                 });
@@ -56,8 +62,8 @@ define(function(){
             $scope.resetFlag = 0;
         };
 
-        $scope.form = {group: 1, gid: $routeParams.gid};
         $scope.bindForm = {group: 1, gid: $routeParams.gid};
+        $scope.form = {group: 1, gid: $routeParams.gid};
         var bindModalPromise = $modal({
             template: 'bindform.html'
             , persist: true
@@ -73,8 +79,10 @@ define(function(){
             , backdrop: 'static'
             , scope: $scope
         });
-        var modal = $q.when(modalPromise);
+
         var bindModal = $q.when(bindModalPromise);
+        var modal = $q.when(modalPromise);
+
         //树的配置参数
         $scope.setting = {
             data: {
@@ -88,7 +96,7 @@ define(function(){
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userGroup'
+                , url: config.domain + 'group'
                 , autoParam:['id']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
             }
@@ -107,19 +115,60 @@ define(function(){
             }
         };
 
+        function onMouseDown(event, treeId, treeNode) {
+            if(treeNode!=null)
+            {
+                $scope.form.parentName = treeNode.name;
+                $scope.form.parentID=treeNode.id;
+                $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
+            }
+        }
+
+        function onCheck (event, treeId, treeNode) {
+            if(treeNode!=null)
+            {
+                if(treeNode.checked)
+                {
+                    $scope.bindForm.bindGroupName+=treeNode.name+",";
+                    $scope.data.bindGroups.push({id:treeNode.id,name:treeNode.name});
+                }
+                else
+                {
+                    $scope.data.bindGroups.push({id:treeNode.id,name:treeNode.name});
+                    //回调函数有两个参数,第一个是元素索引,第二个为当前值
+                    $.each($scope.data.bindGroups,function(key,val){
+                        if(val&&val.id==treeNode.id){
+                            $scope.data.bindGroups.splice(key,1);
+                          //  break;
+                        }
+                    });
+                    $scope.bindForm.bindGroupName="";
+                    angular.forEach( $scope.data.bindGroups, function(bind){
+                        $scope.bindForm.bindGroupName+=bind.name+",";
+                    });
+                }
+                $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
+            }
+        }
+
         $scope.checkedSetting = {
             data: {
                 simpleData: {
                     enable: true
                 }
             },
+            check:{
+                enable:true,
+                chkStyle:"checkbox"
+            }
+            ,
             callback: {
-                onMouseDown: onMouseDown
+                onCheck: onCheck
             }
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userGroup'
+                , url: config.domain + 'group'
                 , autoParam:['id']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
             }
@@ -141,7 +190,7 @@ define(function(){
         //更改有效性
         $scope.changeValidity = function(index, status){
 
-            var promise = Group.changStatus({page: page, group: $location.hash()}).$promise;
+            var promise = userGroup.changStatus({page: page, gid: $scope.data[index].groupId }).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -196,7 +245,6 @@ define(function(){
                             $scope.$apply(Action.forward('userGroup', 'user' , {page:1}));
                         }
                     });
-
                 }else{
                     //从列表中删除该条数据
                     $scope.data.splice(index, 1);
@@ -213,26 +261,12 @@ define(function(){
             });
         };
 
-
-
-        //触发编辑的模态窗口
-        $scope.modalWin = function(row){
-
-            $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
-             $scope.form.name = row.name;
-            $scope.form.parentName = row.parentName;
-            $scope.form.validity = row.validity;
-            $scope.form.pid = row.id;
-            modal.then(function(modalEl){
-                modalEl.modal('show');
-            });
-        };
         //触发编辑的模态窗口
         $scope.bindModalWin = function(row){
 
             $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
             $scope.bindForm.name = row.name;
-            $scope.bindForm.parentName = row.parentName;
+            $scope.bindForm.bindGroupName = row.bindGroupName;
             $scope.bindForm.validity = row.validity;
             $scope.bindForm.pid = row.id;
             bindModal.then(function(modalEl){
@@ -240,16 +274,29 @@ define(function(){
             });
         };
 
-            function onMouseDown(event, treeId, treeNode) {
-                if(treeNode!=null)
-                {
-                    $scope.form.parentName = treeNode.name;
-                    $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
-                }
-        }
-        //更新指定规则的有效时间
+        //触发编辑的模态窗口
+        $scope.modalWin = function(row){
+
+            $scope.updateRow = row;   //用于指向当前编辑的规则数据对象，用于更新显示列表
+            $scope.form.name = row.name;
+            $scope.form.parentName = row.parentName;
+            $scope.form.parentId = row.parentId;
+            $scope.form.groupId = row.groupId;
+            modal.then(function(modalEl){
+                modalEl.modal('show');
+            });
+        };
+
+        //更新用户组
         $scope.updateDate = function(){
-            Group.changStatus($scope.form).$promise.then(function(response){
+            $scope.$root.$$phase || $scope.$apply();
+            //去后端更新
+            var formData = {
+                groupId: $scope.form.groupId
+                , name:encodeURIComponent($scope.form.name)
+                , parentId: encodeURIComponent($scope.form.parentId)
+            };
+            userGroup.updateData(formData).$promise.then(function(response){
                 if(response['status'] != 0){
                     $scope.updateRow.name =$scope.form.name;
                     $scope.updateRow.parentName = $scope.form.parentName;
@@ -261,7 +308,6 @@ define(function(){
                         , image: 'img/save.png'
                         , sticky: false
                     });
-
                 }else{
                     //错误提示
                     angular.element.gritter.add({
@@ -280,37 +326,14 @@ define(function(){
             });
         };
 
-        //更新指定规则的有效时间
-        $scope.editSave = function(){
-            Group.changStatus($scope.form).$promise.then(function(response){
-                if(response['status'] != 0){
-                    //成功提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '用户组有效性更改成功!'
-                        , class_name: 'winner'
-                        , image: 'img/save.png'
-                        , sticky: false
-                    });
-
-                }else{
-                    //错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '用户组有效性更改失败!'
-                        , class_name: 'loser'
-                        , image: 'img/save.png'
-                        , sticky: false
-                        , before_close:function(uid){
-                            return function(e, manual_close){
-                                $scope.$apply(Action.forward('userGroup', 'user' , {uid: uid, page: 1}));
-                            };
-                        }($routeParams.uid)
-                    });
-                }
-            });
-        };
         //获取第一屏数据
         $scope.downloadData();
+
+        //关闭绑定用户组弹出层
+        $scope.hideBindWin = function(){
+            bindModal.then(function(modalEl){
+                modalEl.modal('hide');
+            });
+        };
     }];
 });

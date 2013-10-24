@@ -18,9 +18,10 @@ define([
     , 'common/directives/table-fixed-header'
     , 'common/directives/switch'
     , 'common/directives/ztree'
+    , 'common/directives/face-uploader'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, menu){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, menu, faceUploader){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -40,6 +41,7 @@ define([
         tableFixedHeader.initialize(module);
         switchD.initialize(module);
         ztree.initialize(module);
+        faceUploader.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器

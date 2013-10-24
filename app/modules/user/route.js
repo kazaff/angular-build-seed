@@ -168,10 +168,10 @@ define(function(){
         }
         ,{
             uri: '/user/:uid/group/add'
-            , controller: 'userGroupAddCtrl'
+            , controller: 'userForGroupAddCtrl'
             , templateUrl: 'modules/user/templetes/user-group-add.html'
             , ifMenu: false
-            , name: 'userGroupAdd'
+            , name: 'userForGroupAdd'
             , title: 'ÐÂÔö'
             , icon: 'icon-plus'
             , api: 'restV1/userApp/post'

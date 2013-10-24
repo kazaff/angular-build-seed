@@ -7,7 +7,7 @@
 define(function(){
     'use strict';  
 
-    return ['$scope', '$routeParams', 'auth', 'action', 'usergroupuser', function($scope, $routeParams, Auth, Action, usergroupuser){
+    return ['$scope', '$routeParams', 'auth', 'action','group', 'usergroupuser', function($scope, $routeParams, Auth, Action,Group, usergroupuser){
 		Auth.isLogined();
 		
         var page = 0;
@@ -35,6 +35,15 @@ define(function(){
             });
         };
 
+        //获取用户信息
+        $scope.group={};
+        Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
+            response.name = decodeURI(response.name);
+            response.info = decodeURI(response.info);
+            response.parentName = decodeURI(response.parentName);
+            response.bindGroup = decodeURI(response.bindGroup);
+            $scope.group= response;
+        });
 
         //删除一条记录
         //id: 要删除的文件id

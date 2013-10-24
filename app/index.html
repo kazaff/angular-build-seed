@@ -129,6 +129,22 @@
     </div>
 </script>
 
+<script type="text/ng-template" id="face.html">
+    <form class="form-horizontal" style="margin-top:5px;">
+        <div class="control-group">
+            <kz-facearea data-flag="upload" data-formdata="formData" />
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button data-ng-disabled="!upload" type="button" class="btn btn-success" data-ng-click="uploadFile();reset();hide()"><i class="icon-save"></i> <span class="text">ÉÏ´«</span></button>
+                <span>&nbsp;</span>
+                <button type="button" class="btn" data-ng-click="reset();hide()"><i class="icon-remove"></i> <span class="text">·ÅÆú</span></button>
+            </div>
+        </div>
+    </form>
+</script>
+
 <script src="./lib/requireJS/require.js" data-main="./bootstrap.js"></script>
 <!--[if lt IE 7 ]>
 <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>

@@ -1,8 +1,8 @@
 /**
  * Created with JetBrains WebStorm.
- * User: @kazaff
- * Date: 13-9-14
- * Time: ионГ8:52
+ * User: @sww
+ * Date: 13-10-22
+ * Time: ионГ15:14
  */
 define([
     'config'
@@ -22,7 +22,7 @@ define([
             }
             , updateData: {
                 method: 'POST'
-                , params: {uid: 'updateData'}
+                , params: {uid: 'update'}
             }
             , remove: {
                 method: 'DELETE'
@@ -33,4 +33,10 @@ define([
             }
         });
     }];
-});
+});/**
+ * Created with JetBrains WebStorm.
+ * User: Administrator
+ * Date: 13-10-22
+ * Time: обнГ3:10
+ * To change this template use File | Settings | File Templates.
+ */

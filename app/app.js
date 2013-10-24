@@ -65,21 +65,20 @@ define([
             }
 
             //响应拦截器，用于检查登录状态
-            $httpProvider.responseInterceptors.push(function($q){
-                return function(promise){
-                    return promise.then(function(response){
+            $httpProvider.interceptors.push(function($q){
+                return {
+                    'response': function(response){
 
                         //若返回的数据中指示该用户未登录，则触发跳转到登录页面
-                        if(!angular.isUndefined(response.data.loginStatus) && response.data.loginStatus == 0){
-                            delete window.localStorage.token;   //删除会话id
-                            $windowProvider.$get().location.href = config.host + 'login.html';
+                        if(!angular.isUndefined(response.data)){
+                            if(!angular.isUndefined(response.data.loginStatus) && response.data.loginStatus == 0){
+                                delete window.localStorage.token;   //删除会话id
+                                $windowProvider.$get().location.href = config.host + 'login.html';
+                            }
                         }
 
-                        return response;
-
-                    }, function(response) {
-                        return $q.reject(response);
-                    });
+                        return response || $q.when(response);
+                    }
                 };
             });
         }]);

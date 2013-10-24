@@ -88,7 +88,7 @@ define([
                 , type: 'get'
                 , url: config.domain + 'userGroup'
                 , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
+                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
@@ -106,10 +106,10 @@ define([
             }
         };
 
-        //用于触发 权限信息 的模态窗口
+        //用于触发 用户组信息 的模态窗口
         $scope.modalWin = function(gid){
 
-            $scope.form.gid = gid; //保存要增加的权限pid
+            $scope.form.gid = gid; //保存要增加的用户组信息gid
 
             modal.then(function(modalEl){
                 modalEl.modal('show');
@@ -144,7 +144,7 @@ define([
                         , sticky: false
                         , before_close:function(uid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('userGroupAdd', 'user' , {uid: uid}));
+                                $scope.$apply(Action.forward('userForGroupAdd', 'user' , {uid: uid}));
                             };
                         }($routeParams.uid)
                     });

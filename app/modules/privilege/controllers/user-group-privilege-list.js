@@ -22,12 +22,13 @@ define([], function(){
         });
 
         //获取用户信息
-        $scope.group = Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
+        $scope.group={};
+        Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
             response.parentName = decodeURI(response.parentName);
             response.bindGroup = decodeURI(response.bindGroup);
-            return response;
+            $scope.group= response;
         });
 
         //获取指定权限信息
@@ -61,7 +62,6 @@ define([], function(){
                 angular.forEach(response.items, function(item){
                     item.privName = decodeURI(item.privName);
                     item.app = decodeURI(item.app);
-                    item.group = decodeURI(item.group);
                     item.info = decodeURI(item.info);
                     if(item.begin == -1){
                         item.begin = '不限制';

@@ -7,7 +7,7 @@
 define(function(){
     'use strict';
 
-    return ['$scope', '$routeParams', 'auth', 'action', 'db', function($scope, $routeParams, Auth, Action, Db){
+    return ['$scope', '$routeParams', 'auth', 'action', 'db', '$http', function($scope, $routeParams, Auth, Action, Db, $http){
         Auth.isLogined();
 
         var page = 0;
@@ -111,10 +111,15 @@ define(function(){
         //下载
         //TODO
         $scope.dbDownload = function(fileName){
-            Db.query({file: fileName, page: page, Download: 1}).$promise.then(function(data){
-                var blob = new Blob([data], {type: "application/octet-stream"});
-                saveAs(blob, 'hello.png');
-            });
+
+            $http({method:'GET', url: config.domain + 'database/', params: {'file': fileName, 'download': 1}, responseType: 'arraybuffer', transformResponse: function(data, headersGetter){
+                if(!angular.isUndefined(headersGetter('Content-Disposition'))){
+                    var file = headersGetter('Content-Disposition').split('"');
+
+                    var blob = new Blob([data], {type: "application/octet-stream"});
+                    saveAs(blob, file[1]);
+                }
+            }});
         };
 
         //删除一条记录

@@ -22,10 +22,12 @@ define([], function(){
         });
 
         //获取用户信息
-        $scope.user = User.get({uid: $routeParams.uid}).$promise.then(function(response){
+        $scope.user = {};
+        User.get({uid: $routeParams.uid}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
-            return response;
+
+            $scope.user = response;
         });
 
         //获取指定权限信息

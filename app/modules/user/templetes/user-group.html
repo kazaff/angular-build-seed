@@ -50,6 +50,13 @@
                                         </span>
                                     父组名称
                                 </th>
+                                <th class="hidden-phone span2" ng-click="predicate='app'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='app'" ng-switch on="reverse">
+                                            <i class="icon-caret-up" ng-switch-when="false"></i>
+                                            <i class="icon-caret-down" ng-switch-when="true"></i>
+                                        </span>
+                                    应用系统
+                                </th>
                                 <th class="hidden-phone span1" ng-click="predicate='mobile'; reverse=!reverse; resetFlag=true">
                                         <span ng-if="predicate=='mobile'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
@@ -80,6 +87,7 @@
                                         </span>
                                 </td>
                                 <td class="center hidden-phone">{{ item.parentName }}</td>
+                                <td class="center hidden-phone">{{ item.app }}</td>
                                 <td class="center hidden-phone">{{ item.userCount }}</td>
                                 <td class="center">
                                     <kz-switch
@@ -158,9 +166,6 @@
         <li data-ng-show="item.validity">
             <span class="text">是否有效 <i class="icon-caret-right"></i></span> {{ item.validity?"是":"否" }}
         </li>
-        <li data-ng-show="item.bindGroup">
-            <span class="text">绑定用户组 <i class="icon-caret-right"></i></span> {{ item.bindGroup }}
-        </li>
         <li data-ng-show="item.info">
             <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
@@ -170,7 +175,6 @@
     </div>
     <div class="clearfix"></div>
 </script>
-
 <script type="text/ng-template" id="delete.html">
     <ul class="activity-list">
         <li><i class="icon-bullhorn"></i> 您确定删除么？</li>
@@ -182,6 +186,43 @@
     </div>
     <div class="clearfix"></div>
 </script>
+<script type="text/ng-template" id="bindform.html">
+    <div style="padding-top:5px">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="groupName">用户组名称</label>
+                <div class="controls">
+                    <input type="text" id="groupName" readonly placeholder="输入用户组名称" data-ng-model="bindForm.name"  />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="parentGroupName">已绑定用户组</label>
+                <div class="controls">
+                    <input type="text" id="parentGroupName" readonly data-ng-model="bindForm.bindGroupName"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <table>
+                    <tr>
+                        <td> <label class="control-label" for="moreSelecttree">选择父组</label></td>
+                        <td>
+                            <div id="moreSelecttree" class="tab-pane" style="margin:5px">
+                                <kz-ztree data-setting="checkedSetting" data-tid="moreSelecttree"  />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hideBindWin()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
 <script type="text/ng-template" id="form.html">
     <div style="padding-top:5px">
         <form class="form-horizontal">
@@ -191,7 +232,6 @@
                     <input type="text" id="name" placeholder="输入用户组名称" data-ng-model="form.name"  />
                 </div>
             </div>
-
             <div class="control-group">
                 <label class="control-label" for="parentName">父组名称</label>
                 <div class="controls">
@@ -209,61 +249,6 @@
                         </td>
                     </tr>
                 </table>
-
-
-
-            </div>
-
-            <div class="control-group">
-                <label class="control-label">有效性</label>
-                <div class="controls">
-                    <kz-switch
-                            data-id="{{ $parent.$index }}"
-                            data-model="item.validity"
-                            data-on-label="是"
-                            data-off-label="否"
-                            data-active="true" />
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="controls">
-                    <button type="button" class="btn btn-success" data-ng-click="updateDate();hide()"><i class="icon-save"></i> <span class="text">保存</span></button>
-                    <span>&nbsp;</span>
-                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</script>
-
-<script type="text/ng-template" id="bindform.html">
-    <div style="padding-top:5px">
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="groupName">用户组名称</label>
-                <div class="controls">
-                    <input type="text" id="groupName" readonly placeholder="输入用户组名称" data-ng-model="bindForm.name"  />
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="parentGroupName">已绑定用户组</label>
-                <div class="controls">
-                    <input type="text" id="parentGroupName" readonly data-ng-model="bindForm.parentName"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <table>
-                    <tr>
-                        <td> <label class="control-label" for="moreSelecttree">选择父组</label></td>
-                        <td>
-                            <div id="moreSelecttree" class="tab-pane" style="margin:5px">
-                                <kz-ztree data-setting="checkedSetting" data-tid="sww"  />
-                            </div>
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div class="control-group">
                 <div class="controls">
@@ -275,3 +260,4 @@
         </form>
     </div>
 </script>
+
