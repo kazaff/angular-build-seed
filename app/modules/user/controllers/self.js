@@ -4,10 +4,12 @@
  * Date: 13-9-13
  * Time: 上午11:25
  */
-define(function(){
+define([
+    'config'
+], function(Config){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'user', function($scope, Auth, Action, User){
+    return ['$scope', 'auth', 'action', 'user', '$http', function($scope, Auth, Action, User, $http){
         Auth.isLogined();
 
         $scope.user = Auth.userInfo();
@@ -59,5 +61,27 @@ define(function(){
                 }
             });
         };
+
+        //头像上传
+        $scope.upload= function(data){
+
+            data.append('userId', $scope.user.id);
+
+            var request = $http({
+                method:'POST'
+                , url: Config.domain + 'userFace/'
+                , data: data
+                , headers: {'Content-Type': undefined}  //在ng1.20版本中，一定要设置为undefined（而非'multipart/form-data'），否则后端无法使用$_FILES接收
+                ,transformRequest: function(data) { return data;}
+            });
+
+            request.then(function(response){
+                if(response.data.error == 0){
+                    window.localStorage.userPhoto = response.data.file;
+                }
+            });
+
+            return request;
+        }
     }];
 });

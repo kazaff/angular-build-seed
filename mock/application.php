@@ -30,7 +30,7 @@
 					$item->appId = mt_rand(1, 1000);
 					$item->app = urlencode(mb_convert_encoding('系统'.mt_rand(1,999), 'utf-8', 'gbk'));
 					$item->tag = 'DEMO';
-					$item->logo = '';
+					$item->logo = './img/app-logo-default.png';
 					$item->domain = 'http://www.codingcool.com';
 					$item->ipLimit = mt_rand(0, 1);
 					$item->validity = mt_rand(0, 1);
@@ -46,13 +46,13 @@
 			echo json_encode($result);
 		
 		}else{
-			//指定用户的信息
+			//指定应用系统的信息
 			mt_srand((double)microtime()*1000000);
 				
 			$item = new stdClass();
 			$item->appId = mt_rand(1, 1000);
 			$item->name = urlencode(mb_convert_encoding('系统'.mt_rand(1,999), 'utf-8', 'gbk'));
-			$item->logo = '';
+			$item->logo = './img/app-logo-default.png';
 			$item->tag = 'demo';
 			$item->domain = 'http://www.codingcool.com';
 			$item->ipLimit = mt_rand(0, 1);
@@ -60,10 +60,8 @@
 			$item->authorization = mt_rand(0, 1);
 			$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
 			
-			echo json_encode($item);
-			
-		}
-			
+			echo json_encode($item);		
+		}			
 	
 	}elseif($method == 'POST'){
 	

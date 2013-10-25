@@ -9,7 +9,7 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserPrivilege, Privilege, $location, Auth){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userGroupPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserGroupPrivilege, Privilege, $location, Auth){
         Auth.isLogined();
 
         var page = 0;
@@ -22,7 +22,7 @@ define([
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Privilege.query({page: ++page, privilege: $location.hash()}).$promise.then(function(response){
+            Privilege.query({page: ++page}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.privName = decodeURI(item.privName);
@@ -88,9 +88,9 @@ define([
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userPrivilege'
+                , url: config.domain + 'privilege'
                 , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'gid': $routeParams.gid}
+                , otherParam:{'type': 'onlyNode', 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
@@ -133,7 +133,7 @@ define([
         //用于保存新添加的权限信息
         $scope.addNewPrivilege = function(){
 
-            UserPrivilege.create($scope.form).$promise.then(function(response){
+            UserGroupPrivilege.create($scope.form).$promise.then(function(response){
                 if(response['status'] == 1){
                     //成功提示
                     angular.element.gritter.add({
@@ -154,7 +154,7 @@ define([
                         , sticky: false
                         , before_close:function(gid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserAdd', 'privilege' , {gid: gid}));
+                                $scope.$apply(Action.forward('privilegeUserGroupAdd', 'privilege' , {gid: gid}));
                             };
                         }($routeParams.gid)
                     });

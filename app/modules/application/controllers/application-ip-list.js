@@ -22,10 +22,11 @@ define([], function(){
         });
 
         //获取应用系统信息
-        $scope.app = Application.get({aid: $routeParams.aid}).$promise.then(function(response){
+        $scope.app = {};
+        Application.get({aid: $routeParams.aid}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
-            return response;
+            $scope.app = response;
         });
 
         //获取更多的数据

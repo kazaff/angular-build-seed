@@ -36,7 +36,7 @@
 					$item->qq = '664566173';
 					$item->phone = '0372-5980188';	
 					$item->mobile = '13729837023';
-					//$item->photo = '';	//后端用户头像如何暴露uri？
+					$item->photo = './img/default-face.png';
 					$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
 					$item->validity = (bool)mt_rand(0, 1);
 						
@@ -62,7 +62,7 @@
 			$item->qq = '664566173';
 			$item->phone = '0372-5980188';	
 			$item->mobile = '13729837023';
-			//$item->photo = '';	//后端用户头像如何暴露uri？
+			$item->photo = './img/default-face.png';
 			$item->info = urlencode(mb_convert_encoding(str_repeat('流弊流弊流弊流弊',mt_rand(1, 10)), 'utf-8', 'gbk'));
 			$item->validity = (bool)mt_rand(0, 1);
 			

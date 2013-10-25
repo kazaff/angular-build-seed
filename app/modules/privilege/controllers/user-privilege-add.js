@@ -9,7 +9,7 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userGroupPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserGroupPrivilege, Privilege, $location, Auth){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', 'userPrivilege', 'privilege', '$location', 'auth', function($scope, Action, $routeParams, $modal, $q, UserGroupPrivilege, Privilege, $location, Auth){
         Auth.isLogined();
 
         var page = 0;
@@ -86,9 +86,9 @@ define([
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'userGroupPrivilege'
+                , url: config.domain + 'userPrivilege'
                 , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid}
+                , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
@@ -140,7 +140,7 @@ define([
                         , sticky: false
                         , before_close: function(uid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserGroupAdd', 'privilege' , {uid: uid}));
+                                $scope.$apply(Action.forward('privilegeUserAdd', 'privilege' , {uid: uid}));
                             };
                         }($routeParams.uid)
                     });

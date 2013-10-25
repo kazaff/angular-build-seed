@@ -113,8 +113,7 @@ define(function(){
                 , bindGroups: []
             };
             angular.forEach( $scope.group.bindGroups, function(bind){
-                bind.name = encodeURIComponent(bind.name);
-                formData.bindGroups.push(bind);
+                formData.bindGroups.push(bind.id);
             });
             //去后端更新
             Group.save(formData).$promise.then(function(response){

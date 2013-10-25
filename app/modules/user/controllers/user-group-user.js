@@ -20,7 +20,7 @@ define(function(){
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            usergroupuser.groupUserList({page: ++page}).$promise.then(function(response){
+            usergroupuser.groupUserList({page: ++page,gid:$routeParams.gid}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.userName = decodeURI(item.userName);
@@ -49,7 +49,7 @@ define(function(){
         //id: 要删除的文件id
         //index 当前行的数据索引位置
         $scope.userDelete = function(id,userName, index){
-            usergroupuser.delete({uid: id, page: page}).$promise.then(function(response){
+            usergroupuser.delete({uid: id, page: page,gid:$routeParams.gid}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({
@@ -58,9 +58,11 @@ define(function(){
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
-                        , before_close: function(e, manual_close){
-                            $scope.$apply(Action.forward('userGroupUserList', 'user'));
-                        }
+                        , before_close: function(gid){
+                            return function(e, manual_close){
+                                $scope.$apply(Action.forward('userGroupUserList', 'user' , {gid: gid, page:1}));
+                            };
+                        }($routeParams.gid)
                     });
                 }
                 else{

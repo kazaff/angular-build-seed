@@ -165,7 +165,7 @@
     <img data-ng-show="prvData.isLoading" src="./img/loading.gif" />
     <ul class="activity-list" data-ng-hide="prvData.isLoading">
         <li>
-            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ prvInfo.privName }}
+            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ item.privName }}
         </li>
         <li>
             <span class="text">所属 <i class="icon-caret-right"></i></span> {{ item.app }} <i class="icon-arrow-right"></i> {{ item.group }}
@@ -177,7 +177,7 @@
             <span class="text">结束时间 <i class="icon-caret-right"></i></span> {{ item.end }}
         </li>
         <li>
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ prvInfo.info }}
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
     <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
@@ -189,7 +189,7 @@
         <li class="text-center">
             <div style="float:none; margin:auto" class="label label-important" data-ng-show="user.type"><i class="icon-map-marker"></i>{{ user.type?"WebOS用户":"" }}</div>
             <div>
-                <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
+                <img class="img-polaroid" style="width: 80px; height: 80px;" data-ng-src="{{ user.photo }}" />
             </div>
         </li>
         <li>

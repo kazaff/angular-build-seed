@@ -16,7 +16,6 @@ define(function(){
         $scope.hasManyData = true;
         $scope.isLoading = true;
         $scope.data = [];
-        $scope.data.bindGroups = [];
 
         Action.link('userEdit', 'user').success(function(response){
             $scope.switchFlag = response.status;
@@ -35,11 +34,6 @@ define(function(){
                     item.name = decodeURI(item.name);
                     item.parentName = decodeURI(item.parentName);
                     item.app = decodeURI(item.app);
-                    item.bindGroupName="";
-                    angular.forEach( item.bindGroups, function(bind){
-                        bind.name = decodeURI(bind.name);
-                        item.bindGroupName+=bind.name+",";
-                    });
                     item.info = decodeURI(item.info);
                     $scope.data.push(item);
                 });
@@ -159,7 +153,7 @@ define(function(){
         $scope.delete = function(object, index){
             object.isDelete = 1; //标识该数据被删除
 
-            Group.remove({gid: object.groupId}).$promise.then(function(reponse){
+            userGroup.remove({gid: object.groupId}).$promise.then(function(reponse){
                 if(reponse['status'] == 0){
 
                     object.isDelete = 0;    //取消该数据的删除状态

@@ -4,10 +4,12 @@
  * Date: 13-10-7
  * Time: 下午3:36
  */
-define(function(){
+define([
+    'config'
+], function(Config){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'user', '$routeParams', '$q', '$modal', function($scope, Auth, Action, User, $routeParams, $q, $modal){
+    return ['$scope', 'auth', 'action', 'user', '$routeParams', '$q', '$modal', '$http', function($scope, Auth, Action, User, $routeParams, $q, $modal, $http){
         Auth.isLogined();
 
         //获取指定用户的信息
@@ -151,5 +153,19 @@ define(function(){
         $scope.resetPsw = function(){
             $scope.password = '';
         };
+
+        //头像上传
+        $scope.upload= function(data){
+
+            data.append('userId', $scope.user.userId);
+
+            return $http({
+                method:'POST'
+                , url: Config.domain + 'userFace/'
+                , data: data
+                , headers: {'Content-Type': undefined}  //在ng1.20版本中，一定要设置为undefined（而非'multipart/form-data'），否则后端无法使用$_FILES接收
+                ,transformRequest: function(data) { return data;}
+            });
+        }
     }];
 });

@@ -47,7 +47,7 @@ define(function(){
                         window.localStorage.userPhone = user.phone || '';
                         window.localStorage.userMobile = user.mobile || '';
                         window.localStorage.userInfo = user.info || '';
-                        window.localStorage.userPhoto = user.photo || '';
+                        window.localStorage.userPhoto = user.photo || './img/default-face.png';
                     }
                 }
             };

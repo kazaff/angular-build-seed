@@ -113,7 +113,7 @@
                                         <span><kz-action data-name="privilegeUserGroupList" data-group="privilege" data-args="{gid: {{ $parent.item.groupId }}, page: 1}" /></span>
                                         <span>&nbsp;</span>
                                         <span>&nbsp;</span>
-                                        <span><kz-action data-name="userGroupUserList" data-group="user" /></span>
+                                        <span><kz-action data-name="userGroupUserList" data-group="user"  data-args="{gid: {{ $parent.item.groupId }}, page: 1}"/></span>
                                         <span>&nbsp;</span>
                                         <span><kz-action data-name="userGroupBind" data-group="user" data-args="{gid: {{ $parent.item.groupId }}, page: 1}"/></span>
                                     </div>

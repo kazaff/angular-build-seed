@@ -11,15 +11,13 @@ define([
 
     return ['$resource', function($resource){
 
-        return $resource(config.domain + 'userGroupUser/:gid/:uid/:page', {}, {
+        return $resource(config.domain + 'userGroupUser/:gid/:page', {}, {
             groupUserList: {
                 method: 'GET'
-                , params: {gid: 1}
             }
             ,delete: {
                 method: 'DELETE'
-                , params: {gid: 1}
-            }
+             }
         });
     }];
 });

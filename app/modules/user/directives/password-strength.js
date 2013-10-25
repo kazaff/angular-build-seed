@@ -12,10 +12,11 @@ define(function(){
             restrict: 'E'
             , transclude: true
             , template: '<div class="passwordStrength">' +
-                            '<div data-ng-transclude>' +
+                            '<div>' +
                                 '<div class="progress {{ strongC }} active progress-striped span3" style="margin-left: 0">' +
                                     '<div class="bar" style="width: {{ strongW }}%;">{{ strongV }}</div>' +
                                 '</div>' +
+                                '<div data-ng-transclude></div>' +
                             '</div>' +
                         '</div>'
             , scope: {
@@ -56,7 +57,6 @@ define(function(){
 
             }, link: function(scope, element, attrs, controller){
                 scope.$watch('password', function(psw){
-
                     var msg = ['危险', '凑合', '不错', '完美'];
                     var className = ['progress-danger', 'progress-warning', 'progress-success', ''];
                     if(!angular.isUndefined(psw)){

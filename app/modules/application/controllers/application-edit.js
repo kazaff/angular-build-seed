@@ -4,10 +4,12 @@
  * Date: 13-10-10
  * Time: 上午8:23
  */
-define(function(){
+define([
+    'config'
+], function(Config){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', function($scope, Auth, Action, Application, $q, $routeParams){
+    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', '$http', function($scope, Auth, Action, Application, $q, $routeParams, $http){
         Auth.isLogined();
 
         //获取指定用户的信息
@@ -99,5 +101,19 @@ define(function(){
                 }
             });
         };
+
+        //图标上传
+        $scope.upload= function(data){
+
+            data.append('appId', $scope.app.appId);
+
+            return $http({
+                method:'POST'
+                , url: Config.domain + 'appLogo/'
+                , data: data
+                , headers: {'Content-Type': undefined}  //在ng1.20版本中，一定要设置为undefined（而非'multipart/form-data'），否则后端无法使用$_FILES接收
+                ,transformRequest: function(data) { return data;}
+            });
+        }
     }];
 });
