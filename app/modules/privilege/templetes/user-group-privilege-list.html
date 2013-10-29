@@ -63,13 +63,6 @@
                                             </span>
                                         时间段
                                     </th>
-                                    <th class="span2" ng-click="predicate='rule'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='rule'" ng-switch on="reverse">
-                                                <i class="icon-caret-up" ng-switch-when="false"></i>
-                                                <i class="icon-caret-down" ng-switch-when="true"></i>
-                                            </span>
-                                        规则
-                                    </th>
                                     <th class="span2" ng-click="predicate='validity'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='validity'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
@@ -96,15 +89,6 @@
                                     <td class="center hidden-phone">{{ item.app }}</td>
                                     <td class="center hidden-phone">
                                         {{ item.begin | date:"yyyy-MM-dd" }} <i class="icon-resize-horizontal"></i> {{ item.end | date:"yyyy-MM-dd" }}
-                                    </td>
-                                    <td class="center">
-                                        <kz-switch
-                                                data-id="{{ $parent.$index }}"
-                                                data-method="changeRule(id, status)"
-                                                data-model="item.rule"
-                                                data-on-label="允许"
-                                                data-off-label="禁止"
-                                                data-active="switchFlag && !item.isDelete" />
                                     </td>
                                     <td class="center">
                                         <kz-switch

@@ -32,9 +32,11 @@ define([
         console.groupEnd();
         console.info('定义该应用的主模块：', mainModule.name);
 
-        mainModule.config(['$httpProvider', '$locationProvider', '$routeProvider', '$windowProvider', function($httpProvider, $locationProvider, $routeProvider, $windowProvider){
+        mainModule.config(['$httpProvider', '$locationProvider', '$routeProvider', '$windowProvider', '$compileProvider', function($httpProvider, $locationProvider, $routeProvider, $windowProvider, $compileProvider){
 
             $locationProvider.html5Mode(false).hashPrefix('!');
+            //解决跨域问题
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 
             console.group('初始化主模块的路由规则');
 

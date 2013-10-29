@@ -59,6 +59,16 @@ define(function(){
             , api: 'restV1/appIp/get'
         }
         ,{
+            uri: '/app/:aid/api/list'
+            , controller: 'appApiListCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-list.html'
+            , ifMenu: false
+            , name: 'appApiList'
+            , title: 'api管理'
+            , icon: 'icon-map-marker'
+            , api: 'restV1/appApi/get'
+        }
+        ,{
             uri: '/app/:aid/:pid/info'
             , controller: 'appIpEditCtrl'
             , templateUrl: 'modules/application/templetes/application-ip-edit.html'
@@ -84,6 +94,33 @@ define(function(){
             , title: '新增'
             , icon: 'icon-plus'
             , api: 'restV1/appIp/post'
+        }
+        ,{
+            uri: '/app/:aid/:api-id/info'
+            , controller: 'appApiEditCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-edit.html'
+            , ifMenu: false
+            , name: 'appApiEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/appApi/post'
+        }
+        ,{
+            ifMenu: false
+            , name: 'appApiDelete'
+            , title: '删除'
+            , icon: 'icon-trash'
+            , api: 'restV1/appApi/delete'
+        }
+        ,{
+            uri: '/app/:aid/api/add'
+            , controller: 'appApiAddCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-add.html'
+            , ifMenu: false
+            , name: 'appApiAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/appApi/post'
         }]
     };
 });

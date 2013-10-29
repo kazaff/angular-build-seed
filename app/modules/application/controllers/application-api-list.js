@@ -1,34 +1,44 @@
 /**
  * Created with JetBrains WebStorm.
- * User: @kazaff
- * Date: 13-10-9
- * Time: 上午8:51
+ * User: sww
+ * Date: 13-10-25
+ * Time: 下午5:03
+ * To change this template use File | Settings | File Templates.
  */
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$location', '$routeParams', 'group', function($scope, Auth, Action, $location, $routeParams, Group){
+    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q', '$filter', 'api', 'application', function($scope, Auth, Action, $location, $routeParams, $q, $filter, Api, Application){
         Auth.isLogined();
 
-        var page = $routeParams.page - 1;
-        $scope.uid = $routeParams.uid;
+        var page = 0;
+        $scope.aid = $routeParams.aid;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
         $scope.data = [];
 
-        Action.link('userAppDelete', 'user').success(function(response){
+        Action.link('appApiEdit', 'application').success(function(response){
             $scope.switchFlag = response.status;
+        });
+
+        //获取应用系统信息
+        $scope.app = {};
+        Application.get({aid: $routeParams.aid}).$promise.then(function(response){
+            response.name = decodeURI(response.name);
+            response.info = decodeURI(response.info);
+            $scope.app = response;
         });
 
         //获取更多的数据
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Group.groupList({page: ++page, uid: $routeParams.uid}).$promise.then(function(response){
+            Api.query({page: ++page, aid: $routeParams.aid}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
-                    item.name = decodeURI(item.name);
+                    item.info = decodeURI(item.info);
+                    item.requestName = decodeURI(item.requestName);
                     $scope.data.push(item);
                 });
 
@@ -50,11 +60,11 @@ define([], function(){
             $scope.resetFlag = 0;
         };
 
-        //删除指定用户组
+        //删除指定用户
         $scope.delete = function(object, index){
             object.isDelete = 1; //标识该数据被删除
 
-            Group.remove({uid: $routeParams.uid, gid: object.groupId}).$promise.then(function(reponse){
+            Api.remove({pid: object.apiId, aid: $routeParams.aid}).$promise.then(function(reponse){
                 if(reponse['status'] == 0){
 
                     object.isDelete = 0;    //取消该数据的删除状态
@@ -62,25 +72,25 @@ define([], function(){
                     //删除错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户所属用户组删除失败!'
+                        , text: 'API删除失败!'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
-                        , before_close: function(uid){
+                        , before_close: function(aid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('userGroupList', 'user' , {uid: uid, page:1, gid:0}));
+                                $scope.$apply(Action.forward('appIpList', 'application' , {aid: aid}));
                             };
-                        }($routeParams.uid)
+                        }($routeParams.aid)
                     });
 
                 }else{
                     //从列表中删除该条数据
                     $scope.data.splice(index, 1);
 
-                    //删除成功提示
+                    //删除陈功提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户所属用户组删除成功!'
+                        , text: 'API删除成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false

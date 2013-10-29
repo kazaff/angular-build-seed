@@ -11,7 +11,7 @@ define([
 
     return ['$resource', function($resource){
 
-        return $resource(config.domain + 'group/:uid/:gid/:page', {}, {
+        return $resource(config.domain + 'userGroup/:uid/:gid/:page', {}, {
             groupList: {
                 method: 'GET'
                 , params: {gid: 0, uid: 0}

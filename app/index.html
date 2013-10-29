@@ -86,7 +86,8 @@
 
     <!--sidebar-menu-->
     <div id="sidebar">
-        <kz-sidebar-menu data-data="menu" data-args="{page:1}"></kz-sidebar-menu>
+        <a class="visible-phone" data-ng-click="expansion()"><i class="icon icon-reorder"></i> ²Ëµ¥</a>
+        <kz-sidebar-menu data-ng-show="$parent.openStatus > 0" data-data="menu" data-args="{page:1}"></kz-sidebar-menu>
     </div>
     <!--sidebar-menu-->
 

@@ -20,11 +20,21 @@
                                        data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
                                        data-ng-minlength="2"
                                        data-ng-maxlength="20" />
+                                <button class="btn btn-info btn-mini accountCheck"
+                                        type="button"
+                                        data-ng-click="accountCheck()"
+                                        data-ng-switch="accountCheckStatus"
+                                        data-ng-disabled="accountCheckStatus == 1 || user.account == null">
+                                    <span data-ng-switch-when="0">检查帐号</span>
+                                    <span data-ng-switch-when="1"><img src="./img/loading-login.gif" alt="loading"/></span>
+                                    <span data-ng-switch-when="2">帐号可用</span>
+                                </button>
                                 <div data-ng-show="userForm.account.$dirty && userForm.account.$invalid">
                                     <span data-ng-show="userForm.account.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 帐号是必填项哟~</span>
                                     <span data-ng-show="userForm.account.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 帐号只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
                                     <span data-ng-show="userForm.account.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 帐号不能少于2位哟~</span>
                                     <span data-ng-show="userForm.account.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 帐号不能多于20位哟~</span>
+                                    <span data-ng-show="userForm.account.$error.exists" class="help-inline"><i class="icon-warning-sign"></i> 帐号已存在~</span>
                                 </div>
                             </div>
                         </div>

@@ -53,7 +53,7 @@ body {
 .rightzero{ right:0px; display:none;}
 @media (max-width: 480px) {
 	#sidebar > a {
-		background:#27a9e3;
+		background:#28b779;
 		
 	}
 	.quick-actions_homepage .quick-actions li{ min-width:100%;}

@@ -59,6 +59,6 @@
 		
 		//É¾³ý
 		sleep(2);
-		echo '{"status":'.mt_rand(0, 1).'}';
+		echo '{"status":'.mt_rand(0, 5).'}';
 		
 	}

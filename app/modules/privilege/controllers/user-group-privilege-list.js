@@ -98,7 +98,7 @@ define([], function(){
         //更改有效性
         $scope.changeValidity = function(index, status){
 
-            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'validity'}).$promise;
+            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -117,33 +117,6 @@ define([], function(){
                     });
                 }else{
                     $scope.data[index].validity = status;
-                }
-            });
-
-            return promise; //返回promse，供switch插件判断显示状态
-        };
-
-        //更改规则为
-        $scope.changeRule = function(index, status){
-
-            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid, type: 'rule'}).$promise;
-            promise.then(function(response){
-                if(response['status'] == 0){
-                    //修改错误提示
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '权限的规则更改失败!'
-                        , class_name: 'loser'
-                        , image: 'img/configuration2.png'
-                        , sticky: false
-                        , before_close: function(gid){
-                            return function(e, manual_close){
-                                $scope.$apply(Action.forward('privilegeUserGroupList', 'privilege' , {page: 1, gid: gid}));
-                            };
-                        }($routeParams.gid)
-                    });
-                }else{
-                    $scope.data[index].rule = status;
                 }
             });
 

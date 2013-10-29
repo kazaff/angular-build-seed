@@ -48,6 +48,11 @@ define(function(){
                 //Ìø×ªµ½µÇÂ¼Ò³
                 $window.location.href = config.host + 'login.html';
             };
+
+            $scope.openStatus = 1;
+            $scope.expansion = function(){
+                $scope.openStatus = - $scope.openStatus;
+            };
         }]);
 
         return module;

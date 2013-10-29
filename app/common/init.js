@@ -19,9 +19,10 @@ define([
     , 'common/directives/switch'
     , 'common/directives/ztree'
     , 'common/directives/face-uploader'
+    , 'common/directives/blur'
     //控制器
     , 'common/controllers/menu'
-], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, menu, faceUploader){
+], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, faceUploader, blur, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
@@ -38,10 +39,11 @@ define([
         actionD.initialize(module);
         siderbarMenu.initialize(module);
         breadCrumbs.initialize(module);
-        tableFixedHeader.initialize(module);
+        //tableFixedHeader.initialize(module);  //有错误问题，暂时去掉
         switchD.initialize(module);
         ztree.initialize(module);
         faceUploader.initialize(module);
+        blur.initialize(module);
 
         console.info('初始化控制器：', ['menu']);
         //初始化控制器

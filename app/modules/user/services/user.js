@@ -46,6 +46,10 @@ define([
                 method: 'POST'
                 , params: {uid: 'add'}
             }
+            , checkAccount: {
+                method: 'POST'
+                , params: {uid: 'checkAccount'}
+            }
         });
     }];
 });

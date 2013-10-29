@@ -64,18 +64,10 @@
 		$data = json_decode(file_get_contents("php://input"));
 		
 		//处理单纯的状态修改， 包括：有效性，默认状态
-		if(isset($_GET['opt']) && $_GET['opt'] == 'onlyStatus'){
-			
-			if($data->type == 'validity'){
-				
-				sleep(1);
-				echo '{"status": '.mt_rand(0, 1).'}';
-			
-			}elseif($data->type == 'default'){
-				
-				echo '{"status": '.mt_rand(0, 1).'}';
-			}
+		if(isset($_GET['opt']) && $_GET['opt'] == 'onlyStatus'){	
 						
+				sleep(1);
+				echo '{"status": '.mt_rand(0, 1).'}';								
 			exit;
 		}
 		

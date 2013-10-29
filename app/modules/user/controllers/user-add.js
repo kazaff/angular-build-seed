@@ -13,6 +13,22 @@ define(function(){
         $scope.user = {sex:'-1', type:1};
         $scope.pristine = angular.copy($scope.user);
 
+        //验证帐号是否已经存在
+        $scope.accountCheckStatus = 0;
+        $scope.accountCheck = function(){
+            $scope.accountCheckStatus = 1;
+            User.checkAccount({account: $scope.user.account}).$promise.then(function(response){
+
+                if(response['status'] == 0){
+                    $scope.accountCheckStatus = 0;
+                    $scope.userForm.account.$setValidity('exists', false);
+                }else{
+                    $scope.accountCheckStatus = 2;
+                    $scope.userForm.account.$setValidity('exists', true);
+                }
+            });
+        };
+
         $scope.reset = function(){
             $scope.user = angular.copy($scope.pristine);
         };

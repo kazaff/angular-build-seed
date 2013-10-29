@@ -1503,6 +1503,7 @@ form {
 .table th {
 	padding: 5px 4px 2px;
 }
+.accountCheck{float:right;}
 }
  @media (min-width: 481px) and (max-width: 970px) {
 body {

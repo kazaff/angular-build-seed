@@ -108,6 +108,12 @@
 			
 			sleep(1);
 			echo '{"status":'.mt_rand(0, 1).'}';
+		
+		}elseif($uri[3] == 'checkAccount'){
+			//ºÏ≤È’ ∫≈ «∑Ò¥Ê‘⁄
+			
+			sleep(2);
+			echo '{"status":'.mt_rand(0, 1).'}';
 		}
 		
 	}elseif($method == 'PUT'){
