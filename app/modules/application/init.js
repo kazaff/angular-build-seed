@@ -18,16 +18,22 @@ define([
     , 'modules/application/controllers/application-api-list'
     , 'modules/application/controllers/application-api-add'
     , 'modules/application/controllers/application-api-edit'
+    , 'modules/application/controllers/application-api-in'
+    , 'modules/application/controllers/application-api-out'
+    , 'modules/application/controllers/application-api-parameter'
+    , 'modules/application/controllers/application-api-parameter-add'
+    , 'modules/application/controllers/application-api-parameter-edit'
     //服务
     , 'modules/application/services/application'
     , 'modules/application/services/ip'
     , 'modules/application/services/api'
+    , 'modules/application/services/apiparameter'
     //指令
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
 
-], function(console, angular, appListCtrl, appAddCtrl, appEditCtrl, appIpListCtrl, appIpAddCtrl, appIpEditCtrl,appApiListCtrl,appApiAddCtrl,appApiEditCtrl, application, ipServ,apiServ){
+], function(console, angular, appListCtrl, appAddCtrl, appEditCtrl, appIpListCtrl, appIpAddCtrl, appIpEditCtrl,appApiListCtrl,appApiAddCtrl,appApiEditCtrl,appApiInCtrl,appApiOutCtrl,appApiParameterCtrl,appApiParameterAddCtrl,appApiParameterEditCtrl, application, ipServ,apiServ,apiParameterServ){
     'use strict';
 
     console.group('应用系统模块初始化');
@@ -37,6 +43,7 @@ define([
     appModule.factory('application', application);
     appModule.factory('ip', ipServ);
     appModule.factory('api', apiServ);
+    appModule.factory('apiParameter', apiParameterServ);
 
     appModule.controller('appListCtrl', appListCtrl);
     appModule.controller('appAddCtrl', appAddCtrl);
@@ -46,7 +53,12 @@ define([
     appModule.controller('appIpEditCtrl', appIpEditCtrl);
     appModule.controller('appApiListCtrl', appApiListCtrl);
     appModule.controller('appApiAddCtrl', appApiAddCtrl);
-    appModule.controller('appApiAddCtrl', appApiEditCtrl);
+    appModule.controller('appApiEditCtrl', appApiEditCtrl);
+    appModule.controller('appApiInCtrl', appApiInCtrl);
+    appModule.controller('appApiOutCtrl', appApiOutCtrl);
+    appModule.controller('appApiParameterCtrl', appApiParameterCtrl);
+    appModule.controller('appApiParameterAddCtrl', appApiParameterAddCtrl);
+    appModule.controller('appApiParameterEditCtrl', appApiParameterEditCtrl);
     console.groupEnd();
 
     return appModule;

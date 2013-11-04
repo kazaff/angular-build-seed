@@ -77,7 +77,9 @@
                                                 <kz-action  data-name="dbRecover" data-group="database" data-ng-click="$parent.dbRecover($parent.item.fileName) " />
                                             </span>
                                             <span>&nbsp;</span>
-                                            <span ><kz-action data-name="dbDownload" data-group="database" data-ng-click="$parent.dbDownload($parent.item.fileName)" /></span>
+                                            <span >
+                                                <a data-ng-href="{{ item.link }}" target="_blank"><i class="icon-download-alt"></i> <span class="text">下载</span></a>
+                                            </span>
                                         </span>
                                       </td>
                                 </tr>

@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-list-alt"></i> </span>
+                    <h5>用户组信息</h5>
+                </div>
+
+                <div class="widget-content nopadding">
+                    <form name="groupForm" class="form-horizontal" data-ng-submit="updateDate()">
+                        <div class="control-group" data-ng-class="{error: !group.name || groupForm.name.$dirty && groupForm.name.$invalid}">
+                            <label class="control-label" for="name">组名称</label>
+                            <div class="controls">
+                                <input name="name" type="text" id="name" placeholder="输入用户组名称" data-ng-model="group.name" required />
+                                <div data-ng-show="!group.name || groupForm.name.$dirty && groupForm.name.$invalid">
+                                    <span data-ng-show="groupForm.name.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 用户组名称是必填项哟~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="parentName">父组名称</label>
+                            <div class="controls">
+                                <input type="text" id="parentName" readonly data-ng-model="group.parentName"  />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="selecttree">选择父组</label></td>
+                            <div id="selecttree" class="controls">
+                                <kz-ztree data-setting="setting" data-tid="kazaff" />
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">有效性</label>
+                            <div class="controls">
+                                <kz-switch
+                                        data-id="0"
+                                        data-method="changeValidity(id, status)"
+                                        data-model="group.validity"
+                                        data-on-label="是"
+                                        data-off-label="否"
+                                        data-active="!isLoading" />
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">备注</label>
+                            <div class="controls">
+                                <textarea name="info" data-ng-model="group.info" class="span10" placeholder="备注"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || groupForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
+                                <span>&nbsp;</span>
+                                <button type="button" class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,9 @@
  * Date: 13-9-17
  * Time: 下午3:52
  */
-define(function(){
+define([
+    'config'
+], function(Config){
     'use strict';
 
     return ['$scope', '$routeParams', 'auth', 'action', 'db', '$http', function($scope, $routeParams, Auth, Action, Db, $http){
@@ -26,6 +28,8 @@ define(function(){
                     item.fileName = decodeURI(item.fileName);
                     //文件名做唯一标识ID，但HTML标记的ID属性不允许出现 “.”，把扩展名.SQL去掉。
                     item.id=item.fileName.substring(0,item.fileName.length-4);
+
+                    item.link = Config.domain + 'database/&download=1&file=' + item.fileName + '&auth=' + window.localStorage.token;
                     $scope.data.push(item);
                 });
 
@@ -109,17 +113,24 @@ define(function(){
         };
 
         //下载
-        //TODO
         $scope.dbDownload = function(fileName){
 
-            $http({method:'GET', url: config.domain + 'database/', params: {'file': fileName, 'download': 1}, responseType: 'arraybuffer', transformResponse: function(data, headersGetter){
-                if(!angular.isUndefined(headersGetter('Content-Disposition'))){
-                    var file = headersGetter('Content-Disposition').split('"');
+            /*
+            $http({
+                method:'GET'
+                , url: config.domain + 'database/'
+                , params: {'file': fileName, 'download': 1}
+                , responseType: 'arraybuffer'
+                , transformResponse: function(data, headersGetter){
+                    if(!angular.isUndefined(headersGetter('Content-Disposition'))){
+                        var file = headersGetter('Content-Disposition').split('"');
 
-                    var blob = new Blob([data], {type: "application/octet-stream"});
-                    saveAs(blob, file[1]);
+                        var blob = new Blob([data], {type: "application/octet-stream"});
+                        saveAs(blob, file[1]);
+                    }
                 }
-            }});
+            });
+            */
         };
 
         //删除一条记录

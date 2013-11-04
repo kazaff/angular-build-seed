@@ -9,7 +9,7 @@ define([
 ], function(config){
     'use strict';
 
-    return ['$scope', 'action', '$routeParams', '$modal', '$q', '$location', 'group', 'auth', function($scope, Action, $routeParams, $modal, $q, $location, Group, Auth){
+    return ['$scope', 'action', '$routeParams', '$modal', '$q', '$location', 'userGroup', 'auth', 'group', function($scope, Action, $routeParams, $modal, $q, $location, UserGroup, Auth, Group){
         Auth.isLogined();
 
         var page = 0;
@@ -22,7 +22,7 @@ define([
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Group.groupList({page: ++page, group: $location.hash()}).$promise.then(function(response){
+            UserGroup.groupList({page: ++page, group: $location.hash()}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
                     item.name = decodeURI(item.name);
@@ -87,21 +87,23 @@ define([
                 enable: true
                 , type: 'get'
                 , url: config.domain + 'userGroup'
-                , autoParam:['id']
+                , autoParam:['id', 'dataType']
                 , otherParam:{'type': 'onlyNode', 'uid': $routeParams.uid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
 
-                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"><img src="./img/plus_alt.png" alt=""/></span>');
+                    if(!treeNode.nocheck){
+                        jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"><img src="./img/plus_alt.png" alt=""/></span>');
 
-                    jQuery("#diyBtn_"+treeNode.id).on("click", function(){
+                        jQuery("#diyBtn_"+treeNode.id).on("click", function(){
 
-                        //用于启动添加权限的模态窗口
-                        $scope.modalWin(treeNode.id);
+                            //用于启动添加权限的模态窗口
+                            $scope.modalWin(treeNode.id);
 
-                        $scope.$root.$$phase || $scope.$apply();
-                    });
+                            $scope.$root.$$phase || $scope.$apply();
+                        });
+                    }
                 }
             }
         };

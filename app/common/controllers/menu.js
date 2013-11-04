@@ -43,7 +43,7 @@ define(function(){
 
             $scope.logout = function(){
                 //清除用户信息
-                window.localStorage.clear();
+                window.localStorage.token = '';
 
                 //跳转到登录页
                 $window.location.href = config.host + 'login.html';

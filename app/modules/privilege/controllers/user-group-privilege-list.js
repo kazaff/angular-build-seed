@@ -1,13 +1,13 @@
 /**
  * Created with JetBrains WebStorm.
- * User: fengtao
+ * User: @siwenwen
  * Date: 13-10-2
  * Time: 上午11:40
  */
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'group', 'userGroupPrivilege', '$modal', '$q', '$filter', function($scope, Auth, Action, Privilege, $location, $routeParams, Group, UserGroupPrivilege, $modal, $q, $filter){
+    return ['$scope', 'auth', 'action', 'privilege', '$location', '$routeParams', 'userGroup', 'userGroupPrivilege', '$modal', '$q', '$filter', function($scope, Auth, Action, Privilege, $location, $routeParams, UserGroup, UserGroupPrivilege, $modal, $q, $filter){
         Auth.isLogined();
 
         var page = $routeParams.page - 1;
@@ -21,37 +21,14 @@ define([], function(){
             $scope.switchFlag = response.status;
         });
 
-        //获取用户信息
+        //获取用户组信息
         $scope.group={};
-        Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
+        UserGroup.get({gid: $routeParams.gid, uid: 0}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
             response.parentName = decodeURI(response.parentName);
-            response.bindGroup = decodeURI(response.bindGroup);
             $scope.group= response;
         });
-
-        //获取指定权限信息
-        $scope.prvData = {isLoading:false, data:{}};
-        $scope.fetchInfo = function(id){
-
-            if(angular.isUndefined($scope.prvData.data[id])){
-                $scope.prvData.isLoading = true;
-
-                $scope.prvData.data[id] = Privilege.get({pid: id}).$promise.then(function(response){
-                    response.privName = decodeURI(response.privName);
-                    response.info = decodeURI(response.info);
-                    response.app = decodeURI(response.app);
-                    response.group = decodeURI(response.group);
-
-                    $scope.prvData.isLoading = false;
-
-                    return response;
-                });
-            }
-
-            $scope.prvInfo = $scope.prvData.data[id];
-        };
 
         //获取更多的数据
         $scope.downloadData = function(){

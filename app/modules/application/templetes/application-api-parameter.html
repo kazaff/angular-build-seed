@@ -12,7 +12,7 @@
                                 data-bs-popover="'app-info.html'">
                             <a class="help-info"><i class="icon-github"></i> {{app.name}}</a>
                         </span>
-                        的api管理列表
+                        api参数列表
                     </h5>
                 </div>
 
@@ -47,21 +47,21 @@
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                    api地址
+                                    参数类型
                                 </th>
                                 <th class="span3" ng-click="predicate='requestName'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='requestName'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                    请求类型
+                                    中文
                                 </th>
                                 <th class="span3" ng-click="predicate='info'; reverse=!reverse; resetFlag=true">
                                             <span ng-if="predicate=='info'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
-                                    说明
+                                    英文
                                 </th>
                                 <th class="span4">操作</th>
                             </tr>
@@ -69,21 +69,22 @@
                             <tbody>
                             <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">
-                                    {{ item.apiAddr }}
+                                    <span data-ng-switch data-on="item.parameterType">
+                                        <span ng-switch-when="1">输入参数</span>
+                                        <span ng-switch-when="0">输出参数</span>
+                                    </span>
                                 </td>
                                 <td class="center hidden-phone">
-                                {{ item.requestName }}
-                            </td>
+                                    {{ item.parameterCN }}
+                                </td>
                                 <td class="center hidden-phone">
-                                    {{ item.info }}
+                                    {{ item.parameterEN }}
                                 </td>
                                 <td class="center">
                                     <div data-ng-hide="item.isDelete">
-                                        <span><kz-action data-name="appApiEdit" data-group="application" data-args="{aid:{{ $parent.aid }},apiid:{{ $parent.item.apiId }} }" /></span>
+                                        <span><kz-action data-name="appApiParameterEdit" data-group="application" data-args="{aid:{{ $parent.aid }},apiid:{{ $parent.apiId }},pid:{{ $parent.item.parameterId }} }" /></span>
                                         <span>&nbsp;</span>
-                                        <span><kz-action data-name="appApiParameter" data-group="application" data-args="{aid:{{ $parent.aid }},apiid:{{ $parent.item.apiId }},page:1 }" /></span>
-                                        <span>&nbsp;</span>
-                                            <span data-trigger="click"
+                                                <span data-trigger="click"
                                                   data-unique="1"
                                                   data-placement="left"
                                                   data-title="提示"
@@ -100,7 +101,7 @@
                         <div class="ui-toolbar ui-widget-header">
                             <div class="dataTables_filter">
                                 <label>
-                                    <kz-action class="btn btn-success"  data-name="appApiAdd" data-group="application" data-args="{aid: {{ $parent.aid }} }" />
+                                    <kz-action class="btn btn-success"  data-name="appApiParameterAdd" data-group="application" data-args="{aid: {{ $parent.aid }},apiid:{{ $parent.apiId }} }" />
                                 </label>
                             </div>
 
@@ -146,14 +147,13 @@
             </span>
         </li>
         <li>
-            <span class="text">限制访问IP <i class="icon-caret-right"></i></span>
-            <span data-ng-switch on="app.ipLimit">
-                <span data-ng-switch-when="1">是</span>
-                <span data-ng-switch-when="0">否</span>
-            </span>
+            <span class="text">api地址 <i class="icon-caret-right"></i></span> {{ api.apiAddr }}
         </li>
-        <li data-ng-show="app.info">
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ app.info }}
+        <li>
+            <span class="text">请求类型 <i class="icon-caret-right"></i></span> {{ api.requestName }}
+        </li>
+        <li data-ng-show="api.info">
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ api.info }}
         </li>
     </ul>
 

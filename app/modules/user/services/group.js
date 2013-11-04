@@ -16,12 +16,11 @@ define([
                 method: 'GET'
                 , params: {gid: 0, uid: 0}
             }
-            ,
-            someonegroup: {
+            , someonegroup: {
                 method: 'GET'
                 , params: { uid: 0}
             }
-            ,changStatus: {
+            , changStatus: {
                 method: 'POST'
                 , params: {uid: 'onlyStatus'}
             }
@@ -35,10 +34,6 @@ define([
             }
             , create: {
                 method: 'PUT'
-            }
-            , save: {
-                method: 'PUT'
-               , params: {uid: 'save'}
             }
         });
     }];

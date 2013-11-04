@@ -22,7 +22,7 @@ define([
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
-], function(console, angular, prvListCtrl, userPrvListCtrl, userPrvAddCtrl, userGroupPrvListCtrl, userGroupPrvAddCtrl,privServ, userPrvServ, userGroupPrvServ){
+], function(console, angular, prvListCtrl, userPrvListCtrl, userPrvAddCtrl, userGroupPrvListCtrl, userGroupPrvAddCtrl, privServ, userPrvServ, userGroupPrvServ){
     'use strict';
 
     console.group('权限模块初始化');

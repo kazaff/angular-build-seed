@@ -55,7 +55,7 @@
                         <div class="control-group">
                             <label class="control-label">性别</label>
                             <div class="controls">
-                                <div class="btn-group" ng-model="user.sex" bs-buttons-radio>
+                                <div class="btn-group" data-ng-model="user.sex" bs-buttons-radio>
                                     <button class="btn" type="button" value="1">俊朗</button>
                                     <button class="btn" type="button" value="-1">中性</button>
                                     <button class="btn" type="button" value="0">靓丽</button>
@@ -65,7 +65,7 @@
                         <div class="control-group">
                             <label class="control-label">账户类型</label>
                             <div class="controls">
-                                <div class="btn-group" ng-model="user.type" bs-buttons-radio>
+                                <div class="btn-group" data-ng-model="user.type" bs-buttons-radio>
                                     <button class="btn btn-primary" type="button" value="1">管理账户</button>
                                     <button class="btn btn-primary" type="button" value="0">会员账户</button>
                                 </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
-                            <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
+                            <button type="button" class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
                             <kz-action class="btn btn-primary" data-name="userPsw" data-group="user" data-ng-click="$parent.modalWin()" />
                         </div>
                     </form>

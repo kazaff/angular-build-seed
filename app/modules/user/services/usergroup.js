@@ -2,7 +2,6 @@
  * Created with JetBrains WebStorm.
  * User: @sww
  * Date: 13-10-22
- * Time: ����15:14
  */
 define([
     'config'
@@ -15,6 +14,10 @@ define([
             groupList: {
                 method: 'GET'
                 , params: {gid: 0, uid: 0}
+            }
+            , find: {
+                method: 'GET'
+                , params: {uid:0}
             }
             , changStatus: {
                 method: 'POST'
@@ -30,6 +33,10 @@ define([
             }
             , create: {
                 method: 'PUT'
+            }
+            , save: {
+                method: 'PUT'
+                , params: {uid: 'save'}
             }
         });
     }];

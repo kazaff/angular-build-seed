@@ -49,7 +49,7 @@ define(function(){
             , name: 'userGroupAdd'
             , title: '新增用户组'
             , icon: 'icon-plus'
-            , api: 'restV1/user/post'
+            , api: 'restV1/userGroup/put'
         }
         , {
             uri: '/user/:uid/info'
@@ -62,11 +62,14 @@ define(function(){
             , api: 'restV1/user/put'
         }
         , {
-            ifMenu: false
+            uri: '/userGroup/:gid/info'
+            , controller: 'userGroupEdit'
+            , templateUrl: 'modules/user/templetes/user-group-edit.html'
+            , ifMenu: false
             , name: 'groupEdit'
             , title: '编辑'
             , icon: 'icon-edit'
-            , api: 'restV1/user/put'
+            , api: 'restV1/userGroup/put'
         }
         , {
             ifMenu: false

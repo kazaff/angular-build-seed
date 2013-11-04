@@ -8,11 +8,12 @@
 define([], function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q', '$filter', 'api', 'application', function($scope, Auth, Action, $location, $routeParams, $q, $filter, Api, Application){
+    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q', '$filter', 'api','apiParameter', 'application', function($scope, Auth, Action, $location, $routeParams, $q, $filter, Api,ApiParameter, Application){
         Auth.isLogined();
 
         var page = 0;
         $scope.aid = $routeParams.aid;
+        $scope.apiId = $routeParams.apiid;
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = true;
@@ -22,27 +23,29 @@ define([], function(){
             $scope.switchFlag = response.status;
         });
 
-        Action.link('appApiParemater', 'application').success(function(response){
-            $scope.switchFlag = response.status;
-        });
-
         //获取应用系统信息
         $scope.app = {};
         Application.get({aid: $routeParams.aid}).$promise.then(function(response){
             response.name = decodeURI(response.name);
-            response.info = decodeURI(response.info);
             $scope.app = response;
+        });
+
+        //获取应用系统API信息
+        $scope.api = {};
+        Api.getApiInfo({aid: $routeParams.aid,apiid: $routeParams.apiid}).$promise.then(function(response){
+            response.info = decodeURI(response.info);
+            response.requestName = decodeURI(response.requestName);
+            $scope.api = response;
         });
 
         //获取更多的数据
         $scope.downloadData = function(){
             $scope.isLoading = true;
 
-            Api.getApiInfo({page: ++page, aid: $routeParams.aid}).$promise.then(function(response){
+            ApiParameter.query({page:++page,aid: $routeParams.aid,apiid: $routeParams.apiid}).$promise.then(function(response){
 
                 angular.forEach(response.items, function(item){
-                    item.info = decodeURI(item.info);
-                    item.requestName = decodeURI(item.requestName);
+                    item.parameterCN = decodeURI(item.parameterCN);
                     $scope.data.push(item);
                 });
 
@@ -64,11 +67,11 @@ define([], function(){
             $scope.resetFlag = 0;
         };
 
-        //删除指定API
+        //删除指定参数
         $scope.delete = function(object, index){
             object.isDelete = 1; //标识该数据被删除
 
-            Api.remove({apiId: object.apiId, aid: $routeParams.aid}).$promise.then(function(reponse){
+            ApiParameter.remove({pid: object.parameterId}).$promise.then(function(reponse){
                 if(reponse['status'] == 0){
 
                     object.isDelete = 0;    //取消该数据的删除状态
@@ -76,17 +79,16 @@ define([], function(){
                     //删除错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: 'API删除失败!'
+                        , text: 'API参数删除失败!'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false
                         , before_close: function(aid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('appApiList', 'application' , {aid: aid}));
+                                $scope.$apply(Action.forward('appApiParameter', 'application' , {aid: aid}));
                             };
                         }($routeParams.aid)
                     });
-
                 }else{
                     //从列表中删除该条数据
                     $scope.data.splice(index, 1);

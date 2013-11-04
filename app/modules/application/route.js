@@ -96,7 +96,7 @@ define(function(){
             , api: 'restV1/appIp/post'
         }
         ,{
-            uri: '/app/:aid/:api-id/info'
+            uri: '/app/:aid/:apiid/apiedit'
             , controller: 'appApiEditCtrl'
             , templateUrl: 'modules/application/templetes/application-api-edit.html'
             , ifMenu: false
@@ -104,6 +104,36 @@ define(function(){
             , title: '编辑'
             , icon: 'icon-edit'
             , api: 'restV1/appApi/post'
+        }
+        ,{
+            uri: '/app/:aid/:apiid/parameter'
+            , controller: 'appApiParameterCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-parameter.html'
+            , ifMenu: false
+            , name: 'appApiParameter'
+            , title: '参数列表'
+            , icon: 'icon-edit'
+            , api: 'restV1/appApi/get'
+        }
+        ,{
+            uri: '/app/:aid/:apiid/parameter/add'
+            , controller: 'appApiParameterAddCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-parameter-add.html'
+            , ifMenu: false
+            , name: 'appApiParameterAdd'
+            , title: '新增'
+            , icon: 'icon-plus'
+            , api: 'restV1/appIp/post'
+        }
+        ,{
+            uri: '/app/:aid/:apiid/parameter/:pid/edit'
+            , controller: 'appApiParameterEditCtrl'
+            , templateUrl: 'modules/application/templetes/application-api-parameter-edit.html'
+            , ifMenu: false
+            , name: 'appApiParameterEdit'
+            , title: '编辑'
+            , icon: 'icon-edit'
+            , api: 'restV1/appIp/post'
         }
         ,{
             ifMenu: false

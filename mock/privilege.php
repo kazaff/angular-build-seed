@@ -3,7 +3,8 @@
 	
 	if($method == 'GET'){
 		
-		if($uri[3] == 0){						
+		if($uri[3] == 0){	
+		
 			//所有权限
 			$page = intval($uri[4]); //请求页码
 			$preNum = 7;	//每页条数

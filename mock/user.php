@@ -104,7 +104,7 @@
 		}elseif($uri[3] == 'add'){
 			//新增用户
 			
-			//var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
+			var_dump(mb_convert_encoding(urldecode($data->name), 'gbk', 'utf-8'));
 			
 			sleep(1);
 			echo '{"status":'.mt_rand(0, 1).'}';

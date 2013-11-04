@@ -16,6 +16,10 @@ define([
                 method: 'GET'
                 , isArray: false
             }
+            , getApiInfo: {
+                method: 'GET'
+                , params: {page: 'apiInfo'}
+            }
             , getSelectList: {
                 method: 'GET'
                 , params: {aid: 'select'}
@@ -30,7 +34,7 @@ define([
             }
             , update: {
                 method: 'POST'
-                , params: {aid: 'update'}
+                , isArray: false
             }
         });
     }];

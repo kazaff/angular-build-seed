@@ -7,7 +7,7 @@
 define(function(){
     'use strict';  
 
-    return ['$scope', '$routeParams', 'auth', 'action','group', 'usergroupuser', function($scope, $routeParams, Auth, Action,Group, usergroupuser){
+    return ['$scope', '$routeParams', 'auth', 'action', 'userGroup', 'usergroupuser', function($scope, $routeParams, Auth, Action, UserGroup, usergroupuser){
 		Auth.isLogined();
 		
         var page = 0;
@@ -37,7 +37,7 @@ define(function(){
 
         //获取用户信息
         $scope.group={};
-        Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
+        UserGroup.get({gid: $routeParams.gid, uid: 0}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
             response.parentName = decodeURI(response.parentName);
@@ -46,10 +46,8 @@ define(function(){
         });
 
         //删除一条记录
-        //id: 要删除的文件id
-        //index 当前行的数据索引位置
-        $scope.userDelete = function(id,userName, index){
-            usergroupuser.delete({uid: id, page: page,gid:$routeParams.gid}).$promise.then(function(response){
+        $scope.userDelete = function(id, userName, index){
+            usergroupuser.delete({uid: id, gid:$routeParams.gid}).$promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
                     angular.element.gritter.add({
@@ -66,7 +64,7 @@ define(function(){
                     });
                 }
                 else{
-                    $("tr#"+id).addClass("delete-line").fadeOut(1000,function(){$scope.data.splice(index, 1)}) ;
+                    $scope.data.splice(index, 1);
                 }
             });
         };

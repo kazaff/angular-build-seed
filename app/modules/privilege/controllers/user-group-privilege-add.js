@@ -67,7 +67,7 @@ define([
         //获取第一屏数据
         $scope.downloadData();
 
-        $scope.form = {rule: 1, gid: $routeParams.gid};
+        $scope.form = {validity: true, gid: $routeParams.gid};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -88,22 +88,24 @@ define([
             , async: {
                 enable: true
                 , type: 'get'
-                , url: config.domain + 'privilege'
-                , autoParam:['id']
-                , otherParam:{'type': 'onlyNode', 'auth': window.localStorage.token}
+                , url: config.domain + 'userGroupPrivilege'
+                , autoParam:['id', 'dataType']
+                , otherParam:{'type': 'onlyNode', gid: $routeParams.gid, 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
 
-                    jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"><img src="./img/plus_alt.png" alt=""/></span>');
+                    if(!treeNode.nocheck){
+                        jQuery('#' + treeNode.tId + '_a').append('<span id="diyBtn_' + treeNode.id+ '"><img src="./img/plus_alt.png" alt=""/></span>');
 
-                    jQuery("#diyBtn_"+treeNode.id).on("click", function(){
+                        jQuery("#diyBtn_"+treeNode.id).on("click", function(){
 
-                        //用于启动添加权限的模态窗口
-                        $scope.modalWin(treeNode.id);
+                            //用于启动添加权限的模态窗口
+                            $scope.modalWin(treeNode.id);
 
-                        $scope.$root.$$phase || $scope.$apply();
-                    });
+                            $scope.$root.$$phase || $scope.$apply();
+                        });
+                    }
                 }
             }
         };
@@ -111,7 +113,7 @@ define([
         //修改规则
         $scope.changeRule = function(index, status){
 
-            $scope.form.rule = status;
+            $scope.form.validity = status;
 
             //必须返回promise，供switch指令使用
             var deferred = $q.defer();

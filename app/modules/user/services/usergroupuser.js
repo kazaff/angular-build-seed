@@ -15,7 +15,7 @@ define([
             groupUserList: {
                 method: 'GET'
             }
-            ,delete: {
+            , delete: {
                 method: 'DELETE'
              }
         });

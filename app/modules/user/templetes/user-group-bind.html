@@ -7,39 +7,34 @@
                 </div>
                 <div class="widget-content nopadding">
                     <form name="userForm" novalidate class="form-horizontal" data-ng-submit="save()">
-                        <div style="padding-top:5px">
-                            <form class="form-horizontal">
-                                <div class="control-group">
-                                    <label class="control-label" for="groupName">用户组名称</label>
-                                    <div class="controls">
-                                        <input type="text" id="groupName" readonly placeholder="输入用户组名称" data-ng-model="group.name"  />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="bindGroupName">已绑定用户组</label>
-                                    <div class="controls">
-                                        <input type="text" id="bindGroupName" readonly data-ng-model="group.bindGroupName"/>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <table>
-                                        <tr>
-                                            <td> <label class="control-label" for="selectTree">选择父组</label></td>
-                                            <td>
-                                                <div id="selectTree" class="tab-pane" style="margin:5px">
-                                                    <kz-ztree data-setting="setting" data-tid="selectTree"  />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="control-group">
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
-                                        <button class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="control-group">
+                            <label class="control-label" for="groupName">用户组名称</label>
+                            <div class="controls">
+                                <input class="span10" type="text" id="groupName" readonly placeholder="输入用户组名称" data-ng-model="group.name"  />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="bindGroupName">已绑定用户组</label>
+                            <div class="controls">
+                                <input class="span10" type="text" id="bindGroupName" readonly data-ng-model="group.bindGroupName"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <table>
+                                <tr>
+                                    <td> <label class="control-label" for="selectTree">选择父组</label></td>
+                                    <td>
+                                        <div id="selectTree" class="tab-pane" style="margin:5px">
+                                            <kz-ztree data-setting="setting" data-tid="selectTree"  />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || userForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
+                            </div>
                         </div>
                     </form>
                 </div>

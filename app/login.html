@@ -121,7 +121,7 @@
             }).success(function(response){
                 $scope.isLoading = false;
 
-                if(response.status){
+                if(response.status != 0){
                     //³Ö¾Ã»¯token
                     window.localStorage.userId = response.userId;
                     window.localStorage.userAccount = response.account;

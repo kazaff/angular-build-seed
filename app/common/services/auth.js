@@ -4,7 +4,9 @@
  * Date: 13-9-5
  * Time: ÉÏÎç9:16
  */
-define(function(){
+define([
+    'config'
+], function(Config){
     'use strict';
 
     var initialize = function(module){
@@ -15,8 +17,7 @@ define(function(){
                     if(!window.localStorage.token){
                         //TODO ±ÜÃâÓ²±àÂë
                         //Ìø×ªµ½µÇÂ¼Ò³
-                        $window.location.href = config.host + 'login.html';
-
+                        $window.location.href = Config.host + 'login.html';
                     }
                 }
                 , userInfo: function(user){

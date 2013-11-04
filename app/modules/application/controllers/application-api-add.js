@@ -22,6 +22,7 @@ define(function(){
         //获取选择方式列表
         $scope.select = {};
         Api.getSelectList({page:0}).$promise.then(function(response){
+            response.name = decodeURI(response.name);
             $scope.select = response;
             $scope.api.selected=  $scope.select[0];
         });
@@ -56,7 +57,7 @@ define(function(){
                         , sticky: false
                     });
 
-                    $scope.pristine = angular.copy($scope.ip);
+                    $scope.pristine = angular.copy($scope.api);
 
                 }else{
                     //修改错误提示

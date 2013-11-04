@@ -79,7 +79,11 @@
                             <tr id="{{item.userID}}" data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">{{ item.userName }}</td>
                                 <td class="center hidden-phone">{{ item.name }}</td>
-                                <td class="center hidden-phone">{{ item.userCount }}</td>
+                                <td class="center hidden-phone" data-ng-switch="item.sex">
+                                    <span data-ng-switch-when="-1">保密</span>
+                                    <span data-ng-switch-when="0">女士</span>
+                                    <span data-ng-switch-when="1">男士</span>
+                                </td>
                                 <td class="center">
                                     <kz-switch
                                             data-model="item.validity"
@@ -126,7 +130,7 @@
         <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.userName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-        <button class="btn btn-danger btn-mini" data-ng-click="$parent.userDelete($parent.item.userID,$parent.item.userName, $parent.$index);hide()">确定</button>
+        <button class="btn btn-danger btn-mini" data-ng-click="$parent.userDelete($parent.item.userId, $parent.item.userName, $parent.$index);hide()">确定</button>
         <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>

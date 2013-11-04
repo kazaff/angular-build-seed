@@ -81,8 +81,7 @@
                                                 data-unique="1"
                                                 data-placement="right"
                                                 data-title="详细"
-                                                data-bs-popover="'info.html'"
-                                                data-ng-click="fetchInfo(item.privId)" >
+                                                data-bs-popover="'info.html'" >
                                             <a class="help-info">{{ item.privName }} <i class="icon-tag"></i></a>
                                         </span>
                                     </td>
@@ -146,10 +145,9 @@
 </div>
 
 <script type="text/ng-template" id="info.html">
-    <img data-ng-show="prvData.isLoading" src="./img/loading.gif" />
     <ul class="activity-list" data-ng-hide="prvData.isLoading">
         <li>
-            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ prvInfo.privName }}
+            <span class="text">名称 <i class="icon-caret-right"></i></span> {{ item.privName }}
         </li>
         <li>
             <span class="text">所属 <i class="icon-caret-right"></i></span> {{ item.app }}
@@ -161,7 +159,7 @@
             <span class="text">结束时间 <i class="icon-caret-right"></i></span> {{ item.end }}
         </li>
         <li>
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ prvInfo.info }}
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
         </li>
     </ul>
     <button class="btn btn-success btn-mini pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>

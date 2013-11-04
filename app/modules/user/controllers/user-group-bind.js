@@ -7,21 +7,30 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$routeParams','group', '$q', function($scope, Auth, Action,$routeParams, Group, $q){
+    return ['$scope', 'auth', 'action', '$routeParams','userGroup', function($scope, Auth, Action,$routeParams, userGroup){
         Auth.isLogined();
+
         //获取用户信息
-        $scope.group={};
-        Group.get({gid: $routeParams.gid,uid:0}).$promise.then(function(response){
+        $scope.group = {bindGroups: []};
+
+        userGroup.get({gid: $routeParams.gid, uid: 0, type: 'bind'}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);
             response.parentName = decodeURI(response.parentName);
-            response.bindGroupName="";
+            response.bindGroupName = '';
+
             angular.forEach( response.bindGroups, function(bind){
                 bind.name = decodeURI(bind.name);
-                response.bindGroupName+=bind.name+",";
+                response.bindGroupName += bind.name + '，';
             });
-            $scope.group= response;
+
+            $scope.group = response;
+            $scope.pristine = angular.copy($scope.group);
         });
+
+        $scope.isUnchanged = function(){
+            return angular.equals($scope.group, $scope.pristine);
+        };
 
         //树配置
         $scope.setting = {
@@ -31,10 +40,10 @@ define(function(){
                 }
             },
             check:{
-                enable:true,
-                chkStyle:"checkbox"  ,
+                enable: true,
+                chkStyle: "checkbox"  ,
                 autoCheckTrigger: false ,
-                chkboxType : { "Y": "", "N": "" }   //父节点勾选，不勾选子节点
+                chkboxType : {"Y": "", "N": "" }   //父节点勾选，不勾选子节点
             }
             ,
             callback: {
@@ -45,8 +54,8 @@ define(function(){
                 enable: true
                 , type: 'get'
                 , url: config.domain + 'group'
-                , autoParam:['id']
-                , otherParam:{'type': 'onlyNode',  'auth': window.localStorage.token}
+                , autoParam:['id', 'dataType']
+                , otherParam:{'type': 'onlyNode', gid:$routeParams.gid, treeType:'bind', 'auth': window.localStorage.token}
             }
             , view: {
                 addDiyDom: function(treeId, treeNode){
@@ -72,35 +81,32 @@ define(function(){
                     });
                 });
             }
-     //       $scope.$root.$$phase || $scope.$apply();
         };
 
         //树的选中和取消选中事件函数
         function onCheck (event, treeId, treeNode) {
-            if(treeNode!=null)
+
+            if(treeNode.checked)
             {
-                if(treeNode.checked)
-                {
-                    $scope.group.bindGroupName+=treeNode.name+",";
-                    $scope.group.bindGroups.push({id:treeNode.id,name:treeNode.name,isParent:treeNode.isParent,checked:treeNode.checked});
-                }
-                else
-                {
-                    $scope.group.bindGroups.push({id:treeNode.id,name:treeNode.name});
-                    //回调函数有两个参数,第一个是元素索引,第二个为当前值
-                    $.each($scope.group.bindGroups,function(key,val){
-                        if(val&&val.id==treeNode.id){
-                            $scope.group.bindGroups.splice(key,1);
-                            //  break;
-                        }
-                    });
-                    $scope.group.bindGroupName="";
-                    angular.forEach( $scope.data.bindGroups, function(bind){
-                        $scope.group.bindGroupName+=bind.name+",";
-                    });
-                }
-                $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
+                $scope.group.bindGroupName += treeNode.name + '，';
+                $scope.group.bindGroups.push({id: treeNode.id, name: treeNode.name, isParent: treeNode.isParent, checked :treeNode.checked});
+
+            }else{
+
+                angular.forEach($scope.group.bindGroups, function(val, key){
+                    if(val.id == treeNode.id){
+                        $scope.group.bindGroups.splice(key, 1);
+                        return false;
+                    }
+                });
+
+                $scope.group.bindGroupName = '';
+                angular.forEach($scope.group.bindGroups, function(bind){
+                    $scope.group.bindGroupName += bind.name + '，';
+                });
             }
+
+            $scope.$root.$$phase || $scope.$apply();  //避免$digest already in progress
         }
 
         $scope.save = function(){
@@ -112,11 +118,13 @@ define(function(){
 
                 , bindGroups: []
             };
+
             angular.forEach( $scope.group.bindGroups, function(bind){
                 formData.bindGroups.push(bind.id);
             });
+
             //去后端更新
-            Group.save(formData).$promise.then(function(response){
+            userGroup.save(formData).$promise.then(function(response){
 
                 $scope.isLoading = false;
 

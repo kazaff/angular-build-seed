@@ -22,9 +22,10 @@ define([
     , 'modules/user/controllers/usergroup-add'
     , 'modules/user/controllers/someone-group'
     , 'modules/user/controllers/user-group-add'
+    , 'modules/user/controllers/user-group-edit'
     //服务
     , 'modules/user/services/user'
-      //用户所示用户组
+    //用户所示用户组
     , 'modules/user/services/group'
     //用户组
     , 'modules/user/services/usergroup'
@@ -44,7 +45,7 @@ define([
         , userListCtrl
         , userEditCtrl
         , userGroupCtrl
-        ,userGroupBindCtrl
+        , userGroupBindCtrl
         , userGroupUserCtrl
         , userAppListCtrl
         , userAppAddCtrl
@@ -52,6 +53,7 @@ define([
 		, userGroupAddCtrl
         , someoneGroupCtrl
         , userForGroupAddCtrl
+        , userGroupEditCtrl
         , user
         , group
         , userGroup
@@ -83,6 +85,7 @@ define([
     userModule.controller('userGroupAddCtrl', userGroupAddCtrl);
     userModule.controller('someoneGroupCtrl', someoneGroupCtrl);
     userModule.controller('userForGroupAddCtrl', userForGroupAddCtrl);
+    userModule.controller('userGroupEdit', userGroupEditCtrl);
 
     userModule.directive('kzPasswordStrength', pswStrength);
 

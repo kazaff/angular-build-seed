@@ -19,15 +19,29 @@ define(function(){
             $scope.app = response;
         });
 
+
+
+         //获取指定的可访问IP信息
+        $scope.api = { };
+
         //获取选择方式列表
-        $scope.select = {};
-        Api.getSelectList({page:0}).$promise.then(function(response){
-            $scope.select = response;
-            $scope.api.selected=  $scope.select[0];
+        $scope.select = [];
+
+        Api.get({aid: $routeParams.aid, apiid: $routeParams.apiid}).$promise.then(function(response){
+            $scope.api = response;
+            $scope.api.info = decodeURI(response.info);
+
+            Api.getSelectList({page:0}).$promise.then(function(response){
+                $scope.select = response;
+                for(var i=0;i<$scope.select.length;i++){
+                    if($scope.select[i].id==$scope.api.requestType){
+                        $scope.api.selected=  $scope.select[i];
+                    }
+                }
+            });
+            $scope.pristine = angular.copy($scope.api);
         });
 
-        $scope.api = { aid: $routeParams.aid};
-        $scope.pristine = angular.copy($scope.api);
 
         $scope.reset = function(){
             $scope.api = angular.copy($scope.pristine);
@@ -40,10 +54,17 @@ define(function(){
         $scope.save = function(){
 
             $scope.isLoading = true;
-
+            $scope.requestType= $scope.api.selected.id;
             //去后端更新
-            Api.create($scope.api).$promise.then(function(response){
-
+            var formData = {
+                apiid: $scope.api.apiid
+                , aid:$routeParams.aid
+                , apiAddr: $scope.api.apiAddr
+                , requestType: $scope.api.requestType
+                , info: $scope.api.info
+            };
+            //去后端更新
+            Api.update(formData).$promise.then(function(response){
                 $scope.isLoading = false;
 
                 if(response['status'] == 1){
@@ -56,7 +77,7 @@ define(function(){
                         , sticky: false
                     });
 
-                    $scope.pristine = angular.copy($scope.ip);
+                    $scope.pristine = angular.copy($scope.api);
 
                 }else{
                     //修改错误提示
@@ -68,7 +89,7 @@ define(function(){
                         , sticky: false
                         , before_close: function(aid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('appApiAdd', 'application' , {aid: aid}));
+                                $scope.$apply(Action.forward('appApiEdit', 'application' , {aid: aid}));
                             };
                         }($routeParams.aid)
                     });

@@ -1,0 +1,296 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-list-alt"></i> </span>
+                    <h5>
+                        <span
+                                data-trigger="click"
+                                data-unique="1"
+                                data-placement="bottom"
+                                data-title="应用系统信息"
+                                data-bs-popover="'app-info.html'">
+                            <a class="help-info"><i class="icon-github"></i> {{ app.name }}</a>
+                        </span>
+                        编辑API参数
+                    </h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form name="parameterForm" novalidate class="form-horizontal" data-ng-submit="save()">
+                        <div class="control-group"></div>
+                        <div class="control-group">
+                            <label class="control-label">参数类型 </label>
+                            <div class="controls">
+                                <kz-switch
+                                        data-id="1"
+                                        data-method="changeValidity(1, status)"
+                                        data-model="parameter.type"
+                                        data-on-label="输入"
+                                        data-off-label="输出"
+                                        data-active="!isLoading"/>
+                            </div>
+                        </div>
+
+                        <div class="control-group" data-ng-class="{error: parameterForm.parameterEN.$dirty && parameterForm.parameterEN.$invalid}">
+                            <label class="control-label">英 文</label>
+                            <div class="controls">
+                                <input name="parameterEN"
+                                       type="text"
+                                       data-ng-model="parameter.parameterEN"
+                                       class="span10"
+                                       placeholder="英 文"
+                                       required
+                                       data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
+                                       data-ng-minlength="2"
+                                       data-ng-maxlength="20" />
+                                <div data-ng-show="parameterForm.parameterEN.$dirty && parameterForm.parameterEN.$invalid">
+                                    <span data-ng-show="parameterForm.parameterEN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 英文名称是必填项哟~</span>
+                                    <span data-ng-show="parameterForm.parameterEN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 英文名称只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
+                                    <span data-ng-show="parameterForm.parameterEN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能少于2位哟~</span>
+                                    <span data-ng-show="parameterForm.parameterEN.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能多于20位哟~</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group" data-ng-class="{error: parameterForm.parameterCN.$dirty && parameterForm.parameterCN.$invalid}">
+                            <label class="control-label">中 文</label>
+                            <div class="controls">
+                                <input name="parameterCN"
+                                       type="text"
+                                       data-ng-model="parameter.parameterCN"
+                                       class="span10"
+                                       placeholder="中 文"
+                                       required
+                                       data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
+                                       data-ng-minlength="2"
+                                       data-ng-maxlength="20" />
+                                <div data-ng-show="parameterForm.parameterCN.$dirty && parameterForm.parameterEN.$invalid">
+                                    <span data-ng-show="parameterForm.parameterCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
+                                    <span data-ng-show="parameterForm.parameterCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
+                                    <span data-ng-show="parameterForm.parameterCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>
+                                    <span data-ng-show="parameterForm.parameterCN.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能多于20位哟~</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-ng-show="parameter.type" class="control-group">
+                            <label class="control-label">显示方式</label>
+                            <div class="controls">
+                                <select class="span6"  data-ng-model="parameter.selected" ng-options="c.name for c in select">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div data-ng-show="parameter.type" class="control-group" data-ng-class="{error: parameterForm.apiAddr.$dirty && parameterForm.apiAddr.$invalid}">
+                            <label class="control-label">api地址</label>
+                            <div class="controls">
+                                <input type="text"
+                                       name="apiAddr"
+                                       autocomplete="false"
+                                       data-ng-model="parameter.apiAddr"
+                                       class="span6"
+                                       placeholder="api地址"
+                                       required
+                                       data-ng-pattern="/([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)?((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4})(\:[0-9]+)?(/[^/][a-zA-Z0-9\.\,\?\'\\/\+&amp;%\$#!\=~_\-@]*)*$/"
+                                        />
+                                <input type="checkbox" ng-model="parameter.apiAddrValidity">
+                                <div data-ng-show="parameterForm.apiAddr.$dirty && parameterForm.apiAddr.$invalid">
+                                    <span data-ng-show="parameterForm.apiAddr.$error.required" class="help-inline"><i class="icon-warning-sign"></i> api地址是必填项~</span>
+                                    <span data-ng-show="parameterForm.apiAddr.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> api地址格式必须合法哟~</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-ng-show="parameter.apiAddrValidity && parameter.type" class="widget-content nopadding">
+                            <div class="dataTables_wrapper">
+
+                                <table class="table table-bordered" data-kz-table-fixed-header>
+                                    <thead>
+                                    <tr>
+                                        <th  ng-click="predicate='isHidden'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='isHidden'" ng-switch on="reverse">
+                                                <i class="icon-caret-up" ng-switch-when="false"></i>
+                                                <i class="icon-caret-down" ng-switch-when="true"></i>
+                                            </span>
+                                            是否隐藏
+                                        </th>
+                                        <th class="span3" ng-click="predicate='parameterCN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='parameterCN'" ng-switch on="reverse">
+                                                <i class="icon-caret-up" ng-switch-when="false"></i>
+                                                <i class="icon-caret-down" ng-switch-when="true"></i>
+                                            </span>
+                                            中文
+                                        </th>
+                                        <th class="span3" ng-click="predicate='parameterEN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='parameterEN'" ng-switch on="reverse">
+                                                <i class="icon-caret-up" ng-switch-when="false"></i>
+                                                <i class="icon-caret-down" ng-switch-when="true"></i>
+                                            </span>
+                                            英文
+                                        </th>
+                                        <th class="span4">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data ">
+                                        <td class="center">
+                                            <span data-ng-switch data-on="item.isHidden">
+                                                <span ng-switch-when="true">是</span>
+                                                <span ng-switch-when="false">否</span>
+                                            </span>
+                                        </td>
+                                        <td class="center">
+                                            {{ item.pCN }}
+                                        </td>
+                                        <td class="center">
+                                            {{ item.pEN }}
+                                        </td>
+                                        <td class="center">
+                                            <div data-ng-hide="item.isDelete">
+                                                <span data-trigger="click"
+                                                      data-unique="1"
+                                                      data-placement="left"
+                                                      data-title="提示"
+                                                      data-bs-popover="'delete.html'">
+                                                <kz-action data-name="appApiDelete" data-group="application" />
+                                            </span>
+                                            </div>
+                                            <i class="icon-lock" data-ng-show="item.isDelete"></i>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || parameterForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
+                            <button type="button" class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
+                            <button type="button" class="btn btn-info center" data-ng-click="modalWin()" data-ng-show="parameter.apiAddrValidity"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="添加"></i> <span class="text">添加</span></button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="app-info.html">
+    <ul class="activity-list">
+        <li class="text-center">
+            <div>
+                <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
+            </div>
+        </li>
+        <li>
+            <span class="text">英文标识 <i class="icon-caret-right"></i></span> {{ app.tag }}
+        </li>
+        <li>
+            <span class="text">域名 <i class="icon-caret-right"></i></span> <a data-ng-href="{{ app.domain }}" target="_blank">{{ app.domain }} <i class="icon-external-link"></i></a>
+        </li>
+        <li>
+            <span class="text">有效性 <i class="icon-caret-right"></i></span>
+            <span data-ng-switch on="app.validity">
+                <span data-ng-switch-when="1">是</span>
+                <span data-ng-switch-when="0">否</span>
+            </span>
+        </li>
+        <li>
+            <span class="text">api地址 <i class="icon-caret-right"></i></span> {{ api.apiAddr }}
+        </li>
+        <li>
+            <span class="text">请求类型 <i class="icon-caret-right"></i></span> {{ api.requestName }}
+        </li>
+        <li data-ng-show="api.info">
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ api.info }}
+        </li>
+    </ul>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-mini btn-success pull-right" data-ng-click="dismiss()"><i class="icon-remove"></i> <span class="text">关闭</span></button>
+    </div>
+    <div class="clearfix"></div>
+</script>
+
+<script type="text/ng-template" id="form.html">
+    <div style="padding-top:5px">
+        <form  name="addForm" novalidate class="form-horizontal">
+            <div class="control-group" data-ng-class="{error: addForm.pEN.$dirty && addForm.pEN.$invalid}">
+                <label class="control-label">英 文</label>
+                <div class="controls">
+                    <input name="pEN"
+                           type="text"
+                           data-ng-model="form.pEN"
+                           class="span3"
+                           placeholder="英 文"
+                           required
+                           data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
+                           data-ng-minlength="2"
+                           data-ng-maxlength="20" />
+                    <div data-ng-show="addForm.pEN.$dirty && parameterForm.parameterEN.$invalid">
+                        <span data-ng-show="addForm.pEN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 英文名称是必填项哟~</span>
+                        <span data-ng-show="addForm.pEN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 英文名称只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
+                        <span data-ng-show="addForm.pEN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能少于2位哟~</span>
+                        <span data-ng-show="addForm.pEN.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能多于20位哟~</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group" data-ng-class="{error: addForm.pCN.$dirty && addForm.pCN.$invalid}">
+                <label class="control-label">中 文</label>
+                <div class="controls">
+                    <input name="pCN"
+                           type="text"
+                           data-ng-model="form.pCN"
+                           class="span3"
+                           placeholder="中 文"
+                           required
+                           data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
+                           data-ng-minlength="2"
+                           data-ng-maxlength="20" />
+                    <div data-ng-show="addForm.pCN.$dirty && parameterForm.parameterEN.$invalid">
+                        <span data-ng-show="addForm.pCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
+                        <span data-ng-show="addForm.pCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
+                        <span data-ng-show="addForm.pCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>
+                        <span data-ng-show="addForm.pCN.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能多于20位哟~</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">是否隐藏 </label>
+                <div class="controls">
+                    <kz-switch
+                            data-id="0"
+                            data-method="changeHidden(0,status)"
+                            data-model="form.isHidden"
+                            data-on-label="是"
+                            data-off-label="否"
+                            data-active="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" data-ng-disabled="addForm.$invalid" class="btn btn-success" data-ng-click="add();hide()"><i class="icon-save"></i> <span class="text">添加</span></button>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">放弃</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="delete.html">
+    <ul class="activity-list">
+        <li><i class="icon-bullhorn"></i> 您确定删除么？</li>
+    </ul>
+    <div class="pull-right">
+        <button type="button" class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
+        <span>&nbsp;</span>
+        <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
+    </div>
+    <div class="clearfix"></div>
+</script>
