@@ -28,7 +28,6 @@ define([], function(){
 
                 angular.forEach(response.items, function(item){
                     item.app = decodeURI(item.app);
-                    item.domain = decodeURI(item.domain);
                     item.info = decodeURI(item.info);
                     $scope.data.push(item);
                 });

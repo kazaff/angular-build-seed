@@ -32,7 +32,7 @@ define([], function(){
 
         //获取应用系统API信息
         $scope.api = {};
-        Api.getApiInfo({aid: $routeParams.aid,apiid: $routeParams.apiid}).$promise.then(function(response){
+        Api.getApiInfo({aid: $routeParams.aid, apiid: $routeParams.apiid}).$promise.then(function(response){
             response.info = decodeURI(response.info);
             response.requestName = decodeURI(response.requestName);
             $scope.api = response;

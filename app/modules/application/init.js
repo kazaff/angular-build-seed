@@ -18,22 +18,43 @@ define([
     , 'modules/application/controllers/application-api-list'
     , 'modules/application/controllers/application-api-add'
     , 'modules/application/controllers/application-api-edit'
-    , 'modules/application/controllers/application-api-in'
-    , 'modules/application/controllers/application-api-out'
     , 'modules/application/controllers/application-api-parameter'
     , 'modules/application/controllers/application-api-parameter-add'
     , 'modules/application/controllers/application-api-parameter-edit'
+    , 'modules/application/controllers/application-show'
     //服务
     , 'modules/application/services/application'
     , 'modules/application/services/ip'
     , 'modules/application/services/api'
     , 'modules/application/services/apiparameter'
+    , 'modules/application/services/appShow'
     //指令
     //库
     , 'angular/angular-resource'
     , 'angular/angular-strap'
 
-], function(console, angular, appListCtrl, appAddCtrl, appEditCtrl, appIpListCtrl, appIpAddCtrl, appIpEditCtrl,appApiListCtrl,appApiAddCtrl,appApiEditCtrl,appApiInCtrl,appApiOutCtrl,appApiParameterCtrl,appApiParameterAddCtrl,appApiParameterEditCtrl, application, ipServ,apiServ,apiParameterServ){
+], function(
+        console
+        , angular
+        , appListCtrl
+        , appAddCtrl
+        , appEditCtrl
+        , appIpListCtrl
+        , appIpAddCtrl
+        , appIpEditCtrl
+        , appApiListCtrl
+        , appApiAddCtrl
+        , appApiEditCtrl
+        , appApiParameterCtrl
+        , appApiParameterAddCtrl
+        , appApiParameterEditCtrl
+        , appShowCtrl
+        , application
+        , ipServ
+        , apiServ
+        , apiParameterServ
+        , appShowServ){
+
     'use strict';
 
     console.group('应用系统模块初始化');
@@ -44,6 +65,7 @@ define([
     appModule.factory('ip', ipServ);
     appModule.factory('api', apiServ);
     appModule.factory('apiParameter', apiParameterServ);
+    appModule.factory('appShow', appShowServ);
 
     appModule.controller('appListCtrl', appListCtrl);
     appModule.controller('appAddCtrl', appAddCtrl);
@@ -54,11 +76,11 @@ define([
     appModule.controller('appApiListCtrl', appApiListCtrl);
     appModule.controller('appApiAddCtrl', appApiAddCtrl);
     appModule.controller('appApiEditCtrl', appApiEditCtrl);
-    appModule.controller('appApiInCtrl', appApiInCtrl);
-    appModule.controller('appApiOutCtrl', appApiOutCtrl);
     appModule.controller('appApiParameterCtrl', appApiParameterCtrl);
     appModule.controller('appApiParameterAddCtrl', appApiParameterAddCtrl);
     appModule.controller('appApiParameterEditCtrl', appApiParameterEditCtrl);
+    appModule.controller('appShowCtrl', appShowCtrl);
+
     console.groupEnd();
 
     return appModule;

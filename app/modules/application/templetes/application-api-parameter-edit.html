@@ -20,14 +20,9 @@
                         <div class="control-group"></div>
                         <div class="control-group">
                             <label class="control-label">参数类型 </label>
-                            <div class="controls">
-                                <kz-switch
-                                        data-id="1"
-                                        data-method="changeValidity(1, status)"
-                                        data-model="parameter.type"
-                                        data-on-label="输入"
-                                        data-off-label="输出"
-                                        data-active="!isLoading"/>
+                            <div class="controls" data-ng-switch data-on="parameter.type">
+                                <input type="text" readonly ng-switch-when="1" value="输入参数" />
+                                <input type="text" readonly ng-switch-when="0" value="输出参数" />
                             </div>
                         </div>
 
@@ -90,13 +85,14 @@
                                        data-ng-model="parameter.apiAddr"
                                        class="span6"
                                        placeholder="api地址"
-                                       required
-                                       data-ng-pattern="/([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)?((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4})(\:[0-9]+)?(/[^/][a-zA-Z0-9\.\,\?\'\\/\+&amp;%\$#!\=~_\-@]*)*$/"
-                                        />
-                                <input type="checkbox" ng-model="parameter.apiAddrValidity">
+                                       data-ng-maxlength="10"
+                                       data-ng-pattern="/^[A-Za-z]+$/"
+                                       data-ng-change="onChange()" />
+                                <input type="checkbox" ng-model="parameter.apiAddrValidity" data-ng-click="checkAddr()">
                                 <div data-ng-show="parameterForm.apiAddr.$dirty && parameterForm.apiAddr.$invalid">
                                     <span data-ng-show="parameterForm.apiAddr.$error.required" class="help-inline"><i class="icon-warning-sign"></i> api地址是必填项~</span>
-                                    <span data-ng-show="parameterForm.apiAddr.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> api地址格式必须合法哟~</span>
+                                    <span data-ng-show="parameterForm.apiAddr.$error.maxlength" class="help-inline"><i class="icon-warning-sign"></i> api地址不能超过10位~</span>
+                                    <span data-ng-show="parameterForm.apiAddr.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> api地址只能包含字母~</span>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +162,6 @@
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || parameterForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
-                            <button type="button" class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
                             <button type="button" class="btn btn-info center" data-ng-click="modalWin()" data-ng-show="parameter.apiAddrValidity"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="添加"></i> <span class="text">添加</span></button>
                         </div>
 
@@ -181,7 +176,7 @@
     <ul class="activity-list">
         <li class="text-center">
             <div>
-                <img class="img-polaroid" style="width: 80px; height: 80px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAADHklEQVR4Xu3XQU7qYABGUR2xMZbNmpgz0mDSiKTQXi2VkvOG8kl99z9p4f14PH68+afAzALvwMwsZfZVABgQUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLGBgGUgFgUi5jYBhIBYBJuYyBYSAVACblMgaGgVQAmJTLePNgDofD1ynu9/vR0xx7ffjZ8Au3fnfsDde+3rMR3TSYy4MfO/Sx168PfArA5YGtfb1nw3L+ezYN5vwfuHXg55/vdru30+n04w70FzD/cb1nQwPMxSNtwHQJ7fpxtzZQYBYucO8zyvkxNXVHGXt97M40/NlLX2/hHA9/u5e+w1zXmwPo3mNn6pH02+s9/JQXvMDLgrl1R5hzx6l3mLEPxsOH8KnrLXiWq7zVpsHM+Xp875vS9dfqqc8wS19vlRNe+CKbBrNwC283owAwMyKZfBcAhoZUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TIGhoFUAJiUyxgYBlIBYFIuY2AYSAWASbmMgWEgFQAm5TL+BPn285fsB0YAAAAAAElFTkSuQmCC" />
+                <img class="img-polaroid" style="width: 80px; height: 80px;" data-ng-src="{{ app.logo }}" />
             </div>
         </li>
         <li>
@@ -290,7 +285,7 @@
     <div class="pull-right">
         <button type="button" class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
         <span>&nbsp;</span>
-        <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
+        <button type="button" class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
 </script>

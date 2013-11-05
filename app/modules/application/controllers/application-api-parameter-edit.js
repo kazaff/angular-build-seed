@@ -28,7 +28,7 @@ define(function(){
 
         //获取应用系统API信息
         $scope.api = {};
-        Api.getApiInfo({aid: $routeParams.aid,apiid: $routeParams.apiid}).$promise.then(function(response){
+        Api.getApiInfo({aid: $routeParams.aid, apiid: $routeParams.apiid}).$promise.then(function(response){
             response.info = decodeURI(response.info);
             response.requestName = decodeURI(response.requestName);
             $scope.api = response;
@@ -36,15 +36,16 @@ define(function(){
 
         //获取选择方式列表
         $scope.select = {};
-        $scope.parameter = {type:true,apiAddrValidity:false };
-        Api.getSelectList({page:0}).$promise.then(function(response){
-            $scope.parameter.selected= response[1];
+        $scope.parameter = {type: true, apiAddrValidity: false};
+        Api.getSelectList({page: 0}).$promise.then(function(response){
+            $scope.parameter.selected = response[1];
             $scope.select = response;
-            ApiParameter.query({aid: $routeParams.aid, apiid: $routeParams.apiid,pid: $routeParams.pid}).$promise.then(function(response){
+
+            ApiParameter.query({aid: $routeParams.aid, apiid: $routeParams.apiid, pid: $routeParams.pid}).$promise.then(function(response){
                 $scope.parameter = response;
                 $scope.parameter.parameterCN = decodeURI(response.parameterCN);
-                $scope.data=$scope.parameter.output;
-                for(var i=0;i<$scope.select.length;i++){
+                $scope.data = $scope.parameter.output;
+                for(var i = 0; i < $scope.select.length; i++){
                     if($scope.select[i].id==$scope.parameter.selected.id){
                         $scope.parameter.selected=  $scope.select[i];
                     }
@@ -53,14 +54,32 @@ define(function(){
             });
         });
 
+        $scope.checkAddr = function(){
+            $scope.parameterForm.apiAddr.$dirty = true;
 
-        $scope.pristine = angular.copy($scope.parameter);
+            if($scope.parameter.apiAddrValidity == false){
 
-        $scope.reset = function(){
-            $scope.parameter = angular.copy($scope.pristine);
+                if(angular.isUndefined($scope.parameter.apiAddr) || $scope.parameter.apiAddr == ''){
+                    $scope.parameterForm.apiAddr.$setValidity('required', false);
+                }
+            }else{
+                $scope.parameterForm.apiAddr.$setValidity('required', true);
+            }
         };
 
-        $scope.form = {isHidden:false};
+        $scope.onChange = function(){
+
+            if($scope.parameter.apiAddrValidity == true){
+
+                if($scope.parameter.apiAddr != ''){
+                    $scope.parameterForm.apiAddr.$setValidity('required', true);
+                }else{
+                    $scope.parameterForm.apiAddr.$setValidity('required', false);
+                }
+            }
+        };
+
+        $scope.form = {isHidden:false, isOld: false};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -86,17 +105,6 @@ define(function(){
         $scope.add = function(){
             var formObj = angular.copy($scope.form);
             $scope.data.push(formObj);
-        };
-
-        //修改参数类型
-        $scope.changeValidity = function(index, status){
-
-            $scope.parameter.type = status;
-
-            //必须返回promise，供switch指令使用
-            var deferred = $q.defer();
-            deferred.resolve();
-            return deferred.promise;
         };
 
         //修改是否隐藏字段
@@ -127,7 +135,7 @@ define(function(){
                 , apiAddr: $scope.parameter.apiAddr
                 , output: $scope.parameter.output
             };
-            //去后端更新
+
             ApiParameter.update(formData).$promise.then(function(response){
 
                 $scope.isLoading = false;
@@ -164,8 +172,40 @@ define(function(){
 
         //删除指定参数
         $scope.delete = function(index){
+            $scope.isLoading = true;
+
             //从列表中删除该条数据
-            $scope.data.splice(index, 1);
+            ApiParameter.remove({pid: $scope.data[index].id}).$promise.then(function(response){
+                $scope.isLoading = false;
+
+                if(response['status'] == 1){
+
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '应用系统API响应参数删除成功!'
+                        , class_name: 'winner'
+                        , image: 'img/save.png'
+                        , sticky: false
+                    });
+
+                    $scope.data.splice(index, 1);
+
+                }else{
+
+                    angular.element.gritter.add({
+                        title: '提示'
+                        , text: '应用系统修改API响应参数失败!'
+                        , class_name: 'loser'
+                        , image: 'img/save.png'
+                        , sticky: false
+                        , before_close: function(aid, apiid, pid){
+                            return function(e, manual_close){
+                                $scope.$apply(Action.forward('appApiParameterEdit', 'application' , {aid: aid, apiid: apiid, pid: pid}));
+                            };
+                        }($routeParams.aid, $routeParams.apiid, $routeParams.pid)
+                    });
+                }
+            });
         };
     }];
 });

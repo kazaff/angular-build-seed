@@ -8,7 +8,9 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q','$modal', '$filter', 'api','apiParameter', 'application', function($scope, Auth, Action, $location, $routeParams, $q,$modal, $filter, Api,ApiParameter, Application){
+    return ['$scope', 'auth', 'action', '$location', '$routeParams', '$q','$modal', 'api','apiParameter', 'application'
+            , function($scope, Auth, Action, $location, $routeParams, $q,$modal, Api,ApiParameter, Application){
+
         Auth.isLogined();
 
         $scope.aid = $routeParams.aid;
@@ -27,7 +29,7 @@ define(function(){
 
         //获取应用系统API信息
         $scope.api = {};
-        Api.getApiInfo({aid: $routeParams.aid,apiid: $routeParams.apiid}).$promise.then(function(response){
+        Api.getApiInfo({aid: $routeParams.aid, apiid: $routeParams.apiid}).$promise.then(function(response){
             response.info = decodeURI(response.info);
             response.requestName = decodeURI(response.requestName);
             $scope.api = response;
@@ -35,19 +37,44 @@ define(function(){
 
         //获取选择方式列表
         $scope.select = {};
-        Api.getSelectList({page:0}).$promise.then(function(response){
+        $scope.parameter = {type: true, apiAddrValidity: false};
+        Api.getSelectList({page: 0}).$promise.then(function(response){
             $scope.select = response;
-            $scope.parameter.selected=  $scope.select[0];
-        });
+            $scope.parameter.selected =  $scope.select[0];
 
-        $scope.parameter = {type:true,apiAddrValidity:false };
-        $scope.pristine = angular.copy($scope.parameter);
+            $scope.pristine = angular.copy($scope.parameter);
+        });
 
         $scope.reset = function(){
             $scope.parameter = angular.copy($scope.pristine);
         };
 
-        $scope.form = {isHidden:false};
+        $scope.checkAddr = function(){
+            $scope.parameterForm.apiAddr.$dirty = true;
+
+            if($scope.parameter.apiAddrValidity == false){
+
+                if(angular.isUndefined($scope.parameter.apiAddr) || $scope.parameter.apiAddr == ''){
+                    $scope.parameterForm.apiAddr.$setValidity('required', false);
+                }
+            }else{
+                $scope.parameterForm.apiAddr.$setValidity('required', true);
+            }
+        };
+
+        $scope.onChange = function(){
+
+            if($scope.parameter.apiAddrValidity == true){
+
+                if($scope.parameter.apiAddr != ''){
+                    $scope.parameterForm.apiAddr.$setValidity('required', true);
+                }else{
+                    $scope.parameterForm.apiAddr.$setValidity('required', false);
+                }
+            }
+        };
+
+        $scope.form = {isHidden: false};
 
         var modalPromise = $modal({
             template: 'form.html'
@@ -100,9 +127,21 @@ define(function(){
         $scope.save = function(){
 
             $scope.isLoading = true;
-            $scope.parameter.output=$scope.data;
+            $scope.parameter.output = $scope.data;
+
             //去后端更新
-            ApiParameter.create({aid:$scope.aid,apiid:$scope.apiId,parameter:$scope.parameter}).$promise.then(function(response){
+            var formData = {
+                aid: $scope.aid
+                , apiId: $scope.apiId
+                , paramType: $scope.parameter.type
+                , apiAddr: $scope.parameter.apiAddr
+                , apiAddrValidity: $scope.parameter.apiAddrValidity
+                , parameterCN: $scope.parameter.parameterCN
+                , parameterEN: $scope.parameter.parameterEN
+                , output: $scope.parameter.output
+                , type: $scope.parameter.selected.id
+            };
+            ApiParameter.create(formData).$promise.then(function(response){
 
                 $scope.isLoading = false;
 
@@ -126,9 +165,9 @@ define(function(){
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
-                        , before_close: function(aid,apiid){
+                        , before_close: function(aid, apiid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('appApiParameterAdd', 'application' , {aid: aid}, {apiid: apiid}));
+                                $scope.$apply(Action.forward('appApiParameterAdd', 'application' , {aid: aid, apiid: apiid}));
                             };
                         }($routeParams.aid ,$routeParams.apiid)
                     });
@@ -138,8 +177,8 @@ define(function(){
 
         //删除指定参数
         $scope.delete = function(index){
-                    //从列表中删除该条数据
-                    $scope.data.splice(index, 1);
+            //从列表中删除该条数据
+            $scope.data.splice(index, 1);
         };
     }];
 });

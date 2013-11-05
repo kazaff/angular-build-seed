@@ -407,8 +407,12 @@ hr{ border-top-color:#dadada;}
 }
 .quick-actions li a, .quick-actions-horizontal li a {
 	display: block;
-	color: #fff; font-size:14px;
+	color: #000;
+    font-size:14px;
 	font-weight:lighter;
+}
+.quick-actions li a:hover, .quick-actions-horizontal li a:hover {
+    color: #fff;
 }
 .quick-actions li a i[class^="icon-"], .quick-actions li a i[class*=" icon-"] {
 	font-size:30px;

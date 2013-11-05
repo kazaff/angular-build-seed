@@ -33,6 +33,7 @@ define([
             }
             , create: {
                 method: 'PUT'
+                , params: {uid: 'add'}
             }
             , save: {
                 method: 'PUT'

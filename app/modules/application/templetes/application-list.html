@@ -176,13 +176,13 @@
                 <img class="img-polaroid" style="width: 80px; height: 80px;" data-ng-src="{{ item.logo }}" />
             </div>
         </li>
-        <li data-ng-show="item.info">
+        <li data-ng-show="item.tag">
             <span class="text">英文标识 <i class="icon-caret-right"></i></span> {{ item.tag }}
         </li>
-        <li data-ng-show="item.info">
+        <li data-ng-show="item.domain">
             <span class="text">域名 <i class="icon-caret-right"></i></span> <a data-ng-href="{{ item.domain }}" target="_blank">{{ item.domain }} <i class="icon-external-link"></i></a>
         </li>
-        <li data-ng-show="item.info">
+        <li>
             <span class="text">有效性 <i class="icon-caret-right"></i></span>
             <kz-switch
                 data-id="{{ $parent.$index }}"
@@ -192,7 +192,7 @@
                 data-off-label="否"
                 data-active="switchFlag && !item.isDelete" />
         </li>
-        <li data-ng-show="item.info">
+        <li>
             <span class="text">限制访问IP <i class="icon-caret-right"></i></span>
             <kz-switch
                 data-id="{{ $parent.$index }}"

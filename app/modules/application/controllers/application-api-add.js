@@ -21,18 +21,15 @@ define(function(){
 
         //获取选择方式列表
         $scope.select = {};
+        $scope.api = {aid: $routeParams.aid};
         Api.getSelectList({page:0}).$promise.then(function(response){
+
             response.name = decodeURI(response.name);
             $scope.select = response;
-            $scope.api.selected=  $scope.select[0];
+
+            $scope.api.selected =  $scope.select[0];
+            $scope.pristine = angular.copy($scope.api);
         });
-
-        $scope.api = { aid: $routeParams.aid};
-        $scope.pristine = angular.copy($scope.api);
-
-        $scope.reset = function(){
-            $scope.api = angular.copy($scope.pristine);
-        };
 
         $scope.isUnchanged = function(){
             return angular.equals($scope.api, $scope.pristine);
@@ -42,8 +39,15 @@ define(function(){
 
             $scope.isLoading = true;
 
+            var formData = {
+                aid: $scope.api.aid
+                , apiAddr: $scope.api.apiAddr
+                , info: $scope.api.info
+                , type: $scope.api.selected.id
+            };
+
             //去后端更新
-            Api.create($scope.api).$promise.then(function(response){
+            Api.create(formData).$promise.then(function(response){
 
                 $scope.isLoading = false;
 

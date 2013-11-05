@@ -8,7 +8,7 @@
 define(function(){
     'use strict';
 
-    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', 'api', '$filter', function($scope, Auth, Action, Application, $q, $routeParams, Api, $filter){
+    return ['$scope', 'auth', 'action', 'application', '$q', '$routeParams', 'api', function($scope, Auth, Action, Application, $q, $routeParams, Api){
         Auth.isLogined();
 
         //获取应用系统信息
@@ -19,15 +19,12 @@ define(function(){
             $scope.app = response;
         });
 
-
-
-         //获取指定的可访问IP信息
-        $scope.api = { };
+        //获取指定的可访问IP信息
+        $scope.api = {};
 
         //获取选择方式列表
         $scope.select = [];
-
-        Api.get({aid: $routeParams.aid, apiid: $routeParams.apiid}).$promise.then(function(response){
+        Api.get({apiid: $routeParams.apiid}).$promise.then(function(response){
             $scope.api = response;
             $scope.api.info = decodeURI(response.info);
 
@@ -39,13 +36,9 @@ define(function(){
                     }
                 }
             });
+
             $scope.pristine = angular.copy($scope.api);
         });
-
-
-        $scope.reset = function(){
-            $scope.api = angular.copy($scope.pristine);
-        };
 
         $scope.isUnchanged = function(){
             return angular.equals($scope.api, $scope.pristine);
@@ -55,14 +48,16 @@ define(function(){
 
             $scope.isLoading = true;
             $scope.requestType= $scope.api.selected.id;
+
             //去后端更新
             var formData = {
-                apiid: $scope.api.apiid
+                apiId: $routeParams.apiid
                 , aid:$routeParams.aid
                 , apiAddr: $scope.api.apiAddr
-                , requestType: $scope.api.requestType
+                , type: $scope.api.requestType
                 , info: $scope.api.info
             };
+
             //去后端更新
             Api.update(formData).$promise.then(function(response){
                 $scope.isLoading = false;
@@ -87,11 +82,11 @@ define(function(){
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
-                        , before_close: function(aid){
+                        , before_close: function(aid, apiid){
                             return function(e, manual_close){
-                                $scope.$apply(Action.forward('appApiEdit', 'application' , {aid: aid}));
+                                $scope.$apply(Action.forward('appApiEdit', 'application' , {aid: aid, apiid: apiid}));
                             };
-                        }($routeParams.aid)
+                        }($routeParams.aid, $routeParams.apiid)
                     });
                 }
             });
