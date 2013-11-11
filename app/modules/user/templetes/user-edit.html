@@ -34,8 +34,8 @@
                             <label class="control-label">有效性</label>
                             <div class="controls">
                                 <kz-switch
-                                        data-id="0"
-                                        data-method="changeValidity(id, status)"
+                                        data-id="user"
+                                        data-method="changeValidity(item, status)"
                                         data-model="user.validity"
                                         data-on-label="是"
                                         data-off-label="否"
@@ -46,7 +46,7 @@
                         <div class="control-group" data-ng-class="{error: userForm.userIdCard.$dirty && userForm.userIdCard.$invalid}">
                             <label class="control-label">身份证</label>
                             <div class="controls">
-                                <input name="userIdCard" type="text" data-ng-model="user.idCard" class="span10" placeholder="现在身份证的号码有15位和18位" data-ng-pattern="/^\d{15}$|^\d{18}$/"  />
+                                <input name="userIdCard" type="text" data-ng-model="user.idCard" class="span10" placeholder="现在身份证的号码有15位和18位" data-ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/"  />
                                 <div data-ng-show="userForm.userIdCard.$dirty && userForm.userIdCard.$invalid">
                                     <span data-ng-show="userForm.userIdCard.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 身份证号码格式要标准哟， 15位或18位</span>
                                 </div>
@@ -133,7 +133,7 @@
                 <div class="controls">
                     <data-kz-password-strength password="password">
                         <input name="password"
-                               type="password"
+                               type="text"
                                data-ng-model="$parent.password"
                                class="span3"
                                placeholder="请输入新密码"

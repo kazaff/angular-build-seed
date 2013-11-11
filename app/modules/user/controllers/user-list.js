@@ -29,6 +29,7 @@ define(function(){
                 angular.forEach(response.items, function(item){
                     item.name = decodeURI(item.name);
                     item.info = decodeURI(item.info);
+
                     $scope.data.push(item);
                 });
 
@@ -51,9 +52,9 @@ define(function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = User.changStatus({id: $scope.data[index].userId, status: status}).$promise;
+            var promise = User.changStatus({id: item.userId, status: status}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -69,7 +70,7 @@ define(function(){
                         }
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 

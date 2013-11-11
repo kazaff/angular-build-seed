@@ -71,7 +71,7 @@
                             <tbody>
                             <tr data-ng-repeat="item in data | filter:searchText | filter:status | orderBy:predicate:reverse">
                                 <td class="center">
-                                    {{ item.action }} <i class="icon-tag" data-bs-tooltip="item.info" data-trigger="hover"></i>
+                                    {{ item.action }} <i data-ng-show="item.action" class="icon-tag" data-bs-tooltip="item.info" data-trigger="hover"></i>
                                 </td>
                                 <td class="center hidden-phone">{{ item.ipv4 }}</td>
                                 <td class="center hidden-phone">{{ item.ipv6 }}</td>

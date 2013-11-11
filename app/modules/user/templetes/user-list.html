@@ -84,8 +84,8 @@
                                     <td class="center hidden-phone">{{ item.mobile }}</td>
                                     <td class="center">
                                         <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeValidity(id, status)"
+                                            data-id="item"
+                                            data-method="changeValidity(item, status)"
                                             data-model="item.validity"
                                             data-on-label="是"
                                             data-off-label="否"
@@ -167,7 +167,7 @@
             <span class="text">邮箱 <i class="icon-caret-right"></i></span> {{ item.email }}
         </li>
         <li data-ng-show="item.info">
-            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info }}
+            <span class="text">备注 <i class="icon-caret-right"></i></span> {{ item.info | limitTo:20 }} ……
         </li>
     </ul>
 

@@ -14,7 +14,7 @@ define([], function(){
         AppShow.query(function(response){
             angular.forEach(response, function(app){
                 app.name = decodeURI(app.name);
-                app.domain += '/&sign=' + app.sign;
+                app.domain += '/?&sign=' + app.sign;
             });
 
             $scope.apps = response;

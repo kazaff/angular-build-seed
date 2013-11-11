@@ -16,6 +16,10 @@ define([
         $scope.user = {};
         User.get({uid: $routeParams.uid}).$promise.then(function(response){
 
+            if(response['status'] == 0){
+                Action.forward('userList', 'user', {page:1})
+            }
+
             $scope.user = response;
             $scope.user.name = decodeURI(response.name);
             $scope.user.info = decodeURI(response.info);
@@ -33,7 +37,7 @@ define([
         };
 
         //修改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
             $scope.user.validity = status;
 

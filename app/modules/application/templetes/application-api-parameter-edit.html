@@ -59,7 +59,7 @@
                                        data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
                                        data-ng-minlength="2"
                                        data-ng-maxlength="20" />
-                                <div data-ng-show="parameterForm.parameterCN.$dirty && parameterForm.parameterEN.$invalid">
+                                <div data-ng-show="parameterForm.parameterCN.$dirty && parameterForm.parameterCN.$invalid">
                                     <span data-ng-show="parameterForm.parameterCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
                                     <span data-ng-show="parameterForm.parameterCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
                                     <span data-ng-show="parameterForm.parameterCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>
@@ -110,15 +110,15 @@
                                             </span>
                                             是否隐藏
                                         </th>
-                                        <th class="span3" ng-click="predicate='parameterCN'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='parameterCN'" ng-switch on="reverse">
+                                        <th class="span3" ng-click="predicate='pCN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='pCN'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
                                             中文
                                         </th>
-                                        <th class="span3" ng-click="predicate='parameterEN'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='parameterEN'" ng-switch on="reverse">
+                                        <th class="span3" ng-click="predicate='pEN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='pEN'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
@@ -128,7 +128,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data ">
+                                    <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in parameter.output | orderBy:predicate:reverse">
                                         <td class="center">
                                             <span data-ng-switch data-on="item.isHidden">
                                                 <span ng-switch-when="true">是</span>
@@ -224,7 +224,7 @@
                            data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
                            data-ng-minlength="2"
                            data-ng-maxlength="20" />
-                    <div data-ng-show="addForm.pEN.$dirty && parameterForm.parameterEN.$invalid">
+                    <div data-ng-show="addForm.pEN.$dirty && addForm.pEN.$invalid">
                         <span data-ng-show="addForm.pEN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 英文名称是必填项哟~</span>
                         <span data-ng-show="addForm.pEN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 英文名称只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
                         <span data-ng-show="addForm.pEN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能少于2位哟~</span>
@@ -245,7 +245,7 @@
                            data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
                            data-ng-minlength="2"
                            data-ng-maxlength="20" />
-                    <div data-ng-show="addForm.pCN.$dirty && parameterForm.parameterEN.$invalid">
+                    <div data-ng-show="addForm.pCN.$dirty && addForm.pCN.$invalid">
                         <span data-ng-show="addForm.pCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
                         <span data-ng-show="addForm.pCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
                         <span data-ng-show="addForm.pCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>

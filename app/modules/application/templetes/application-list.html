@@ -76,8 +76,8 @@
                                 </td>
                                 <td class="hidden-phone center">
                                     <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeValidity(id, status)"
+                                            data-id="item"
+                                            data-method="changeValidity(item, status)"
                                             data-model="item.validity"
                                             data-on-label="是"
                                             data-off-label="否"
@@ -85,8 +85,8 @@
                                 </td>
                                 <td class="hidden-phone center">
                                     <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeIpLimit(id, status)"
+                                            data-id="item"
+                                            data-method="changeIpLimit(item, status)"
                                             data-model="item.ipLimit"
                                             data-on-label="是"
                                             data-off-label="否"
@@ -94,8 +94,8 @@
                                 </td>
                                 <td class="center">
                                     <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeAuth(id, status)"
+                                            data-id="item"
+                                            data-method="changeAuth(item, status)"
                                             data-model="item.authorization"
                                             data-on-label="是"
                                             data-off-label="否"
@@ -185,8 +185,8 @@
         <li>
             <span class="text">有效性 <i class="icon-caret-right"></i></span>
             <kz-switch
-                data-id="{{ $parent.$index }}"
-                data-method="changeValidity(id, status)"
+                data-id="item"
+                data-method="changeValidity(item, status)"
                 data-model="item.validity"
                 data-on-label="是"
                 data-off-label="否"
@@ -195,8 +195,8 @@
         <li>
             <span class="text">限制访问IP <i class="icon-caret-right"></i></span>
             <kz-switch
-                data-id="{{ $parent.$index }}"
-                data-method="changeIpLimit(id, status)"
+                data-id="item"
+                data-method="changeIpLimit(item, status)"
                 data-model="item.ipLimit"
                 data-on-label="是"
                 data-off-label="否"

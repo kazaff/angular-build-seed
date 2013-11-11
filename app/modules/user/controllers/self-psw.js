@@ -18,7 +18,21 @@
              User.authSelf({psw: encodeURIComponent($scope.originalPsw)}).$promise.then(function(response){
 
                  if(response['status'] == 1){
+
                      $scope.isAuthed = 1;
+
+                 }else{
+                     //密码错误提示
+                     angular.element.gritter.add({
+                         title: '提示'
+                         , text: '密码认证失败!'
+                         , class_name: 'loser'
+                         , image: 'img/card.png'
+                         , sticky: false
+                         , before_close: function(e, manual_close){
+                             $scope.$apply(Action.forward('userSelfPsw', 'user'));
+                         }
+                     });
                  }
              });
          };

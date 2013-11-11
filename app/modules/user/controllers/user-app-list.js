@@ -51,9 +51,9 @@ define([], function(){
         };
 
         //更改IP限制状态
-        $scope.changeIpLimit = function(index, status){
+        $scope.changeIpLimit = function(item, status){
 
-            var promise = UserApp.changStatus({uid: $routeParams.uid, aid: $scope.data[index].appId, status: status, type: 'ipLimit'}).$promise;
+            var promise = UserApp.changStatus({uid: $routeParams.uid, aid: item.appId, status: status, type: 'ipLimit'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
@@ -70,7 +70,7 @@ define([], function(){
                         }($routeParams.uid)
                     });
                 }else{
-                    $scope.data[index].ipLimit = status;
+                    item.ipLimit = status;
                 }
             });
 

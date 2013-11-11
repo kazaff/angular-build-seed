@@ -16,7 +16,8 @@ define(function(){
                                 '<input type="checkbox" />' +
                             '</div>'
                 , scope: {
-                    method: '&'
+                    id: '='
+                    , method: '&'
                     , model: '='
                     , active: '='
                 }
@@ -27,7 +28,7 @@ define(function(){
                     element.bootstrapSwitch('setActive', scope.active);
 
                     element.on('switch-change', function(e, data){
-                        scope.method({id: attrs.id, status: data.value}).then(function(response){
+                        scope.method({item: scope.id, status: data.value}).then(function(response){
                             element.bootstrapSwitch('setState', !data.value, true);
                         });    //调用业务回调
                         scope.$root.$$phase || scope.$apply();  //避免$digest already in progress

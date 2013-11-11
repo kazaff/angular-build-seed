@@ -74,7 +74,7 @@
                                                   data-placement="left"
                                                   data-title="提示"
                                                   data-bs-popover="'recover.html'">
-                                                <kz-action  data-name="dbRecover" data-group="database" data-ng-click="$parent.dbRecover($parent.item.fileName) " />
+                                                <kz-action  data-name="dbRecover" data-group="database" />
                                             </span>
                                             <span>&nbsp;</span>
                                             <span >
@@ -95,6 +95,7 @@
 
                             <div class="dataTables_paginate">
                                 <button
+                                        type="button"
                                         class="btn"
                                         data-ng-click="downloadData()"
                                         data-ng-disabled="!hasManyData"
@@ -118,8 +119,8 @@
         <li><i class="icon-bullhorn"></i> 您确定删除<span class="text">{{ item.fileName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-            <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id,$parent.item.fileName, $parent.$index);hide()">确定</button>
-        <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
+        <button type="button" class="btn btn-danger btn-mini" data-ng-click="$parent.dbDelete($parent.item.id,$parent.item.fileName, $parent.$index);hide()">确定</button>
+        <button type="button" class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>
 </script>
@@ -128,8 +129,8 @@
         <li><i class="icon-bullhorn"></i> 恢复操作会覆盖当前数据，您确定恢复<span class="text">{{ item.fileName }}</span>么？</li>
     </ul>
     <div class="pull-right">
-        <button class="btn btn-danger btn-mini" data-ng-click="$parent.dbRecover($parent.item.id);hide()">确定</button>
-        <button class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
+        <button type="button" class="btn btn-danger btn-mini" data-ng-click="$parent.dbRecover($parent.item.id);hide()">确定</button>
+        <button type="button" class="btn btn-mini" data-ng-click="dismiss()" >取消</button>
     </div>
     <div class="clearfix"></div>
 </script>

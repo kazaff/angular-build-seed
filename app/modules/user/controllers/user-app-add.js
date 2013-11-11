@@ -60,7 +60,7 @@ define(function(){
         var modal = $q.when(modalPromise);
 
         //修改有效性
-        $scope.changeIpLimit = function(index, status){
+        $scope.changeIpLimit = function(item, status){
 
             $scope.form.ipLimit = status;
 

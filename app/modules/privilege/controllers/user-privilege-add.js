@@ -118,6 +118,17 @@ define([
             });
         };
 
+        //修改规则
+        $scope.changeRule = function(item, status){
+
+            $scope.form.rule = status;
+
+            //必须返回promise，供switch指令使用
+            var deferred = $q.defer();
+            deferred.resolve();
+            return deferred.promise;
+        };
+
         //用于保存新添加的权限信息
         $scope.addNewPrivilege = function(){
 

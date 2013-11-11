@@ -111,7 +111,7 @@ define([
         };
 
         //修改规则
-        $scope.changeRule = function(index, status){
+        $scope.changeRule = function(item, status){
 
             $scope.form.validity = status;
 
@@ -120,7 +120,6 @@ define([
             deferred.resolve();
             return deferred.promise;
         };
-
 
         //用于触发 权限信息 的模态窗口
         $scope.modalWin = function(pid){

@@ -57,8 +57,8 @@
                                         </span>
                                     应用系统
                                 </th>
-                                <th class="hidden-phone span1" ng-click="predicate='mobile'; reverse=!reverse; resetFlag=true">
-                                        <span ng-if="predicate=='mobile'" ng-switch on="reverse">
+                                <th class="hidden-phone span1" ng-click="predicate='userCount'; reverse=!reverse; resetFlag=true">
+                                        <span ng-if="predicate=='userCount'" ng-switch on="reverse">
                                             <i class="icon-caret-up" ng-switch-when="false"></i>
                                             <i class="icon-caret-down" ng-switch-when="true"></i>
                                         </span>
@@ -91,8 +91,8 @@
                                 <td class="center hidden-phone">{{ item.userCount }}</td>
                                 <td class="center">
                                     <kz-switch
-                                            data-id="{{ $parent.$index }}"
-                                            data-method="changeValidity(id, status)"
+                                            data-id="item"
+                                            data-method="changeValidity(item, status)"
                                             data-model="item.validity"
                                             data-on-label="是"
                                             data-off-label="否"

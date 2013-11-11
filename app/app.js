@@ -77,6 +77,11 @@ define([
                                 delete window.localStorage.token;   //删除会话id
                                 $windowProvider.$get().location.href = config.host + 'login.html';
                             }
+
+                            if(!angular.isUndefined(response.data.allow) && response.data.allow == 0){
+                                delete window.localStorage.token;   //删除会话id
+                                $windowProvider.$get().location.href = config.host + 'login.html';
+                            }
                         }
 
                         return response || $q.when(response);

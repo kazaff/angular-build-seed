@@ -57,9 +57,9 @@ define(function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = userGroup.changStatus({page: page, gid: $scope.data[index].groupId }).$promise;
+            var promise = userGroup.changStatus({status: status, gid: item.groupId }).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -75,7 +75,7 @@ define(function(){
                         }
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 

@@ -45,10 +45,6 @@ define(function(){
             $scope.pristine = angular.copy($scope.parameter);
         });
 
-        $scope.reset = function(){
-            $scope.parameter = angular.copy($scope.pristine);
-        };
-
         $scope.checkAddr = function(){
             $scope.parameterForm.apiAddr.$dirty = true;
 
@@ -103,7 +99,7 @@ define(function(){
         };
 
         //修改参数类型
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
             $scope.parameter.type = status;
 
@@ -161,7 +157,7 @@ define(function(){
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '应用系统添加API参数失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '应用系统添加API参数失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false

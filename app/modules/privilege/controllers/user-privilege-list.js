@@ -96,9 +96,9 @@ define([], function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = UserPrivilege.changStatus({id: $scope.data[index].privId, status: status, uid: $routeParams.uid, type: 'validity'}).$promise;
+            var promise = UserPrivilege.changStatus({id: item.privId, status: status, uid: $routeParams.uid, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -116,7 +116,7 @@ define([], function(){
                         }($routeParams.uid)
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 
@@ -124,9 +124,9 @@ define([], function(){
         };
 
         //更改规则为
-        $scope.changeRule = function(index, status){
+        $scope.changeRule = function(item, status){
 
-            var promise = UserPrivilege.changStatus({id: $scope.data[index].privId, status: status, uid: $routeParams.uid, type: 'rule'}).$promise;
+            var promise = UserPrivilege.changStatus({id: item.privId, status: status, uid: $routeParams.uid, type: 'rule'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
@@ -143,7 +143,7 @@ define([], function(){
                         }($routeParams.uid)
                     });
                 }else{
-                    $scope.data[index].rule = status;
+                    item.rule = status;
                 }
             });
 
@@ -231,8 +231,17 @@ define([], function(){
             UserPrivilege.updateDate($scope.form).$promise.then(function(response){
                 if(response['status'] == 1){
 
-                    $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
-                    $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
+                    if($scope.form.begin == null){
+                        $scope.updateRule.begin = '不限制'
+                    }else{
+                        $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
+                    }
+
+                    if($scope.form.end == null){
+                        $scope.updateRule.end = '不限制'
+                    }else{
+                        $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
+                    }
 
                     //成功提示
                     angular.element.gritter.add({

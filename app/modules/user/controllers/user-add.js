@@ -10,7 +10,7 @@ define(function(){
     return ['$scope', 'auth', 'action', 'user', '$q', function($scope, Auth, Action, User, $q){
         Auth.isLogined();
 
-        $scope.user = {sex:'-1', type:1};
+        $scope.user = {sex:'-1', type:1, validity: true};
         $scope.pristine = angular.copy($scope.user);
 
         //验证帐号是否已经存在
@@ -73,7 +73,7 @@ define(function(){
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '用户添加失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '用户添加失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false

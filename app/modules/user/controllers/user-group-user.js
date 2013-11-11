@@ -36,7 +36,7 @@ define(function(){
         };
 
         //获取用户信息
-        $scope.group={};
+        $scope.group = {};
         UserGroup.get({gid: $routeParams.gid, uid: 0}).$promise.then(function(response){
             response.name = decodeURI(response.name);
             response.info = decodeURI(response.info);

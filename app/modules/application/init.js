@@ -26,7 +26,7 @@ define([
     , 'modules/application/services/application'
     , 'modules/application/services/ip'
     , 'modules/application/services/api'
-    , 'modules/application/services/apiparameter'
+    , 'modules/application/services/apiParameter'
     , 'modules/application/services/appShow'
     //ЦёБо
     //їв

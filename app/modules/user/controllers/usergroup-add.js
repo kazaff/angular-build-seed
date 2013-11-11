@@ -50,12 +50,12 @@ define([
 
         //搜索相关的数据
         $scope.searchData = function(){
-            page=$routeParams.page-1;
-            $scope.data=[];
+            page = $routeParams.page - 1;
+            $scope.data = [];
             $scope.status = '';
             $scope.predicate = '';
             $scope.reverse = false;
-            $scope.hasManyData=true;
+            $scope.hasManyData = true;
 
             $location.hash($scope.searchText);
 

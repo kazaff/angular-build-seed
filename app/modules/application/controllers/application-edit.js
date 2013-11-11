@@ -32,7 +32,7 @@ define([
         };
 
         //修改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
             $scope.app.validity = status;
 
@@ -43,7 +43,7 @@ define([
         };
 
         //修改IP限制
-        $scope.changeIpLimit = function(index, status){
+        $scope.changeIpLimit = function(item, status){
 
             $scope.app.ipLimit = status;
 
@@ -88,7 +88,7 @@ define([
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '应用系统保存失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '应用系统保存失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false

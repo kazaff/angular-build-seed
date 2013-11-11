@@ -28,7 +28,7 @@ define(function(){
         };
 
         //修改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
             $scope.ip.validity = status;
 
@@ -73,7 +73,7 @@ define(function(){
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '应用系统可访问IP编辑失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '应用系统可访问IP编辑失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false

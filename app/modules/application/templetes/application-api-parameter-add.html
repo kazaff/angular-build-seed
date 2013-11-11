@@ -22,8 +22,8 @@
                             <label class="control-label">参数类型 </label>
                             <div class="controls">
                                 <kz-switch
-                                        data-id="1"
-                                        data-method="changeValidity(1, status)"
+                                        data-id="parameter"
+                                        data-method="changeValidity(item, status)"
                                         data-model="parameter.type"
                                         data-on-label="输入"
                                         data-off-label="输出"
@@ -64,7 +64,7 @@
                                        data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
                                        data-ng-minlength="2"
                                        data-ng-maxlength="20" />
-                                <div data-ng-show="parameterForm.parameterCN.$dirty && parameterForm.parameterEN.$invalid">
+                                <div data-ng-show="parameterForm.parameterCN.$dirty && parameterForm.parameterCN.$invalid">
                                     <span data-ng-show="parameterForm.parameterCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
                                     <span data-ng-show="parameterForm.parameterCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
                                     <span data-ng-show="parameterForm.parameterCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>
@@ -115,15 +115,15 @@
                                             </span>
                                             是否隐藏
                                         </th>
-                                        <th class="span3" ng-click="predicate='parameterCN'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='parameterCN'" ng-switch on="reverse">
+                                        <th class="span3" ng-click="predicate='pCN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='pCN'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
                                             中文
                                         </th>
-                                        <th class="span3" ng-click="predicate='parameterEN'; reverse=!reverse; resetFlag=true">
-                                            <span ng-if="predicate=='parameterEN'" ng-switch on="reverse">
+                                        <th class="span3" ng-click="predicate='pEN'; reverse=!reverse; resetFlag=true">
+                                            <span ng-if="predicate=='pEN'" ng-switch on="reverse">
                                                 <i class="icon-caret-up" ng-switch-when="false"></i>
                                                 <i class="icon-caret-down" ng-switch-when="true"></i>
                                             </span>
@@ -133,7 +133,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data ">
+                                    <tr data-ng-class="{'delete-line':item.isDelete}" data-ng-repeat="item in data | orderBy:predicate:reverse">
                                         <td class="center">
                                             <span data-ng-switch data-on="item.isHidden">
                                                 <span ng-switch-when="true">是</span>
@@ -167,7 +167,6 @@
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success" data-ng-disabled="isUnchanged() || parameterForm.$invalid || isLoading"><i class="icon-ok" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="保存"></i> <span class="text">保存</span></button>
-                            <button type="button" class="btn btn-warning" data-ng-click="reset()" data-ng-disabled="isUnchanged() || isLoading"><i class="icon-repeat" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="重置"></i> <span class="text">重置</span></button>
                             <button type="button" class="btn btn-info center" data-ng-click="modalWin()" data-ng-show="parameter.apiAddrValidity"><i class="icon-plus" data-toggle="tooltip" data-placement="top" title="" data-trigger="hover" data-original-title="添加"></i> <span class="text">添加</span></button>
                         </div>
 
@@ -230,7 +229,7 @@
                            data-ng-pattern="/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/"
                            data-ng-minlength="2"
                            data-ng-maxlength="20" />
-                    <div data-ng-show="addForm.pEN.$dirty && parameterForm.parameterEN.$invalid">
+                    <div data-ng-show="addForm.pEN.$dirty && addForm.pEN.$invalid">
                         <span data-ng-show="addForm.pEN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 英文名称是必填项哟~</span>
                         <span data-ng-show="addForm.pEN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 英文名称只能含有数字、字母、下划线，不能以下划线开头和结尾</span>
                         <span data-ng-show="addForm.pEN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 英文名称不能少于2位哟~</span>
@@ -251,7 +250,7 @@
                            data-ng-pattern="/[\u4E00-\uFA29]|[\uE7C7-\uE7F3]/"
                            data-ng-minlength="2"
                            data-ng-maxlength="20" />
-                    <div data-ng-show="addForm.pCN.$dirty && parameterForm.parameterEN.$invalid">
+                    <div data-ng-show="addForm.pCN.$dirty && addForm.pCN.$invalid">
                         <span data-ng-show="addForm.pCN.$error.required" class="help-inline"><i class="icon-warning-sign"></i> 中文名称是必填项哟~</span>
                         <span data-ng-show="addForm.pCN.$error.pattern" class="help-inline"><i class="icon-warning-sign"></i> 中文名称必须包含汉字</span>
                         <span data-ng-show="addForm.pCN.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> 中文名称不能少于2位哟~</span>
@@ -291,7 +290,7 @@
     <div class="pull-right">
         <button type="button" class="btn btn-danger btn-mini" data-ng-click="$parent.delete($parent.$index);hide()"><i class="icon-trash"></i> <span class="text">确定</span></button>
         <span>&nbsp;</span>
-        <button class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
+        <button type="button" class="btn btn-mini" data-ng-click="dismiss()" ><i class="icon-share-alt"></i> <span class="text">取消</span></button>
     </div>
     <div class="clearfix"></div>
 </script>

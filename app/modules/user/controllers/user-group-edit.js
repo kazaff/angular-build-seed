@@ -63,7 +63,7 @@ define(function(){
         }
 
         //修改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
             $scope.group.validity = status;
 

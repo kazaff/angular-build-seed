@@ -41,7 +41,6 @@ define([
             });
         };
 
-        //恢复数据库
         //ID：备份文件ID
         $scope.dbBackup = function(){
 
@@ -64,22 +63,18 @@ define([
                             $scope.$apply(Action.forward('dbBackupList', 'database'));
                         }
                     });
+
                 }else{
+
                     angular.element.gritter.add({
                         title: '提示'
                         , text: '备份成功!'
                         , class_name: 'winner'
                         , image: 'img/save.png'
                         , sticky: false
-                    }),
-                    function add() {
-                        var item = response.data;
-                        item.fileName = decodeURI(item.fileName);
-                        //文件名做唯一标识ID，但HTML标记的ID属性不允许出现 “.”，把扩展名.SQL去掉。
-                        item.id=item.fileName.substring(0,item.fileName.length-4);
-                        $scope.data.push(item);
-                    }();
-                };
+                    });
+                }
+
                 $scope.isLoading = false;
             });
         };

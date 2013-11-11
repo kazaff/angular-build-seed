@@ -67,7 +67,7 @@ define(function(){
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '应用系统添加API失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '应用系统添加API失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false

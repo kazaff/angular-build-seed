@@ -73,9 +73,9 @@ define([], function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = UserGroupPrivilege.changStatus({pid: $scope.data[index].privId, status: status, gid: $routeParams.gid}).$promise;
+            var promise = UserGroupPrivilege.changStatus({pid: item.privId, status: status, gid: $routeParams.gid}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -93,7 +93,7 @@ define([], function(){
                         }($routeParams.gid)
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 
@@ -179,10 +179,20 @@ define([], function(){
         //更新指定规则的有效时间
         $scope.updateDate = function(){
             UserGroupPrivilege.updateDate($scope.form).$promise.then(function(response){
+
                 if(response['status'] == 1){
 
-                    $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
-                    $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
+                    if($scope.form.begin == null){
+                        $scope.updateRule.begin = '不限制'
+                    }else{
+                        $scope.updateRule.begin = $filter('date')($scope.form.begin, 'yyyy-MM-dd');
+                    }
+
+                    if($scope.form.end == null){
+                        $scope.updateRule.end = '不限制'
+                    }else{
+                        $scope.updateRule.end = $filter('date')($scope.form.end, 'yyyy-MM-dd');
+                    }
 
                     //成功提示
                     angular.element.gritter.add({

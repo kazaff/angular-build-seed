@@ -17,7 +17,6 @@ define(function(){
         $scope.resetFlag = false;
         $scope.hasManyData = true;
         $scope.isLoading = false;
-        $scope.data = [];
 
         //获取应用系统信息
         $scope.app = {};
@@ -36,20 +35,20 @@ define(function(){
 
         //获取选择方式列表
         $scope.select = {};
-        $scope.parameter = {type: true, apiAddrValidity: false};
+        $scope.parameter = {type: true};
         Api.getSelectList({page: 0}).$promise.then(function(response){
-            $scope.parameter.selected = response[1];
             $scope.select = response;
 
-            ApiParameter.query({aid: $routeParams.aid, apiid: $routeParams.apiid, pid: $routeParams.pid}).$promise.then(function(response){
-                $scope.parameter = response;
-                $scope.parameter.parameterCN = decodeURI(response.parameterCN);
-                $scope.data = $scope.parameter.output;
+            ApiParameter.query({aid: $routeParams.aid, apiid: $routeParams.apiid, pid: $routeParams.pid}).$promise.then(function(responseData){
+                $scope.parameter = responseData;
+                $scope.parameter.parameterCN = decodeURI(responseData.parameterCN);
+
                 for(var i = 0; i < $scope.select.length; i++){
-                    if($scope.select[i].id==$scope.parameter.selected.id){
-                        $scope.parameter.selected=  $scope.select[i];
+                    if($scope.select[i].id == $scope.parameter.showType){
+                        $scope.parameter.selected = $scope.select[i];
                     }
                 }
+
                 $scope.pristine = angular.copy($scope.parameter);
             });
         });
@@ -103,8 +102,7 @@ define(function(){
         };
 
         $scope.add = function(){
-            var formObj = angular.copy($scope.form);
-            $scope.data.push(formObj);
+            $scope.parameter.output.push(angular.copy($scope.form));
         };
 
         //修改是否隐藏字段
@@ -121,14 +119,14 @@ define(function(){
         $scope.save = function(){
 
             $scope.isLoading = true;
-            $scope.parameter.output=$scope.data;
+
             //去后端更新
             var formData = {
                 apiid:$routeParams.apiid
                 , aid:$routeParams.aid
                 ,pid:$routeParams.pid
                 , type: $scope.parameter.type
-                , apiAddrValidity: $scope.api.requestType
+                , apiAddrValidity: $scope.parameter.apiAddrValidity
                 , selected: $scope.parameter.selected
                 , parameterEN: $scope.parameter.parameterEN
                 , parameterCN: $scope.parameter.parameterCN
@@ -156,45 +154,7 @@ define(function(){
                     //修改错误提示
                     angular.element.gritter.add({
                         title: '提示'
-                        , text: '应用系统修改API参数失败!'
-                        , class_name: 'loser'
-                        , image: 'img/save.png'
-                        , sticky: false
-                        , before_close: function(aid,apiid,pid){
-                            return function(e, manual_close){
-                                $scope.$apply(Action.forward('appApiParameterEdit', 'application' , {aid: aid}, {apiid: apiid} ,{pid: pid}));
-                            };
-                        }($routeParams.aid,$routeParams.apiid,$routeParams.pid)
-                    });
-                }
-            });
-        };
-
-        //删除指定参数
-        $scope.delete = function(index){
-            $scope.isLoading = true;
-
-            //从列表中删除该条数据
-            ApiParameter.remove({pid: $scope.data[index].id}).$promise.then(function(response){
-                $scope.isLoading = false;
-
-                if(response['status'] == 1){
-
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '应用系统API响应参数删除成功!'
-                        , class_name: 'winner'
-                        , image: 'img/save.png'
-                        , sticky: false
-                    });
-
-                    $scope.data.splice(index, 1);
-
-                }else{
-
-                    angular.element.gritter.add({
-                        title: '提示'
-                        , text: '应用系统修改API响应参数失败!'
+                        , text: !angular.isUndefined(response.msg) ? decodeURI(response.msg) : '应用系统修改API参数失败!'
                         , class_name: 'loser'
                         , image: 'img/save.png'
                         , sticky: false
@@ -206,6 +166,48 @@ define(function(){
                     });
                 }
             });
+        };
+
+        //删除指定参数
+        $scope.delete = function(index){
+            if(angular.isUndefined($scope.parameter.output[index].id)){
+                $scope.parameter.output.splice(index, 1);
+            }else{
+
+                $scope.isLoading = true;
+                //从列表中删除该条数据
+                ApiParameter.remove({pid: $scope.parameter.output[index].id}).$promise.then(function(response){
+                    $scope.isLoading = false;
+
+                    if(response['status'] == 1){
+
+                        angular.element.gritter.add({
+                            title: '提示'
+                            , text: '应用系统API响应参数删除成功!'
+                            , class_name: 'winner'
+                            , image: 'img/save.png'
+                            , sticky: false
+                        });
+
+                        $scope.parameter.output.splice(index, 1);
+
+                    }else{
+
+                        angular.element.gritter.add({
+                            title: '提示'
+                            , text: '应用系统修改API响应参数失败!'
+                            , class_name: 'loser'
+                            , image: 'img/save.png'
+                            , sticky: false
+                            , before_close: function(aid, apiid, pid){
+                                return function(e, manual_close){
+                                    $scope.$apply(Action.forward('appApiParameterEdit', 'application' , {aid: aid, apiid: apiid, pid: pid}));
+                                };
+                            }($routeParams.aid, $routeParams.apiid, $routeParams.pid)
+                        });
+                    }
+                });
+            }
         };
     }];
 });

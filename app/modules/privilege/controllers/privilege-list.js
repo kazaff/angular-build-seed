@@ -49,9 +49,9 @@ define([], function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = Privilege.changStatus({pid: $scope.data[index].privId, status: status, type: 'validity'}).$promise;
+            var promise = Privilege.changStatus({pid: item.privId, status: status, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -67,7 +67,7 @@ define([], function(){
                         }
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 
@@ -75,9 +75,9 @@ define([], function(){
         };
 
         //更改默认状态
-        $scope.changeDefault = function(index, status){
+        $scope.changeDefault = function(item, status){
 
-            var promise = Privilege.changStatus({pid: $scope.data[index].privId, status: status, type: 'default'}).$promise;
+            var promise = Privilege.changStatus({pid: item.privId, status: status, type: 'default'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
                     //修改错误提示
@@ -92,7 +92,7 @@ define([], function(){
                         }
                     });
                 }else{
-                    $scope.data[index].default = status;
+                    item.default = status;
                 }
             });
 

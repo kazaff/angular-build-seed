@@ -70,9 +70,9 @@ define([], function(){
         };
 
         //更改有效性
-        $scope.changeValidity = function(index, status){
+        $scope.changeValidity = function(item, status){
 
-            var promise = Ip.changStatus({id: $scope.data[index].ipId, status: status, aid: $routeParams.aid, type: 'validity'}).$promise;
+            var promise = Ip.changStatus({id: item.ipId, status: status, aid: $routeParams.aid, type: 'validity'}).$promise;
             promise.then(function(response){
                 if(response['status'] == 0){
 
@@ -90,7 +90,7 @@ define([], function(){
                         }($routeParams.aid)
                     });
                 }else{
-                    $scope.data[index].validity = status;
+                    item.validity = status;
                 }
             });
 
