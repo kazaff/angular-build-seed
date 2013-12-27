@@ -26,12 +26,6 @@ require.config({
             exports: 'console'
         }
     }
-    , charset: function(url){
-        if(/lib/.test(url)){
-            return 'utf-8';
-        }
-        return 'gbk';
-    }
 });
 
 require([

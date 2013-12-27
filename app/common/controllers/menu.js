@@ -2,19 +2,19 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-10
- * Time: ÉÏÎç10:28
+ * Time: ä¸Šåˆ10:28
  */
 define(function(){
     'use strict';
 
     var initialize = function(module){
 
-        //Ö÷²Ëµ¥
+        //ä¸»èœå•
         module.controller('menuCtrl', ['$scope', 'action', 'auth', '$window', '$modal', '$q', function($scope, Action, Auth, $window, $modal, $q){
             $scope.menu = [];
             Action.menu().success(function(data){
 
-                //°Ñ×éÏÂ°üº¬µÄuri³é³öÀ´£¬ÓÃÓÚ·½±ãsidebar-menuÖ¸ÁîÑéÖ¤µ±Ç°×é
+                //æŠŠç»„ä¸‹åŒ…å«çš„uriæŠ½å‡ºæ¥ï¼Œç”¨äºæ–¹ä¾¿sidebar-menuæŒ‡ä»¤éªŒè¯å½“å‰ç»„
                 angular.forEach(data, function(item, key){
                     data[key].sonUris = [];
                     angular.forEach(item.son, function(route){
@@ -34,7 +34,7 @@ define(function(){
             });
             var modal = $q.when(modalPromise);
 
-            //ÓÃÓÚ´¥·¢ ÍË³öÏµÍ³µÄÄ£Ì¬´°¿Ú
+            //ç”¨äºè§¦å‘ é€€å‡ºç³»ç»Ÿçš„æ¨¡æ€çª—å£
             $scope.modalWin = function(){
                 modal.then(function(modalEl){
                     modalEl.modal('show');
@@ -42,10 +42,10 @@ define(function(){
             };
 
             $scope.logout = function(){
-                //Çå³ıÓÃ»§ĞÅÏ¢
+                //æ¸…é™¤ç”¨æˆ·ä¿¡æ¯
                 window.localStorage.token = '';
 
-                //Ìø×ªµ½µÇÂ¼Ò³
+                //è·³è½¬åˆ°ç™»å½•é¡µ
                 $window.location.href = config.host + 'login.html';
             };
 

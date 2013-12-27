@@ -2,10 +2,10 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-4
- * Time: ÉÏÎç9:54
+ * Time: ä¸Šåˆ9:54
  */
 define([
-    //±ê×¼¿â
+    //æ ‡å‡†åº“
     'lib/console-min'
     , 'angular/angular'
     , 'common/init'
@@ -18,34 +18,34 @@ define([
 
     var initialize = function(needModules, routeRules){
 
-        console.group('³õÊ¼»¯Ö÷Ä£¿éÅäÖÃ');
+        console.group('åˆå§‹åŒ–ä¸»æ¨¡å—é…ç½®');
 
         var deps = ['ngResource', 'ngRoute', 'ngAnimate', '$strap.directives'];
         for(var index in needModules){
             deps.push(needModules[index].name);
         }
 
-        console.info('»ñÈ¡Ö÷Ä£¿éÒÀÀµµÄÄ£¿é£º', deps);
+        console.info('è·å–ä¸»æ¨¡å—ä¾èµ–çš„æ¨¡å—ï¼š', deps);
 
         var mainModule = angular.module('webOS', deps);
 
         console.groupEnd();
-        console.info('¶¨Òå¸ÃÓ¦ÓÃµÄÖ÷Ä£¿é£º', mainModule.name);
+        console.info('å®šä¹‰è¯¥åº”ç”¨çš„ä¸»æ¨¡å—ï¼š', mainModule.name);
 
         mainModule.config(['$httpProvider', '$locationProvider', '$routeProvider', '$windowProvider', '$compileProvider', function($httpProvider, $locationProvider, $routeProvider, $windowProvider, $compileProvider){
 
             $locationProvider.html5Mode(false).hashPrefix('!');
-            //½â¾ö¿çÓòÎÊÌâ
+            //è§£å†³è·¨åŸŸé—®é¢˜
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 
-            console.group('³õÊ¼»¯Ö÷Ä£¿éµÄÂ·ÓÉ¹æÔò');
+            console.group('åˆå§‹åŒ–ä¸»æ¨¡å—çš„è·¯ç”±è§„åˆ™');
 
             angular.forEach(routeRules, function(item){
                 if(typeof(item) != 'undefined'){
                     angular.forEach(item.son, function(route){
 
                         if(!angular.isUndefined(route.uri)){
-                            console.info('Ôö¼ÓÂ·ÓÉ£º', route.uri);
+                            console.info('å¢åŠ è·¯ç”±ï¼š', route.uri);
 
                             $routeProvider.when(route.uri, {
                                 templateUrl: route.templateUrl
@@ -56,30 +56,30 @@ define([
                 }
             });
 
-            //TODO ±ÜÃâÓ²±àÂë
+            //TODO é¿å…ç¡¬ç¼–ç 
             $routeProvider.otherwise({redirectTo:'/dashboard'});
 
             console.groupEnd();
 
-            //TODO ÎªÁË¼æÈİ¾Éä¯ÀÀÆ÷£¬ĞèÒªÔö¼ÓÆäËûä¯ÀÀÆ÷¶Ë³Ö¾Ã»¯tokenµÄ·½·¨
+            //TODO ä¸ºäº†å…¼å®¹æ—§æµè§ˆå™¨ï¼Œéœ€è¦å¢åŠ å…¶ä»–æµè§ˆå™¨ç«¯æŒä¹…åŒ–tokençš„æ–¹æ³•
             if(window.localStorage.token){
                 $httpProvider.defaults.headers.common['AUTH'] = 'MD ' + window.localStorage.token;
             }
 
-            //ÏìÓ¦À¹½ØÆ÷£¬ÓÃÓÚ¼ì²éµÇÂ¼×´Ì¬
+            //å“åº”æ‹¦æˆªå™¨ï¼Œç”¨äºæ£€æŸ¥ç™»å½•çŠ¶æ€
             $httpProvider.interceptors.push(function($q){
                 return {
                     'response': function(response){
 
-                        //Èô·µ»ØµÄÊı¾İÖĞÖ¸Ê¾¸ÃÓÃ»§Î´µÇÂ¼£¬Ôò´¥·¢Ìø×ªµ½µÇÂ¼Ò³Ãæ
+                        //è‹¥è¿”å›çš„æ•°æ®ä¸­æŒ‡ç¤ºè¯¥ç”¨æˆ·æœªç™»å½•ï¼Œåˆ™è§¦å‘è·³è½¬åˆ°ç™»å½•é¡µé¢
                         if(!angular.isUndefined(response.data)){
                             if(!angular.isUndefined(response.data.loginStatus) && response.data.loginStatus == 0){
-                                delete window.localStorage.token;   //É¾³ı»á»°id
+                                delete window.localStorage.token;   //åˆ é™¤ä¼šè¯id
                                 $windowProvider.$get().location.href = config.host + 'login.html';
                             }
 
                             if(!angular.isUndefined(response.data.allow) && response.data.allow == 0){
-                                delete window.localStorage.token;   //É¾³ı»á»°id
+                                delete window.localStorage.token;   //åˆ é™¤ä¼šè¯id
                                 $windowProvider.$get().location.href = config.host + 'login.html';
                             }
                         }
@@ -90,10 +90,10 @@ define([
             });
         }]);
 
-        //¼ÓÔØÍ¨ÓÃÄ£¿é
+        //åŠ è½½é€šç”¨æ¨¡å—
         common.initialize(mainModule, routeRules);
 
-        //ÈÕÆÚ¿Ø¼şµÄÅäÖÃ
+        //æ—¥æœŸæ§ä»¶çš„é…ç½®
         mainModule.value('$strapConfig', {
             datepicker: {
                 language:  'zh-CN'

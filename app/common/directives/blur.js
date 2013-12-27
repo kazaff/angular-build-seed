@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-10-25
- * Time: ÏÂÎç5:07
+ * Time: ä¸‹åˆ5:07
  */
 define(function(){
     'use strict';

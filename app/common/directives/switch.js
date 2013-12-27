@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-26
- * Time: ÏÂÎç5:45
+ * Time: ä¸‹åˆ5:45
  */
 define(function(){
     'use strict';
@@ -30,12 +30,12 @@ define(function(){
                     element.on('switch-change', function(e, data){
                         scope.method({item: scope.id, status: data.value}).then(function(response){
                             element.bootstrapSwitch('setState', !data.value, true);
-                        });    //µ÷ÓÃÒµÎñ»Øµ÷
-                        scope.$root.$$phase || scope.$apply();  //±ÜÃâ$digest already in progress
+                        });    //è°ƒç”¨ä¸šåŠ¡å›è°ƒ
+                        scope.$root.$$phase || scope.$apply();  //é¿å…$digest already in progress
                     });
 
                     scope.$watch('model', function(value){
-                        element.bootstrapSwitch('setState', value, true);   //µÚÈı¸ö²ÎÊıÓÃÓÚ½ûÖ¹´¥·¢'switch-change'ÊÂ¼ş£¬±ÜÃâËÀÑ­»·
+                        element.bootstrapSwitch('setState', value, true);   //ç¬¬ä¸‰ä¸ªå‚æ•°ç”¨äºç¦æ­¢è§¦å‘'switch-change'äº‹ä»¶ï¼Œé¿å…æ­»å¾ªç¯
                     });
 
                     scope.$watch('active', function(value){

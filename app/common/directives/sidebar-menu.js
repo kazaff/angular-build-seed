@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-11
- * Time: ÉÏÎç10:24
+ * Time: ä¸Šåˆ10:24
  */
 define(function(){
     'use strict';
@@ -28,7 +28,7 @@ define(function(){
                         data: '='
                     }
                     , controller: ['$location', 'action', function($location, Action){
-                        //ÅĞ¶Ïµ±Ç°²Ëµ¥×éÊÇ·ñ±»Ñ¡ÖĞ£º°üº¬µ±Ç°urlÏÔÊ¾µÄÒ³Ãæ
+                        //åˆ¤æ–­å½“å‰èœå•ç»„æ˜¯å¦è¢«é€‰ä¸­ï¼šåŒ…å«å½“å‰urlæ˜¾ç¤ºçš„é¡µé¢
                         this.checkActive = function(group){
                             var currentUri = $location.path()
                                 , flag = false;
@@ -55,7 +55,7 @@ define(function(){
                             return flag;
                         };
 
-                        //³õÊ¼»¯Á´½ÓÖĞµÄ¶¯Ì¬²ÎÊı
+                        //åˆå§‹åŒ–é“¾æ¥ä¸­çš„åŠ¨æ€å‚æ•°
                         this.createLink = function(argObj){
                             return function(uri){
                                 angular.forEach(argObj, function(value, key){

@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-5
- * Time: ÉÏÎç9:16
+ * Time: ä¸Šåˆ9:16
  */
 define([
     'config'
@@ -13,10 +13,10 @@ define([
         module.factory('auth', ['$window', function($window){
             return {
                 isLogined: function(){
-                    //TODO ÎªÁË¼æÈİ¾Éä¯ÀÀÆ÷£¬ĞèÒªÔö¼ÓÆäËûä¯ÀÀÆ÷¶Ë³Ö¾Ã»¯tokenµÄ·½·¨
+                    //TODO ä¸ºäº†å…¼å®¹æ—§æµè§ˆå™¨ï¼Œéœ€è¦å¢åŠ å…¶ä»–æµè§ˆå™¨ç«¯æŒä¹…åŒ–tokençš„æ–¹æ³•
                     if(!window.localStorage.token){
-                        //TODO ±ÜÃâÓ²±àÂë
-                        //Ìø×ªµ½µÇÂ¼Ò³
+                        //TODO é¿å…ç¡¬ç¼–ç 
+                        //è·³è½¬åˆ°ç™»å½•é¡µ
                         $window.location.href = Config.host + 'login.html';
                     }
                 }

@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-10
- * Time: ÉÏÎç10:02
+ * Time: ä¸Šåˆ10:02
  */
 define(function(){
     'use strict';
@@ -12,7 +12,7 @@ define(function(){
         module.factory('action', ['acl', '$q', '$location', function(acl, $q, $location){
             var data = routeRules;
 
-            //ÓÃÓÚ»ñÈ¡Ö¸¶¨Ãû³ÆµÄÁ´½ÓÊı¾İ£¬actionÖ¸ÁîÊ¹ÓÃ
+            //ç”¨äºè·å–æŒ‡å®šåç§°çš„é“¾æ¥æ•°æ®ï¼ŒactionæŒ‡ä»¤ä½¿ç”¨
             var link = function(name, group){
 
                 var link = {};
@@ -29,11 +29,11 @@ define(function(){
                 });
 
                 if(angular.isUndefined(link.status)){
-                    //È¥ºó¶Ë»ñÈ¡
+                    //å»åç«¯è·å–
                     var promise = acl.status(link.api);
                     promise.then(function(response){
 
-                        //»º´æ½á¹û
+                        //ç¼“å­˜ç»“æœ
                         link.status = response.data;
                         response.data = link;
                     });
@@ -53,7 +53,7 @@ define(function(){
                 }
             };
 
-            //ÓÃÓÚÖ÷²Ëµ¥µÄ·½·¨
+            //ç”¨äºä¸»èœå•çš„æ–¹æ³•
             var menu = function(){
                 var menu = [];
 
@@ -76,8 +76,8 @@ define(function(){
                     }
                 });
 
-                //È¥ºó¶ËÑéÖ¤¸ÃÓÃ»§¶Ô²Ëµ¥ÏîÊÇ·ñÓĞÈ¨ÏŞ²Ù×÷
-                //¹ıÂËµôºó¶ËÑéÖ¤È¨ÏŞ²»ĞèÒªµÄÊôĞÔ£¬¼õÉÙhttp´«ÊäµÄÊı¾İ
+                //å»åç«¯éªŒè¯è¯¥ç”¨æˆ·å¯¹èœå•é¡¹æ˜¯å¦æœ‰æƒé™æ“ä½œ
+                //è¿‡æ»¤æ‰åç«¯éªŒè¯æƒé™ä¸éœ€è¦çš„å±æ€§ï¼Œå‡å°‘httpä¼ è¾“çš„æ•°æ®
                 var argument = [];
                 angular.forEach(menu, function(item){
                     var group = {};
@@ -103,7 +103,7 @@ define(function(){
                     }
                 });
 
-                //ÈôÒÑ¾­´æÔÚ»º´æ£¬ÔòÖ±½Ó·µ»Ø
+                //è‹¥å·²ç»å­˜åœ¨ç¼“å­˜ï¼Œåˆ™ç›´æ¥è¿”å›
                 if(!flag){
                     var deferred = $q.defer();
                     deferred.resolve(menu);
@@ -116,13 +116,13 @@ define(function(){
                     return deferred.promise;
                 }
 
-                //È¥ºó¶ËÑéÖ¤
+                //å»åç«¯éªŒè¯
                 var promise = acl.verify(argument);
                 promise.then(function(response){
 
-                    //´¦ÀíÑéÖ¤µÄ½á¹û£¬²¢»º´æµ½dataÖĞ£¬ÒÔºó¾Í²»ĞèÒªÖØ¸´ÇëÇóÁË
+                    //å¤„ç†éªŒè¯çš„ç»“æœï¼Œå¹¶ç¼“å­˜åˆ°dataä¸­ï¼Œä»¥åå°±ä¸éœ€è¦é‡å¤è¯·æ±‚äº†
                     angular.forEach(response.data, function(item){
-                        //´¦Àímenu£¬ÓÃÓÚÊÓÍ¼²Ëµ¥ÏÔÊ¾
+                        //å¤„ç†menuï¼Œç”¨äºè§†å›¾èœå•æ˜¾ç¤º
                         angular.forEach(menu, function(menuItem, menuKey){
                             if(menuItem.group == item.group){
 

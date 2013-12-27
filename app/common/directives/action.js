@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-10
- * Time: ÉÏÎç9:59
+ * Time: ä¸Šåˆ9:59
  */
 define(function(){
     'use strict';
@@ -22,16 +22,16 @@ define(function(){
                         element.find('i').tooltip();
 
                         if(data.status == 0){
-                            //TODO ĞèÒªÅĞ¶Ïµ±Ç°ÓÃ»§ÊÇ·ñÓĞÈ¨ÏŞ½øĞĞ¸Ã²Ù×÷
-                            //element.remove(); //ÈôÎŞÈ¨ÏŞ£¬Ôò²»ÏÔÊ¾¸ÃÁ´½Ó
-                            element.addClass('disabled'); //ÈôÎŞÈ¨ÏŞ£¬Ôò½ûÓÃ¸ÃÁ´½Ó
+                            //TODO éœ€è¦åˆ¤æ–­å½“å‰ç”¨æˆ·æ˜¯å¦æœ‰æƒé™è¿›è¡Œè¯¥æ“ä½œ
+                            //element.remove(); //è‹¥æ— æƒé™ï¼Œåˆ™ä¸æ˜¾ç¤ºè¯¥é“¾æ¥
+                            element.addClass('disabled'); //è‹¥æ— æƒé™ï¼Œåˆ™ç¦ç”¨è¯¥é“¾æ¥
                             element.attr('href', '');
 
                         }else{
                             if(!angular.isUndefined(data.uri)){
-                                //Ìæ»»uriÖĞµÄ¶¯Ì¬²ÎÊı
+                                //æ›¿æ¢uriä¸­çš„åŠ¨æ€å‚æ•°
                                 if(attrs.args){
-                                    //°Ñ×Ö·û´®×ª»»³Éjs¶ÔÏó
+                                    //æŠŠå­—ç¬¦ä¸²è½¬æ¢æˆjså¯¹è±¡
                                     var argObj = (new Function('return ' + attrs.args))();
                                     angular.forEach(argObj, function(value, key){
                                         data.uri = data.uri.replace(':'+key, value);

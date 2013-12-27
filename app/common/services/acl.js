@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-6
- * Time: ÏÂÎç4:40
+ * Time: ä¸‹åˆ4:40
  */
 define([
     'config'

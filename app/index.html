@@ -23,7 +23,7 @@
       xmlns:ng="http://angularjs.org/">
 <!--<![endif]-->
 <head>
-    <meta charset="GBK" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
@@ -35,12 +35,12 @@
     <link rel="stylesheet" href="./css/matrix-style.css" />
     <link rel="stylesheet" href="./css/matrix-media.css" />
     <link rel="stylesheet" href="./css/bootstrap-switch.css" />
-    <link rel="stylesheet" href="css/jquery.gritter.css" />
-    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="./css/jquery.gritter.css" />
+    <link rel="stylesheet" href="./css/font-awesome.css" />
     <link rel="stylesheet" href="./css/zTreeStyle.css" />
-    <link rel="stylesheet" href="css/datepicker.css"/>
+    <link rel="stylesheet" href="./css/datepicker.css"/>
     <link rel="stylesheet" href="./css/table-fixed-header.css" />
-    <link rel="shortcut icon" href="./favicon.png" />
+    <link rel="shortcut icon" href="./favicon.ico" />
     <!--
     <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' />
     -->
@@ -54,7 +54,7 @@
         <div class="hero-unit" style="margin-top: 15px;">
             <h1>Hello, My Hero!</h1>
             <p>Your web browser must have JavaScript enabled in order for this application to display correctly.</p>
-            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">°²×° Chrome &raquo;</a></p>
+            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">å®‰è£… Chrome &raquo;</a></p>
         </div>
     </div>
 </noscript>
@@ -70,7 +70,7 @@
     <div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav">
             <li  class="dropdown" id="profile-messages">
-                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">µ±Ç°ÓÃ»§</span><b class="caret"></b></a>
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">å½“å‰ç”¨æˆ·</span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><kz-action data-name="userSelf" data-group="user" /></li>
                     <li class="divider"></li>
@@ -86,7 +86,7 @@
 
     <!--sidebar-menu-->
     <div id="sidebar">
-        <a class="visible-phone" data-ng-click="expansion()"><i class="icon icon-reorder"></i> ²Ëµ¥</a>
+        <a class="visible-phone" data-ng-click="expansion()"><i class="icon icon-reorder"></i> èœå•</a>
         <kz-sidebar-menu data-ng-show="$parent.openStatus > 0" data-data="menu" data-args="{page:1}"></kz-sidebar-menu>
     </div>
     <!--sidebar-menu-->
@@ -106,7 +106,7 @@
 
     <!--Footer-part-->
     <div class="row-fluid">
-        <div id="footer" class="span12"> 2013 &copy; Ã÷µÂÊı¾İ¹¤×÷ÊÒ°æÈ¨ËùÓĞ</div>
+        <div id="footer" class="span12"> 2013 &copy; æ˜å¾·æ•°æ®å·¥ä½œå®¤ç‰ˆæƒæ‰€æœ‰</div>
     </div>
     <!--end-Footer-part-->
 </div>
@@ -116,14 +116,14 @@
         <form class="form-horizontal">
             <div class="control-group">
                 <div class="controls">
-                    <span><i class="icon-bullhorn"></i> ÄúÈ·¶¨ÍË³öÏµÍ³Ã´£¿</span>
+                    <span><i class="icon-bullhorn"></i> æ‚¨ç¡®å®šé€€å‡ºç³»ç»Ÿä¹ˆï¼Ÿ</span>
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="button" class="btn btn-danger" data-ng-click="logout();hide()"><i class="icon-off"></i> <span class="text">È·¶¨</span></button>
+                    <button type="button" class="btn btn-danger" data-ng-click="logout();hide()"><i class="icon-off"></i> <span class="text">ç¡®å®š</span></button>
                     <span>&nbsp;</span>
-                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">È¡Ïû</span></button>
+                    <button type="button" class="btn" data-ng-click="hide()"><i class="icon-remove"></i> <span class="text">å–æ¶ˆ</span></button>
                 </div>
             </div>
         </form>
@@ -136,7 +136,7 @@
             <div class="face_upload_loading" data-ng-show="loading">
                 <div>
                     <img src="./img/loading.gif" alt=""/>
-                    <p>ÉÏ´«ÖĞ...</p>
+                    <p>ä¸Šä¼ ä¸­...</p>
                 </div>
             </div>
             <kz-facearea data-flag="upload" data-formdata="formData" />
@@ -144,9 +144,9 @@
 
         <div class="control-group">
             <div class="controls">
-                <button data-ng-disabled="!upload" type="button" class="btn btn-success" data-ng-click="uploadFile()"><i class="icon-save"></i> <span class="text">ÉÏ´«</span></button>
+                <button data-ng-disabled="!upload" type="button" class="btn btn-success" data-ng-click="uploadFile()"><i class="icon-save"></i> <span class="text">ä¸Šä¼ </span></button>
                 <span>&nbsp;</span>
-                <button type="button" class="btn" data-ng-click="reset();hide()"><i class="icon-remove"></i> <span class="text">·ÅÆú</span></button>
+                <button type="button" class="btn" data-ng-click="reset();hide()"><i class="icon-remove"></i> <span class="text">æ”¾å¼ƒ</span></button>
             </div>
         </div>
     </form>

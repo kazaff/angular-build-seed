@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-10-21
- * Time: ÉÏÎç11:11
+ * Time: ä¸Šåˆ11:11
  */
 define(function(){
     'use strict';
@@ -28,10 +28,10 @@ define(function(){
 
                     element.hover(function(eventObject){
                         scope.hover = true;
-                        scope.$root.$$phase || scope.$apply();  //±ÜÃâ$digest already in progress
+                        scope.$root.$$phase || scope.$apply();  //é¿å…$digest already in progress
                     }, function(eventObject){
                         scope.hover = false;
-                        scope.$root.$$phase || scope.$apply();  //±ÜÃâ$digest already in progress
+                        scope.$root.$$phase || scope.$apply();  //é¿å…$digest already in progress
                     });
 
                     var modalPromise = $modal({
@@ -42,7 +42,7 @@ define(function(){
                         , scope: scope
                     });
                     var modal = $q.when(modalPromise);
-                    //ÓÃÓÚ´¥·¢ Í·ÏñÉÏ´« µÄÄ£Ì¬´°¿Ú
+                    //ç”¨äºè§¦å‘ å¤´åƒä¸Šä¼  çš„æ¨¡æ€çª—å£
                     scope.modalWin = function(){
                         modal.then(function(modalEl){
                             modalEl.modal('show');
@@ -60,7 +60,7 @@ define(function(){
                         jQuery('.face_area .upload_area').removeClass('upload_area_hover');
                     };
 
-                    //ÎÄ¼şÉÏ´«·½·¨
+                    //æ–‡ä»¶ä¸Šä¼ æ–¹æ³•
                     scope.uploadFile = function(){
                         scope.loading = true;
 
@@ -89,10 +89,10 @@ define(function(){
                 , replace: true
                 , template: '<div class="face_area">' +
                                 '<div class="upload_area" data-ng-hide="flag">' +
-                                    '<span>ÍÏ×§ÖÁ´Ë</span>' +
-                                    '<span> »ò </span>' +
+                                    '<span>æ‹–æ‹½è‡³æ­¤</span>' +
+                                    '<span> æˆ– </span>' +
                                     '<span class="btn fileinput-button">' +
-                                        '<i class="icon-picture"></i> Ñ¡Ôñ' +
+                                        '<i class="icon-picture"></i> é€‰æ‹©' +
                                         '<input type="file" name="face" id="face-input" accept="image/gif, image/jpeg, image/x-png, image/x-ms-bmp" />' +
                                     '</span>' +
                                 '</div>' +
@@ -108,17 +108,17 @@ define(function(){
 
                     var uploadArea = jQuery('.face_area .upload_area');
 
-                    //¼àÌıinput¸ü¸Ä
+                    //ç›‘å¬inputæ›´æ”¹
                     jQuery('#face-input').on('change', function(event){
 
                         var face = event.target.files[0];
 
-                        //¼ì²éÎÄ¼ş¸ñÊ½
+                        //æ£€æŸ¥æ–‡ä»¶æ ¼å¼
                         if(!face.type.match('image.*')){
                             return; //todo
                         }
 
-                        scope.formdata.append('face', face);    //°ÑÍ¼Æ¬·ÅÈë±íµ¥Êı¾İÖĞ
+                        scope.formdata.append('face', face);    //æŠŠå›¾ç‰‡æ”¾å…¥è¡¨å•æ•°æ®ä¸­
 
                         var reader = new FileReader();
                         reader.onload = function(event){
@@ -127,10 +127,10 @@ define(function(){
                         reader.readAsDataURL(face);
 
                         scope.flag = true;
-                        scope.$root.$$phase || scope.$apply();  //±ÜÃâ$digest already in progress
+                        scope.$root.$$phase || scope.$apply();  //é¿å…$digest already in progress
                     });
 
-                    //¼àÌıÍÏ×§ÇøÓò£¬×¢ÒâÕâÀï±ØĞëÊ¹ÓÃÔ­Ê¼µÄaddEventListener·½·¨£¬²»Ö§³ÖjqueryÌá¹©µÄon·½·¨
+                    //ç›‘å¬æ‹–æ‹½åŒºåŸŸï¼Œæ³¨æ„è¿™é‡Œå¿…é¡»ä½¿ç”¨åŸå§‹çš„addEventListeneræ–¹æ³•ï¼Œä¸æ”¯æŒjqueryæä¾›çš„onæ–¹æ³•
                     uploadArea[0].addEventListener('dragover', function(event){
                         event.stopPropagation();
                         event.preventDefault();
@@ -152,12 +152,12 @@ define(function(){
 
                         var face = event.dataTransfer.files[0];
 
-                        //¼ì²éÎÄ¼ş¸ñÊ½
+                        //æ£€æŸ¥æ–‡ä»¶æ ¼å¼
                         if(!face.type.match('image.*')){
                             return; //todo
                         }
 
-                        scope.formdata.append('face', face);    //°ÑÍ¼Æ¬·ÅÈë±íµ¥Êı¾İÖĞ
+                        scope.formdata.append('face', face);    //æŠŠå›¾ç‰‡æ”¾å…¥è¡¨å•æ•°æ®ä¸­
 
                         var reader = new FileReader();
                         reader.onload = function(event){
@@ -166,7 +166,7 @@ define(function(){
                         reader.readAsDataURL(face);
 
                         scope.flag = true;
-                        scope.$root.$$phase || scope.$apply();  //±ÜÃâ$digest already in progress
+                        scope.$root.$$phase || scope.$apply();  //é¿å…$digest already in progress
 
                     }, false);
                 }

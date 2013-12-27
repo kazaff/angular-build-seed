@@ -2,14 +2,14 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-4
- * Time: ÏÂÎç3:43
+ * Time: ä¸‹åˆ3:43
  */
 define(function(){
     'use strict';
 
     return  {
         group: 'publish'
-        , title: '¿ØÖÆÌ¨'
+        , title: 'æ§åˆ¶å°'
         , icon: 'icon-home'
         , son:[{
             uri: '/dashboard'
@@ -17,14 +17,14 @@ define(function(){
             , templateUrl: 'modules/publish/templetes/dashboard.html'
             , ifMenu: true
             , name: 'dashboard'
-            , title: 'ÒÇ±íÅÌ'
+            , title: 'ä»ªè¡¨ç›˜'
             , icon: 'icon-th'
             , api: 'restV1/dashboard/get'
         }
         ,{
             ifMenu: false
             , name: 'logout'
-            , title: 'ÍË³ö'
+            , title: 'é€€å‡º'
             , icon: 'icon-off'
             , api: ''
             , status: 1

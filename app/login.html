@@ -23,7 +23,7 @@
       xmlns:ng="http://angularjs.org/">
 <!--<![endif]-->
 <head>
-    <meta charset="GBK" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="./css/bootstrap-responsive.css" />
     <link rel="stylesheet" href="./css/matrix-login.css" />
     <link rel="stylesheet" href="./css/jquery.gritter.css" />
-    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="./css/font-awesome.css" />
 
     <link rel="shortcut icon" href="./favicon.ico" />
     <!--
@@ -51,7 +51,7 @@
         <div class="hero-unit" style="margin-top: 15px;">
             <h1>Hello, My Hero!</h1>
             <p>Your web browser must have JavaScript enabled in order for this application to display correctly.</p>
-            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">°²×° Chrome &raquo;</a></p>
+            <p><a href="http://www.google.cn/intl/zh-CN/chrome/" class="btn btn-primary btn-large">å®‰è£… Chrome &raquo;</a></p>
         </div>
     </div>
 </noscript>
@@ -64,9 +64,9 @@
                 <div class="main_input_box">
                     <span class="add-on bg_lg">
                         <i class="icon-user"></i>
-                    </span><input name="account" data-ng-model="user.account" type="text" placeholder="µÇÂ¼ÕÊºÅ" required />
+                    </span><input name="account" data-ng-model="user.account" type="text" placeholder="ç™»å½•å¸å·" required />
                     <div data-ng-show="loginForm.account.$dirty && loginForm.account.$invalid">
-                        <span data-ng-show="loginForm.account.$error.required" class="help-inline"><i class="icon-warning-sign"></i> ÕÊºÅ²»ÄÜÎª¿ÕÓ´~</span>
+                        <span data-ng-show="loginForm.account.$error.required" class="help-inline"><i class="icon-warning-sign"></i> å¸å·ä¸èƒ½ä¸ºç©ºå“Ÿ~</span>
                     </div>
                 </div>
             </div>
@@ -76,10 +76,10 @@
                 <div class="main_input_box">
                     <span class="add-on bg_ly">
                         <i class="icon-lock"></i>
-                    </span><input name="psw" data-ng-model="user.psw" type="password" placeholder="ÃÜÂë" required data-ng-minlength="6" />
+                    </span><input name="psw" data-ng-model="user.psw" type="password" placeholder="å¯†ç " required data-ng-minlength="6" />
                     <div data-ng-show="loginForm.psw.$dirty && loginForm.psw.$invalid">
-                        <span data-ng-show="loginForm.psw.$error.required" class="help-inline"><i class="icon-warning-sign"></i> ÃÜÂë²»ÄÜÎª¿ÕÓ´~</span>
-                        <span data-ng-show="loginForm.psw.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> ÃÜÂë²»ÄÜÉÙÓÚÁùÎ»Ó´~</span>
+                        <span data-ng-show="loginForm.psw.$error.required" class="help-inline"><i class="icon-warning-sign"></i> å¯†ç ä¸èƒ½ä¸ºç©ºå“Ÿ~</span>
+                        <span data-ng-show="loginForm.psw.$error.minlength" class="help-inline"><i class="icon-warning-sign"></i> å¯†ç ä¸èƒ½å°‘äºå…­ä½å“Ÿ~</span>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
             <span class="pull-right">
                 <button type="submit" class="btn btn-primary" data-ng-disabled="loginForm.$invalid || isLoading" />
                     <span data-ng-show="isLoading"><img src="./img/loading-login.gif" alt="loading"/></span>
-                    <span data-ng-hide="isLoading"><i class="icon-key"></i> µÇÂ¼</span>
+                    <span data-ng-hide="isLoading"><i class="icon-key"></i> ç™»å½•</span>
                 </button>
             </span>
         </div>
@@ -106,7 +106,7 @@
 <script src="config.js"></script>
 <script type="text/javascript">
     function loginCtrl($scope, $http, $window){
-        //$scope.failed = 0;  //¼ÇÂ¼Ê§°Ü´ÎÊı, Ê§°ÜÒ»´ÎÒÔÉÏ¾ÍÒªÇóÊäÈëÑéÖ¤Âë, ÎªÁËË¢ĞÂ¶ªÊ§ÎÊÌâ, ĞèÒª°Ñ¸ÃÖµ³Ö¾Ã»¯µ½±¾µØ£¬²¢¼ÇÂ¼Ê±¼ä´Á
+        //$scope.failed = 0;  //è®°å½•å¤±è´¥æ¬¡æ•°, å¤±è´¥ä¸€æ¬¡ä»¥ä¸Šå°±è¦æ±‚è¾“å…¥éªŒè¯ç , ä¸ºäº†åˆ·æ–°ä¸¢å¤±é—®é¢˜, éœ€è¦æŠŠè¯¥å€¼æŒä¹…åŒ–åˆ°æœ¬åœ°ï¼Œå¹¶è®°å½•æ—¶é—´æˆ³
         $scope.isLoading = false;
         $scope.user = {};
         $scope.user.account = window.localStorage.userAccount || '';
@@ -122,7 +122,7 @@
                 $scope.isLoading = false;
 
                 if(response.status != 0){
-                    //³Ö¾Ã»¯token
+                    //æŒä¹…åŒ–token
                     window.localStorage.userId = response.userId;
                     window.localStorage.userAccount = response.account;
                     window.localStorage.userName = decodeURI(response.name);
@@ -137,15 +137,15 @@
                     window.localStorage.userPhoto = response.photo || './img/default-face.png';
                     window.localStorage.token = response.token;
 
-                    //Ìø×ªµ½ÒÇ±íÅÌ
+                    //è·³è½¬åˆ°ä»ªè¡¨ç›˜
                     $window.location.href = config.host;
                 }else{
                     $scope.user.psw = null;
 
-                    //Ê§°ÜÌáĞÑ
+                    //å¤±è´¥æé†’
                     jQuery.gritter.add({
-                        title: 'ÌáÊ¾'
-                        , text: 'ÓÃ»§Ãû»òÃÜÂëÓĞÎó£¬µÇÂ¼Ê§°Ü'
+                        title: 'æç¤º'
+                        , text: 'ç”¨æˆ·åæˆ–å¯†ç æœ‰è¯¯ï¼Œç™»å½•å¤±è´¥'
                         , class_name: 'loser'
                         , image: 'img/configuration2.png'
                         , sticky: false

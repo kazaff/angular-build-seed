@@ -2,16 +2,16 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-5
- * Time: ÉÏÎç9:43
+ * Time: ä¸Šåˆ9:43
  */
 define([
-    //±ê×¼¿â
+    //æ ‡å‡†åº“
     'lib/console-min'
-    //·şÎñ
+    //æœåŠ¡
     , 'common/services/auth'
     , 'common/services/acl'
     , 'common/services/action'
-    //Ö¸Áî
+    //æŒ‡ä»¤
     , 'common/directives/action'
     , 'common/directives/sidebar-menu'
     , 'common/directives/bread-crumbs'
@@ -20,33 +20,33 @@ define([
     , 'common/directives/ztree'
     , 'common/directives/face-uploader'
     , 'common/directives/blur'
-    //¿ØÖÆÆ÷
+    //æ§åˆ¶å™¨
     , 'common/controllers/menu'
 ], function(console, auth, acl, actionS, actionD, siderbarMenu, breadCrumbs, tableFixedHeader, switchD, ztree, faceUploader, blur, menu){
     'use strict';
 
     var initialize = function(module, routeRules){
-        console.group('Í¨ÓÃÄ£¿é³õÊ¼»¯');
+        console.group('é€šç”¨æ¨¡å—åˆå§‹åŒ–');
 
-        console.info('³õÊ¼»¯·şÎñ£º', ['auth', 'acl', 'action']);
-        //³õÊ¼»¯·şÎñ
+        console.info('åˆå§‹åŒ–æœåŠ¡ï¼š', ['auth', 'acl', 'action']);
+        //åˆå§‹åŒ–æœåŠ¡
         auth.initialize(module, routeRules);
         acl.initialize(module, routeRules);
         actionS.initialize(module, routeRules);
 
-        console.info('³õÊ¼»¯Ö¸Áî£º', ['action', 'siderbar-menu', 'bread-crumbs', 'table-fixed-header']);
-        //³õÊ¼»¯Ö¸Áî
+        console.info('åˆå§‹åŒ–æŒ‡ä»¤ï¼š', ['action', 'siderbar-menu', 'bread-crumbs', 'table-fixed-header']);
+        //åˆå§‹åŒ–æŒ‡ä»¤
         actionD.initialize(module);
         siderbarMenu.initialize(module);
         breadCrumbs.initialize(module);
-        //tableFixedHeader.initialize(module);  //ÓĞ´íÎóÎÊÌâ£¬ÔİÊ±È¥µô
+        //tableFixedHeader.initialize(module);  //æœ‰é”™è¯¯é—®é¢˜ï¼Œæš‚æ—¶å»æ‰
         switchD.initialize(module);
         ztree.initialize(module);
         faceUploader.initialize(module);
         blur.initialize(module);
 
-        console.info('³õÊ¼»¯¿ØÖÆÆ÷£º', ['menu']);
-        //³õÊ¼»¯¿ØÖÆÆ÷
+        console.info('åˆå§‹åŒ–æ§åˆ¶å™¨ï¼š', ['menu']);
+        //åˆå§‹åŒ–æ§åˆ¶å™¨
         menu.initialize(module);
 
         console.groupEnd();

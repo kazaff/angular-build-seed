@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: fengtao
  * Date: 13-10-3
- * Time: ÏÂÎç3:13
+ * Time: ä¸‹åˆ3:13
  */
 define(function(){
     'use strict';

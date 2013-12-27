@@ -2,12 +2,12 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-4
- * Time: 上午10:42
+ * Time: 涓婂崍10:42
  */
 define(function(){
     'use strict';
 
-    //处理要加载的模块的配置文件地址
+    //澶勭悊瑕佸姞杞界殑妯″潡鐨勯厤缃枃浠跺湴鍧�
     var loadModules = function(directorys){
         var deps = [];
 
@@ -18,7 +18,7 @@ define(function(){
         return deps;
     };
 
-    //处理要定义的路由规则
+    //澶勭悊瑕佸畾涔夌殑璺敱瑙勫垯
     var loadRouteRules = function(directorys){
         var deps = [];
 

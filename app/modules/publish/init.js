@@ -2,20 +2,20 @@
  * Created with JetBrains WebStorm.
  * User: @kazaff
  * Date: 13-9-4
- * Time: ÏÂÎç4:22
+ * Time: ä¸‹åˆ4:22
  */
 define([
-    //±ê×¼¿â
+    //æ ‡å‡†åº“
     'lib/console-min'
     , 'angular/angular'
-    //¿ØÖÆÆ÷
+    //æ§åˆ¶å™¨
     , 'modules/publish/controllers/dashboard'
-    //·şÎñ
+    //æœåŠ¡
     , 'angular/angular-resource'
 ], function(console, angular, dashboardCtrl){
     'use strict';
 
-    console.group('¹«¹²Ä£¿é³õÊ¼»¯');
+    console.group('å…¬å…±æ¨¡å—åˆå§‹åŒ–');
 
     var publishModule = angular.module('publishModule', ['ngResource']);
     publishModule.controller('dashboardCtrl', dashboardCtrl);
