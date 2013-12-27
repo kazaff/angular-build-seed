@@ -42,7 +42,6 @@ app/
 	img/ 						-->项目的图片文件夹
 	lib/ 						-->项目使用的第三方js库文件夹，包含requireJS，angularJS等
 	modules/					-->业务模块文件夹，里面按照每个模块一个独立的文件夹来存放
-		user/					-->用户模块
 		publish/ 				
 			controllers/		-->模块下的控制器文件夹
 				dashboard.js 	-->控制器代码文件
@@ -69,6 +68,7 @@ mock/ 							-->模拟后端服务
 
 ## 发布
 
-
+执行在根目录下执行`grunt`，用于发布前的优化处理~
+这里要说明的是，需要把系统所有依赖的文件集中的写在app/bootstrap.js的`require`方法的依赖参数数组中，方便grunt-contrib-requirejs的合并~
 
 希望大家支持~
