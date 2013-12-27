@@ -49,6 +49,27 @@ require([
 
     , 'lib/blob'
     , 'lib/FileSaver'
+
+    //公共代码
+    , 'app'
+    , 'common/services/auth'
+    , 'common/services/acl'
+    , 'common/services/action'
+    , 'common/directives/action'
+    , 'common/directives/sidebar-menu'
+    , 'common/directives/bread-crumbs'
+    , 'common/directives/table-fixed-header'
+    , 'common/directives/switch'
+    , 'common/directives/ztree'
+    , 'common/directives/face-uploader'
+    , 'common/directives/blur'
+    , 'common/controllers/menu'
+    , 'common/init'
+    //业务代码
+    , 'modules/publish/controllers/dashboard'
+    , 'modules/publish/init'
+    , 'modules/publish/route'
+
 ], function(require, console, loader, jquery, angular, config){
 
     console.group('webOS应用');

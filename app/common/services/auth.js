@@ -4,9 +4,7 @@
  * Date: 13-9-5
  * Time: 上午9:16
  */
-define([
-    'config'
-], function(Config){
+define(function(){
     'use strict';
 
     var initialize = function(module){
