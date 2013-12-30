@@ -18,7 +18,6 @@ module.exports = function(grunt){
 			, frame: {
 				files: {
 					"<%= root %>index.html": "<%= root %>index.html"
-					, "<%= root %>auth.html": "<%= root %>auth.html"
 				}
 			}
 			, templates: {
@@ -37,7 +36,7 @@ module.exports = function(grunt){
 			}
 			, combine: {
 				files: {
-					'<%= root %>css/main.css': ['<%= root %>css/matrix-style.css', '<%= root %>css/matrix-media.css', '<%= root %>css/jquery.gritter.css', '<%= root %>css/matrix-media.css', '<%= root %>css/table-fixed-header.css', '<%= root %>css/angular-nestedSortable.css', '<%= root %>css/font-awesome.css']
+					'<%= root %>css/main.css': ['<%= root %>css/matrix-style.css', '<%= root %>css/matrix-media.css', '<%= root %>css/jquery.gritter.css', '<%= root %>css/matrix-media.css', '<%= root %>css/table-fixed-header.css', '<%= root %>css/font-awesome.css']
 				}
 			}
 			
@@ -65,12 +64,30 @@ module.exports = function(grunt){
 				        , 'angular/bootstrap-datepicker': 'empty:'
 				        , 'angular/bootstrap-datepicker.zh-CN': 'empty:'
 				        , 'jquery/bootstrap-switch.min': 'empty:'
-				        , 'angular/angular-nestedSortable': 'empty:'
 				        , 'angular/angular-sanitize.min': 'empty:'
 				        , 'lib/console-min': 'empty:'
 				        , 'lib/modernizr': 'empty:'
 					}					
 				}
+			}
+		}
+		, hashres: {
+			options: {
+				encoding: 'utf8'
+				, fileNameFormat: '${name}.${hash}.${ext}'
+				, renameFiles: true
+			}
+			, indexJS: {
+				src: '<%= root %>bootstrap.js'
+				, dest: '<%= root %>index.html'
+			}
+			, configJS: {
+				src: '<%= root %>config.js'
+				, dest: '<%= root %>login.html'
+			}
+			, mainCSS: {
+				src: '<%= root %>css/main.css'
+				, dest: '<%= root %>index.html'
 			}
 		}
 		, clean: {
@@ -85,6 +102,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	grunt.loadNpmTasks('grunt-hashres');
 
-	grunt.registerTask('default', ['requirejs','uglify', 'cssmin', 'htmlmin', 'clean']);
+	grunt.registerTask('default', ['requirejs','uglify', 'cssmin', 'htmlmin', 'hashres', 'clean']);
 };
