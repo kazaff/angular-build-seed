@@ -4,7 +4,9 @@
  * Date: 13-9-10
  * Time: 上午10:28
  */
-define(function(){
+define([
+    'jquery/nprogress'
+], function(NProgress){
     'use strict';
 
     var initialize = function(module){
@@ -56,10 +58,10 @@ define(function(){
 
             //路由事件
             $scope.$on("$routeChangeStart", function(){
-                $scope.globalLoading = true;
+                NProgress.start();
             });
             $scope.$on("$routeChangeSuccess", function(){
-                $scope.globalLoading = false;
+                NProgress.done();
             });
         }]);
 

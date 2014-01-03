@@ -9,6 +9,7 @@ require.config({
     , shim: {
         'lib/bootstrap': ['jquery/jquery']
         , 'jquery/jquery.gritter.min': ['jquery/jquery']
+        , 'jquery/nprogress': ['jquery/jquery']
         , 'jquery/table-fixed-header': ['jquery/jquery']
         , 'jquery/jquery.ztree.all-3.5.min': ['jquery/jquery']
         , 'angular/angular-resource': ['angular/angular']
@@ -42,6 +43,7 @@ require([
     , 'lib/bootstrap'
 
     , 'jquery/jquery.gritter.min'
+    , 'jquery/nprogress'
     , 'jquery/table-fixed-header'
     , 'jquery/bootstrap-switch.min'
     , 'jquery/jquery.ztree.all-3.5.min'

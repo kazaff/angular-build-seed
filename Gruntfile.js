@@ -36,7 +36,7 @@ module.exports = function(grunt){
 			}
 			, combine: {
 				files: {
-					'<%= root %>css/main.css': ['<%= root %>css/matrix-style.css', '<%= root %>css/matrix-media.css', '<%= root %>css/jquery.gritter.css', '<%= root %>css/matrix-media.css', '<%= root %>css/table-fixed-header.css', '<%= root %>css/font-awesome.css']
+					'<%= root %>css/main.css': ['<%= root %>css/matrix-style.css', '<%= root %>css/matrix-media.css', '<%= root %>css/jquery.gritter.css', '<%= root %>css/matrix-media.css', '<%= root %>css/table-fixed-header.css', '<%= root %>css/font-awesome.css', '<%= root %>css/nprogress.css']
 				}
 			}
 			
@@ -67,6 +67,7 @@ module.exports = function(grunt){
 				        , 'angular/angular-sanitize.min': 'empty:'
 				        , 'lib/console-min': 'empty:'
 				        , 'lib/modernizr': 'empty:'
+                        , 'jquery/nprogress': 'empty:'
 					}					
 				}
 			}
