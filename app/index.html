@@ -54,6 +54,10 @@
 
 <div data-ng-cloak>
     <!--Header-part-->
+    <div id="globalLoading" data-ng-show="globalLoading"></div>
+    <!--close-Header-part-->
+
+    <!--Header-part-->
     <div id="header">
         <h1><a>Web OS</a></h1>
     </div>
@@ -65,11 +69,7 @@
             <li  class="dropdown" id="profile-messages">
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon-user icon-white"></i>  <span class="text">当前用户</span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><kz-action data-name="userSelf" data-group="user" /></li>
-                    <li class="divider"></li>
-                    <li><kz-action data-name="userSelfPsw" data-group="user" /></li>
-                    <li class="divider"></li>
-                    <li><kz-action data-name="loginList" data-group="log" data-args="{'uid': 'myself', 'page': 1}" /></li>
+                    <li><kz-action data-name="lock" data-group="publish" /></li>
                 </ul>
             </li>
             <li><kz-action class="cursor-pointer" data-name="logout" data-group="publish" data-ng-click="$parent.modalWin()" /></li>

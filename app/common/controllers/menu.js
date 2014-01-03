@@ -53,6 +53,14 @@ define(function(){
             $scope.expansion = function(){
                 $scope.openStatus = - $scope.openStatus;
             };
+
+            //路由事件
+            $scope.$on("$routeChangeStart", function(){
+                $scope.globalLoading = true;
+            });
+            $scope.$on("$routeChangeSuccess", function(){
+                $scope.globalLoading = false;
+            });
         }]);
 
         return module;
