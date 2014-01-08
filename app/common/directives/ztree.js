@@ -18,9 +18,38 @@ define(function(){
                     , tid: '@'
                 }
                 , link: function(scope, element, attrs){
-                    element.attr('id', scope.tid);
+                    //若没有指定dom的id，则把当前dom的id指定为scope的编号
+                    if(angular.isUndefined(scope.tid)){
+                        element.attr('id', scope.$id);
+                    }else{
+                        element.attr('id', scope.tid);
+                    }
 
-                    jQuery.fn.zTree.init(element, scope.setting);
+
+                    var zTree = null;
+
+                    if(attrs.type == "dynamic"){
+                        scope.$watch('setting', function(newValue){
+                            if(!angular.isUndefined(newValue)){
+                                init();
+                            }
+                        });
+                    }else{
+                        init();
+                    }
+
+                    //初始化树
+                    function init(){
+                        var data = null;
+                        if(!angular.isUndefined(scope.setting) && !angular.isUndefined(scope.setting.staticData)){
+                            data = scope.setting.staticData;
+                        }
+                        zTree = jQuery.fn.zTree.init(element, scope.setting, data);
+
+                        if(attrs.expandall === 'true'){
+                            zTree.expandAll(true);
+                        }
+                    }
                 }
             };
         }]);
