@@ -60,6 +60,10 @@ define([
             $scope.$on("$routeChangeStart", function(angularEvent, next){
                 NProgress.start();
 
+                if(angular.isUndefined(next.$$route)){
+                    return ;
+                }
+
                 //更新面包屑数据
                 var breadCrumbs = [];
                 var flag = false;
