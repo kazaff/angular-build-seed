@@ -9,13 +9,13 @@ define(function(){
 
     var initialize = function(module){
 
-        module.directive('kzBreadcrumbs', ['action', '$location', function(Action, $location){
+        module.directive('kzBreadcrumbs', ['$location', function($location){
             return {
                 restrict: 'EA'
                 , replace: true
                 , template: '<div id="breadcrumb">' +
-                                '<a class="tip-bottom"><i class="{{ info.icon }}"></i> {{ info.title }}</a>' +
-                                '<a>{{ info.route.title }}</a>' +
+                                '<a><i class="icon-sitemap"></i> {{ data[0].name }}</a>' +
+                                '<a class="tip-bottom" data-ng-repeat="item in data" data-ng-show="!$first" data-ng-href="#!{{item.uri}}" data-ng-click="cleanBread($index)">{{ item.name }}</a>' +
                                 '<a class="current" data-ng-if="anchor">{{ anchor }} <i class="icon-remove-sign" data-ng-click="removeHash()"></i></a>' +
                             '</div>'
                 , link: function(scope, element, attrs){
@@ -23,16 +23,19 @@ define(function(){
                         $location.hash('');
                     };
 
+                    scope.cleanBread = function(index){
+                        scope.data.splice(index + 1);
+                        window.localStorage.breadCrumbs = JSON.stringify(scope.data);
+                    }
+
                     scope.$watch(function(){
                         return $location.hash();
                     }, function(hash){
                         scope.anchor = hash;
                     });
 
-                    scope.$watch(function(){
-                        return $location.path();
-                    }, function(uri){
-                        scope.info = Action.findRoute(uri);
+                    scope.$on("$routeChangeSuccess", function(){
+                        scope.data = JSON.parse(window.localStorage.breadCrumbs);
                     });
                 }
             };

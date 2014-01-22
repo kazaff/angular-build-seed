@@ -17,9 +17,9 @@ define(function(){
                     , template: '<ul>' +
                                     '<li data-ng-repeat="item in data" data-ng-class="{active: checkActive(item.group)}" class="submenu">' +
                                         '<a data-ng-click="toggle(item)"><i class="{{ item.icon }}  icon-white"></i> <span>{{ item.title }}</span></a>' +
-                                        '<ul data-slide-switch="item.switch">' +
+                                        '<ul data-slide-switch="item.show">' +
                                             '<li data-ng-repeat="operation in item.son" data-ng-show="operation.status">' +
-                                                '<a href="#!{{ createLink(operation.uri) }}">{{ operation.title }}</a>' +
+                                                '<a data-ng-href="#!{{ createLink(operation.uri) }}">{{ operation.title }}</a>' +
                                             '</li>' +
                                         '</ul>' +
                                     '</li>' +
@@ -27,32 +27,16 @@ define(function(){
                     , scope: {
                         data: '='
                     }
-                    , controller: ['$location', 'action', function($location, Action){
+                    , controller: [function(){
                         //判断当前菜单组是否被选中：包含当前url显示的页面
+                        //该方法会在菜单出现交互后频繁调用，貌似ngClass会导致动态监听
                         this.checkActive = function(group){
-                            var currentUri = $location.path()
-                                , flag = false;
-
-                            angular.forEach(Action.data, function(item){
-                                if(item.group == group){
-
-                                    angular.forEach(item.son, function(route){
-
-                                        if(!angular.isUndefined(route.uri)){
-                                            var reg = new RegExp(route.uri.replace(/:\w*/g, '(.*)'), 'ig');
-                                            if(reg.test(currentUri)){
-                                                flag = true;
-                                                return false;
-                                            }
-                                        }
-
-                                    });
-
-                                    return false;
-                                }
-                            });
-
-                            return flag;
+                            var breadCrumbs = null;
+                            if(!angular.isUndefined(window.localStorage.breadCrumbs)){
+                                breadCrumbs = JSON.parse(window.localStorage.breadCrumbs);
+                            }
+                            var currentLoaction =  angular.isUndefined(breadCrumbs[0])? null : breadCrumbs[0];
+                            return (group === currentLoaction.group)? true: false;
                         };
 
                         //初始化链接中的动态参数
@@ -69,8 +53,14 @@ define(function(){
                         scope.checkActive = controller.checkActive;
                         scope.createLink = controller.createLink((new Function('return ' + attrs.args))());
 
-                        scope.toggle = function(item){
-                            item.switch = !item.switch;
+                        scope.toggle = function(target){
+                            angular.forEach(scope.data, function(item){
+                                if(target !== item){
+                                    item.show = false;
+                                }
+                            });
+
+                            target.show = !target.show;
                         };
                     }
                 };
